@@ -1,10 +1,18 @@
 import { Text, View } from '@/components/ui/Themed'
+import { useColors } from '@/hooks/useColors'
 import { StyleSheet } from 'react-native'
 
 const WelcomeScreen = () => {
+    const { tint } = useColors()
+
     return (
         <View style={styles.container}>
-            <Text>WelcomeScreen</Text>
+            <Text style={styles.subtitle}>
+                Welcome to
+            </Text>
+            <Text style={[styles.title, { color: tint }]}>
+                ChefConnect
+            </Text>
         </View>
     )
 }
@@ -17,4 +25,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    subtitle: {
+        fontSize: 24,
+        color: 'gray',
+    },
+    title: {
+        fontSize: 34,
+        fontFamily: 'Merienda-Regular',
+        fontWeight: 800,
+    },
+
 })
