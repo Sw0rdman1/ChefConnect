@@ -1,18 +1,26 @@
 import { Text, View } from '@/components/ui/Themed'
+import { useColors } from '@/hooks/useColors'
 import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
 
 const LogInScreen = () => {
+    const { tint } = useColors()
+
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
                 <View style={styles.imageChildContainer}>
                     <Image
+
                         source={require('../../assets/images/auth/login-banner.jpg')}
                         style={styles.image}
                     />
                 </View>
             </View>
+            <View style={styles.formContainer}>
+                <Text style={[styles.title, { color: tint }]}>Welcome Back!</Text>
+            </View>
+
         </View>
     )
 }
@@ -27,8 +35,8 @@ const styles = StyleSheet.create({
         height: 300,
         width: '100%',
         transform: [{ scaleX: 2 }],
-        borderBottomStartRadius: 200,
-        borderBottomEndRadius: 200,
+        borderBottomStartRadius: 250,
+        borderBottomEndRadius: 250,
         overflow: 'hidden',
     },
     imageChildContainer: {
@@ -41,4 +49,13 @@ const styles = StyleSheet.create({
         width: '100%',
         aspectRatio: 1,
     },
+    formContainer: {
+        flex: 1,
+        marginTop: 10,
+        padding: 30,
+    },
+    title: {
+        fontSize: 34,
+        fontWeight: 'bold',
+    }
 })
