@@ -20,10 +20,13 @@ const WelcomeScreen = () => {
             <View style={styles.formContainer}>
                 <View style={styles.formChildContainer}>
                     <Text style={[styles.title]}>
-                        <Text style={{ color: tint }}>Connecting Chefs</Text>
-                        <Text> One Recipe at </Text>
+                        <Text>Bringing </Text>
+                        <Text style={{ color: tint }}>Chefs </Text>
+                        <Text>Closer, One Recipe at a Time.</Text>
                     </Text>
-                    <Text style={styles.title}>A Time</Text>
+                    <Text style={styles.slogan}>
+                        The social network for passionate cooks and food enthusiasts.
+                    </Text>
                 </View>
             </View>
         </View>
@@ -59,18 +62,20 @@ const styles = StyleSheet.create({
         transform: [{ scaleX: 0.5 }],
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 40,
     },
     title: {
-        fontSize: 32,
+        fontSize: 30,
         fontWeight: 800,
         textAlign: 'center',
+        paddingHorizontal: 30,
+
     },
-    subtitle: {
-        marginTop: 10,
-        fontSize: 28,
-        fontWeight: 800,
+    slogan: {
+        marginTop: 20,
+        fontSize: 18,
         textAlign: 'center',
+        paddingHorizontal: 50,
+        fontWeight: 400,
     },
 
 })
