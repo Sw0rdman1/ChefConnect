@@ -68,16 +68,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 30,
-        gap: 25,
+        gap: 15,
     },
     title: {
+        textAlign: 'center',
         fontSize: 30,
         fontWeight: 800,
     },
     slogan: {
-        fontSize: 18,
+        fontSize: 20,
         textAlign: 'center',
-        paddingHorizontal: 20,
         fontWeight: 400,
+        marginBottom: 20,
     },
 })
