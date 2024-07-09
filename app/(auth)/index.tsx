@@ -20,20 +20,21 @@ const WelcomeScreen = () => {
                     style={styles.bannerImage}
                 />
             </View>
-            <View style={styles.formContainer}>
-                <View style={styles.formChildContainer}>
-                    <Text style={[styles.title]}>
-                        <Text>Bringing </Text>
-                        <Text style={{ color: tint }}>Chefs </Text>
-                        <Text>Closer, One Recipe at a Time.</Text>
-                    </Text>
-                    <Text style={styles.slogan}>
-                        The social network for passionate cooks and food enthusiasts.
-                    </Text>
-                    <Link href={"log-in"} asChild>
-                        <Button text="Get Started" />
-                    </Link>
-                </View>
+            <View style={styles.textContainer}>
+                <Text style={styles.title}>
+                    Bringing
+                    <Text style={{ color: tint }}> Chefs </Text>
+                    Closer, One Recipe
+                </Text>
+                <Text style={[styles.title, { marginBottom: 10 }]}>
+                    at a Time.
+                </Text>
+                <Text style={styles.slogan}>
+                    The social network for passionate cooks and food enthusiasts.
+                </Text>
+                <Link href={"log-in"} asChild>
+                    <Button text="Get Started" />
+                </Link>
             </View>
         </View >
     )
@@ -55,34 +56,26 @@ const styles = StyleSheet.create({
     },
     bannerImage: {
         width,
-        height: height / 2 + 70,
+        height
     },
-    formContainer: {
-        marginTop: height / 2 + 30,
-        flexGrow: 1,
-        width: '100%',
-        transform: [{ scaleX: 2 }],
-        borderTopStartRadius: 200,
-        borderTopEndRadius: 200,
-        overflow: 'hidden',
-    },
-    formChildContainer: {
-        flex: 1,
-        transform: [{ scaleX: 0.5 }],
-        alignItems: 'center',
+    textContainer: {
+        backgroundColor: "transparent",
         justifyContent: 'center',
-        paddingHorizontal: 30,
-        gap: 15,
+        width: '80%',
+        position: 'absolute',
+        bottom: 60,
     },
     title: {
+        color: 'white',
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 32,
         fontWeight: 800,
     },
     slogan: {
+        color: 'white',
         fontSize: 20,
         textAlign: 'center',
         fontWeight: 400,
-        marginBottom: 20,
+        marginBottom: 30,
     },
 })
