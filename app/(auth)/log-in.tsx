@@ -1,11 +1,14 @@
 import AppleSignButton from '@/components/auth/AppleSignButton'
 import LogInForm from '@/components/auth/LogInForm'
-import { View } from '@/components/ui/Themed'
-import { useColors } from '@/hooks/useColors'
+import { Text, View } from '@/components/ui/Themed'
+import { router } from 'expo-router';
 import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
+import { useColors } from '@/hooks/useColors';
 
 const LogInScreen = () => {
+    const { tint } = useColors()
+
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -18,6 +21,12 @@ const LogInScreen = () => {
             </View>
             <LogInForm />
             <AppleSignButton isLogin />
+            <Text style={styles.registration}>
+                Don't have an account?{' '}
+                <Text onPress={() => { router.push('registration') }} style={{ color: tint, fontWeight: '700' }}>
+                    Sign Up
+                </Text>
+            </Text>
 
         </View>
     )
@@ -28,6 +37,7 @@ export default LogInScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
     },
     imageContainer: {
         height: 250,
@@ -55,5 +65,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 34,
         fontWeight: 'bold',
-    }
+    },
+    registration: {
+        marginTop: 30,
+        fontSize: 18,
+        fontWeight: '700',
+    },
 })

@@ -42,10 +42,11 @@ export default function AppleSignButton({ isLogin }: { isLogin: boolean }) {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        marginHorizontal: 40,
-        gap: 20,
+        paddingHorizontal: 40,
+        gap: 15,
     },
     button: {
         width: '100%',

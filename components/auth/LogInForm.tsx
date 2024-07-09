@@ -1,10 +1,11 @@
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/Themed'
 import { useColors } from '@/hooks/useColors'
 import { Formik } from 'formik'
 import { loginValidation } from '@/utils/validations'
 import { EmailInput, PasswordInput } from './AuthInputs'
 import Button from '../ui/Button'
+import { router } from 'expo-router';
 
 const initialValues = {
     email: '',
@@ -59,6 +60,7 @@ const LogInForm = () => {
                     <View style={styles.buttonContainer}>
                         <Button onPress={handleSubmit} text="Log In" />
                     </View>
+
                 </View>
             )}
         </Formik>
