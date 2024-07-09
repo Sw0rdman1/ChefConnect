@@ -1,32 +1,22 @@
 import { useColors } from '@/hooks/useColors';
 import { Link } from 'expo-router';
+import { forwardRef } from 'react';
 import { StyleSheet, Text, Touchable, TouchableOpacity } from 'react-native'
 
 interface ButtonProps {
     onPress?: () => void;
-    href?: string;
     text: string;
 }
 
-const Button = ({ onPress, text, href }: ButtonProps) => {
+const Button: React.FC<ButtonProps> = forwardRef(({ text, onPress }, ref) => {
     const { tint } = useColors()
-
-    if (href) {
-        return (
-            <Link href={href} asChild>
-                <TouchableOpacity style={[styles.buttonContainer, { backgroundColor: tint }]}>
-                    <Text style={styles.buttonText}>{text}</Text>
-                </TouchableOpacity>
-            </Link>
-        )
-    }
 
     return (
         <TouchableOpacity onPress={onPress} style={[styles.buttonContainer, { backgroundColor: tint }]}>
             <Text style={styles.buttonText}>{text}</Text>
         </TouchableOpacity>
     );
-}
+})
 
 export default Button
 

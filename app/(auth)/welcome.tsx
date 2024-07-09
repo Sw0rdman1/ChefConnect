@@ -2,6 +2,7 @@ import Button from '@/components/ui/Button'
 import { Text, View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors'
 import { Image } from 'expo-image'
+import { Link } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -28,13 +29,12 @@ const WelcomeScreen = () => {
                     <Text style={styles.slogan}>
                         The social network for passionate cooks and food enthusiasts.
                     </Text>
-                    <View style={styles.buttonContainer}>
-                        <Button text="Get Started" href='/log-in' />
-                    </View>
+                    <Link href={"log-in"} asChild>
+                        <Button text="Get Started" />
+                    </Link>
                 </View>
-
             </View>
-        </View>
+        </View >
     )
 }
 
@@ -67,25 +67,17 @@ const styles = StyleSheet.create({
         transform: [{ scaleX: 0.5 }],
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 30,
+        gap: 25,
     },
     title: {
         fontSize: 30,
         fontWeight: 800,
-        textAlign: 'center',
-        paddingHorizontal: 30,
-
     },
     slogan: {
-        marginTop: 20,
         fontSize: 18,
         textAlign: 'center',
-        paddingHorizontal: 50,
+        paddingHorizontal: 20,
         fontWeight: 400,
     },
-    buttonContainer: {
-        width: '100%',
-        paddingHorizontal: 30,
-        marginTop: 30,
-    },
-
 })
