@@ -3,9 +3,10 @@ import { Text, View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors'
 import { Image } from 'expo-image'
 import { Link } from 'expo-router'
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
+const { height, width } = Dimensions.get('window');
 
 const WelcomeScreen = () => {
     const { tintBackground, tint } = useColors()
@@ -13,7 +14,7 @@ const WelcomeScreen = () => {
 
     return (
         <View style={[styles.container, { backgroundColor: tintBackground }]}>
-            <View style={[styles.bannerContainer, { paddingVertical: top }]}>
+            <View style={[styles.bannerContainer]}>
                 <Image
                     source={require('../../assets/images/auth/banner.jpg')}
                     style={styles.bannerImage}
@@ -46,15 +47,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     bannerContainer: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex: -1,
         width: '100%',
-        backgroundColor: 'transparent',
-        padding: 10,
     },
     bannerImage: {
-        width: '100%',
-        aspectRatio: 1,
+        width,
+        height: height / 2 + 70,
     },
     formContainer: {
+        marginTop: height / 2 + 30,
         flexGrow: 1,
         width: '100%',
         transform: [{ scaleX: 2 }],
