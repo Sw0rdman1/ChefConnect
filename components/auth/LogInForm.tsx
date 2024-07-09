@@ -13,6 +13,12 @@ const initialValues = {
 const LogInForm = () => {
     const { tint } = useColors()
 
+    const calculateStatus = (error: string | undefined, touched: boolean | undefined, value: string) => {
+        if (!value || !touched) return 'empty'
+        if (touched && error) return 'error'
+        return 'success'
+    }
+
     return (
         <Formik
             initialValues={initialValues}
@@ -29,7 +35,8 @@ const LogInForm = () => {
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                         value={values.email}
-                        error={touched.email ? errors.email : ''}
+                        error={errors.email}
+                        status={calculateStatus(errors.email, touched.email, values.email)}
                     />
 
                 </View>
@@ -43,9 +50,13 @@ export default LogInForm
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 20,
+        paddingVertical: 30,
+        gap: 25,
     },
     title: {
         fontSize: 34,
         fontWeight: 'bold',
+        marginBottom: 10,
     }
 })

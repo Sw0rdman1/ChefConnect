@@ -5,14 +5,11 @@ import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
 
 const LogInScreen = () => {
-    const { tint } = useColors()
-
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
                 <View style={styles.imageChildContainer}>
                     <Image
-
                         source={require('../../assets/images/auth/login-banner.jpg')}
                         style={styles.image}
                     />
@@ -31,7 +28,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     imageContainer: {
-        height: 300,
+        height: 250,
         width: '100%',
         transform: [{ scaleX: 2 }],
         borderBottomStartRadius: 250,
