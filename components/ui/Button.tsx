@@ -23,9 +23,10 @@ export default Button
 const styles = StyleSheet.create({
     buttonContainer: {
         width: '100%',
-        padding: 15,
+        height: 54,
         borderRadius: 15,
         marginVertical: 10,
+        justifyContent: 'center',
     },
     buttonText: {
         color: '#fff',

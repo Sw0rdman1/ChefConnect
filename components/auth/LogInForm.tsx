@@ -61,7 +61,7 @@ const LogInForm = () => {
                     </View>
                 </View>
             )}
-        </Formik >
+        </Formik>
     )
 }
 
@@ -69,9 +69,9 @@ export default LogInForm
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 20,
-        paddingVertical: 30,
+        paddingHorizontal: 20,
+        paddingBottom: 10,
+        paddingTop: 30,
         gap: 25,
     },
     title: {

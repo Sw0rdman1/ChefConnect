@@ -1,3 +1,4 @@
+import AppleSignButton from '@/components/auth/AppleSignButton'
 import LogInForm from '@/components/auth/LogInForm'
 import { View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors'
@@ -16,6 +17,7 @@ const LogInScreen = () => {
                 </View>
             </View>
             <LogInForm />
+            <AppleSignButton isLogin />
 
         </View>
     )
