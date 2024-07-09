@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         height: 54,
     },
     text: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
     },
 });

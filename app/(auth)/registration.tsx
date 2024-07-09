@@ -1,3 +1,4 @@
+import AppleSignButton from '@/components/auth/AppleSignButton'
 import Banner from '@/components/auth/Banner'
 import RegistrationForm from '@/components/auth/RegistrationForm'
 import { StyleSheet, View } from 'react-native'
@@ -10,6 +11,7 @@ const RegistrationScreen = () => {
                 height={200}
             />
             <RegistrationForm />
+            <AppleSignButton isLogin={false} />
         </View>
     )
 }

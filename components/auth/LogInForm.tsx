@@ -5,7 +5,6 @@ import { Formik } from 'formik'
 import { loginValidation } from '@/utils/validations'
 import { EmailInput, PasswordInput } from './AuthInputs'
 import Button from '../ui/Button'
-import { router } from 'expo-router';
 
 const initialValues = {
     email: '',

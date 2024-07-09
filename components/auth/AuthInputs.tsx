@@ -3,11 +3,40 @@ import { Text, TextInput, TextInputProps, View } from '../ui/Themed'
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useColors } from '@/hooks/useColors';
-import Fontisto from '@expo/vector-icons/Fontisto';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface InputProps extends TextInputProps {
     status: 'empty' | 'error' | 'success',
     error?: string
+}
+
+const DisplayNameInput: React.FC<InputProps> = ({ status, error, ...props }) => {
+    const { tint } = useColors()
+
+    const color = () => {
+        switch (status) {
+            case 'empty':
+                return 'gray'
+            case 'error':
+                return 'red'
+            case 'success':
+                return tint
+        }
+    }
+
+    return (
+        <View style={[styles.inputContainer, { borderColor: color() }]}>
+            <Ionicons style={styles.icon} name="person-circle" size={32} color={color()} />
+            <TextInput
+                style={[styles.input, { color: color() }]}
+                autoCapitalize="words"
+                placeholder="Display Name"
+                {...props}
+            />
+            {status === 'success' && <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} />}
+            {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+        </View>
+    )
 }
 
 const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
@@ -42,7 +71,6 @@ const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 
 
 const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
-    const { tint } = useColors()
 
     return (
         <View style={styles.inputContainer}>
@@ -60,7 +88,7 @@ const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 }
 
 
-export { EmailInput, PasswordInput }
+export { DisplayNameInput, EmailInput, PasswordInput }
 
 const styles = StyleSheet.create({
     inputContainer: {
