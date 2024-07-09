@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '100%',
         padding: 15,
-        borderRadius: 20,
+        borderRadius: 15,
         marginVertical: 10,
     },
     buttonText: {
         color: '#fff',
         textAlign: 'center',
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 'bold',
     },
 })

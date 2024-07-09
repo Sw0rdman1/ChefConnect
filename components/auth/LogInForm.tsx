@@ -1,9 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import { Text, View } from '../ui/Themed'
 import { useColors } from '@/hooks/useColors'
 import { Formik } from 'formik'
 import { loginValidation } from '@/utils/validations'
-import { EmailInput } from './AuthInputs'
+import { EmailInput, PasswordInput } from './AuthInputs'
+import Button from '../ui/Button'
 
 const initialValues = {
     email: '',
@@ -30,7 +31,7 @@ const LogInForm = () => {
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
-                    <Text style={[styles.title, { color: tint }]}>Welcome Back!</Text>
+                    <Text style={[styles.title]}>Welcome Back!</Text>
                     <EmailInput
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
@@ -38,7 +39,26 @@ const LogInForm = () => {
                         error={errors.email}
                         status={calculateStatus(errors.email, touched.email, values.email)}
                     />
-
+                    <PasswordInput
+                        onChangeText={handleChange('password')}
+                        onBlur={handleBlur('password')}
+                        value={values.password}
+                        error={errors.password}
+                        status={calculateStatus(errors.password, touched.password, values.password)}
+                    />
+                    <View style={styles.forgotPasswordContainer}>
+                        <Text
+                            onPress={() => {
+                                console.log('Forgot Password?');
+                            }}
+                            style={[styles.forgotPasswordText, { color: tint }]}
+                        >
+                            Forgot Password?
+                        </Text>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <Button onPress={handleSubmit} text="Log In" />
+                    </View>
                 </View>
             )}
         </Formik >
@@ -58,5 +78,16 @@ const styles = StyleSheet.create({
         fontSize: 34,
         fontWeight: 'bold',
         marginBottom: 10,
+    },
+    buttonContainer: {
+        marginTop: 10,
+        marginHorizontal: 20,
+    },
+    forgotPasswordContainer: {
+        alignItems: 'flex-end',
+    },
+    forgotPasswordText: {
+        fontSize: 16,
+        fontWeight: '700',
     }
 })
