@@ -20,12 +20,12 @@ const SecondStepRegistration = () => {
                 console.log(values);
             }}
         >
-            {({ handleChange, handleBlur, values, errors, touched }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>Almost there!</Text>
                         <Text style={styles.subtitle}>
-                            Now we need a password to secure your account.
+                            Now we need a password to secure your account. Pick a strong one!
                         </Text>
                     </View>
                     <PasswordInput
@@ -45,7 +45,7 @@ const SecondStepRegistration = () => {
                     />
                     <View style={styles.buttonContainer}>
                         <Button
-                            onPress={() => console.log('submit')}
+                            onPress={handleSubmit}
                             text={"Create Account"}
                         />
                     </View>

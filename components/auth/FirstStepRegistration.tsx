@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet } from 'react-native'
 import { Formik } from 'formik'
 import { registrationValidation } from '@/utils/validations'
 import { DisplayNameInput, EmailInput } from './AuthInputs'
 import { calculateStatus } from '@/utils/helpers'
 import Button from '../ui/Button'
+import { Text, View } from '../ui/Themed'
 
 interface FirstStepProps {
     nextStepHandler: () => void
@@ -20,11 +20,9 @@ const FirstStepRegistration: React.FC<FirstStepProps> = ({ nextStepHandler }) =>
         <Formik
             initialValues={initialValues}
             validationSchema={registrationValidation}
-            onSubmit={(values) => {
-                console.log(values);
-            }}
+            onSubmit={nextStepHandler}
         >
-            {({ handleChange, handleBlur, values, errors, touched }) => (
+            {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
                     <View style={styles.textContainer}>
                         <Text style={styles.title}>Welcome!</Text>
@@ -48,7 +46,7 @@ const FirstStepRegistration: React.FC<FirstStepProps> = ({ nextStepHandler }) =>
                     />
                     <View style={styles.buttonContainer}>
                         <Button
-                            onPress={nextStepHandler}
+                            onPress={handleSubmit}
                             text={"Next Step"}
                         />
                     </View>
