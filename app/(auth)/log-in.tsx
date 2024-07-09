@@ -1,4 +1,5 @@
-import { Text, View } from '@/components/ui/Themed'
+import LogInForm from '@/components/auth/LogInForm'
+import { View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors'
 import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
@@ -17,9 +18,7 @@ const LogInScreen = () => {
                     />
                 </View>
             </View>
-            <View style={styles.formContainer}>
-                <Text style={[styles.title, { color: tint }]}>Welcome Back!</Text>
-            </View>
+            <LogInForm />
 
         </View>
     )
