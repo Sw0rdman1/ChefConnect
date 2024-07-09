@@ -1,3 +1,4 @@
+import Button from '@/components/ui/Button'
 import { Text, View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors'
 import { Image } from 'expo-image'
@@ -27,7 +28,11 @@ const WelcomeScreen = () => {
                     <Text style={styles.slogan}>
                         The social network for passionate cooks and food enthusiasts.
                     </Text>
+                    <View style={styles.buttonContainer}>
+                        <Button text="Get Started" href='/log-in' />
+                    </View>
                 </View>
+
             </View>
         </View>
     )
@@ -76,6 +81,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: 50,
         fontWeight: 400,
+    },
+    buttonContainer: {
+        width: '100%',
+        paddingHorizontal: 30,
+        marginTop: 30,
     },
 
 })
