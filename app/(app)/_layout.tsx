@@ -20,7 +20,7 @@ export default function MainScreenLayout() {
 
     return (
         <Stack>
-            <Stack.Screen name='index' options={{ headerShown: false }} />
+            <Stack.Screen name="index" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
         </Stack>
     );
 }
