@@ -11,10 +11,10 @@ const RegistrationForm = () => {
     })
 
     const nextStepHandler = (values: { email: string, displayName: string }) => {
-        console.log(values);
         setFirstStepData(values)
         setCurrentStep(2)
     }
+
     return (
         <>
             {currentStep === 1 ?

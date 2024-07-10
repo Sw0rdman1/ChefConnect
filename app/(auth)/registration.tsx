@@ -7,10 +7,7 @@ import { StyleSheet, View } from 'react-native'
 const RegistrationScreen = () => {
     return (
         <View style={styles.container}>
-            <Banner
-                source={require('../../assets/images/auth/login-banner.jpg')}
-                height={200}
-            />
+            <Banner source={require('../../assets/images/auth/login-banner.jpg')} height={200} />
             <RegistrationForm />
             <AppleSignButton isLogin={false} />
             <SwitchForm isLogin={false} />
