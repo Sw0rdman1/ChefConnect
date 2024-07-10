@@ -50,7 +50,7 @@ class LargeSecureStore {
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_API_URL || '';
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_API_KEY || '';
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
         storage: new LargeSecureStore(),
         autoRefreshToken: true,
