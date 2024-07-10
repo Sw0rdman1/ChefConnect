@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext } from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { createContext, useState, useContext } from 'react';
+import { View, Text, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ToastNotification {

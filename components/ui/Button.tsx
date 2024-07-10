@@ -1,5 +1,4 @@
 import { useColors } from '@/hooks/useColors';
-import { Link } from 'expo-router';
 import { forwardRef } from 'react';
 import { StyleSheet, Text, Touchable, TouchableOpacity } from 'react-native'
 

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { Text, View } from '../ui/Themed'
-import { useColors } from '@/hooks/useColors'
 import { Formik } from 'formik'
 import { loginValidation } from '@/utils/validations'
 import { EmailInput, PasswordInput } from './AuthInputs'
@@ -8,7 +7,6 @@ import Button from '../ui/Button'
 import { calculateStatus } from '@/utils/helpers'
 import { useAuth } from '@/context/AuthContext'
 import { router } from 'expo-router'
-import { useState } from 'react'
 import { useToast } from '@/context/ToastNotificationContext'
 
 const initialValues = {

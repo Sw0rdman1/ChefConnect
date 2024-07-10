@@ -1,5 +1,5 @@
 import { Image } from 'expo-image'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 interface BannerProps {
     source: string

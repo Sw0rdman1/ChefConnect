@@ -1,8 +1,6 @@
 import AppleSignButton from '@/components/auth/AppleSignButton'
 import LogInForm from '@/components/auth/LogInForm'
-import { Text, View } from '@/components/ui/Themed'
-import { router } from 'expo-router';
-import { Image } from 'expo-image'
+import { View } from '@/components/ui/Themed'
 import { StyleSheet } from 'react-native'
 import { useColors } from '@/hooks/useColors';
 import Banner from '@/components/auth/Banner';
