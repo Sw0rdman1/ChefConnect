@@ -28,7 +28,7 @@ const ConfirmEmailScreen = () => {
                         Please check your inbox and complete your registration, so you can start sharing your favorite recipes with the world!
                     </Text>
 
-                    <Link href={"(app)"} asChild>
+                    <Link href={"log-in"} asChild>
                         <Button text="Refresh app" />
                     </Link>
 
@@ -73,15 +73,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 50,
         paddingHorizontal: 20,
-        gap: 15,
+        gap: 10,
     },
     title: {
-        fontSize: 34,
+        fontSize: 32,
         fontWeight: 'bold',
+        marginBottom: 30,
     },
     subtitle: {
         fontWeight: 'bold',
-        fontSize: 28,
+        fontSize: 22,
     },
     verifyEmail: {
         color: 'gray',

@@ -8,6 +8,7 @@ export default function AuthLayout() {
             <Stack.Screen name="log-in" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
             <Stack.Screen name="registration" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
             <Stack.Screen name="success" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
+            <Stack.Screen name="confirm-email" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
         </Stack>
     );
 }

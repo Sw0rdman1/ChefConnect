@@ -1,6 +1,7 @@
 import { Redirect, Stack } from 'expo-router';
 import { Text } from '@/components/ui/Themed';
 import { useAuth } from '@/context/AuthContext';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 
 export default function TabLayout() {
@@ -8,7 +9,7 @@ export default function TabLayout() {
 
 
     if (isLoading) {
-        return <Text>Loading...</Text>;
+        return <LoadingScreen />;
     }
 
     if (!session || !session.user) {
