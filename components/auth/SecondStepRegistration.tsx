@@ -11,13 +11,14 @@ const initialValues = {
     confirmPassword: '',
 }
 
-const SecondStepRegistration = () => {
+const SecondStepRegistration = ({ firstStepData }: { firstStepData: any }) => {
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={registrationValidationSecondStep}
             onSubmit={(values) => {
-                console.log(values);
+                const user = { ...firstStepData, ...values }
+                console.log(user);
             }}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (

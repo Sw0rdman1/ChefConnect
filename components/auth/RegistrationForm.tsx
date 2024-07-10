@@ -5,11 +5,21 @@ import SecondStepRegistration from './SecondStepRegistration'
 
 const RegistrationForm = () => {
     const [currentStep, setCurrentStep] = useState(1)
+    const [firstStepData, setFirstStepData] = useState({
+        email: '',
+        displayName: '',
+    })
+
+    const nextStepHandler = (values: { email: string, displayName: string }) => {
+        console.log(values);
+        setFirstStepData(values)
+        setCurrentStep(2)
+    }
     return (
         <>
             {currentStep === 1 ?
-                <FirstStepRegistration nextStepHandler={() => setCurrentStep(2)} /> :
-                <SecondStepRegistration />
+                <FirstStepRegistration nextStepHandler={nextStepHandler} /> :
+                <SecondStepRegistration firstStepData={firstStepData} />
             }
         </>
     )

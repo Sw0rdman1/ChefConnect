@@ -7,7 +7,7 @@ import { Text, View } from '../ui/Themed'
 import { registrationValidationFirstStep } from '@/utils/validations'
 
 interface FirstStepProps {
-    nextStepHandler: () => void
+    nextStepHandler: (values: any) => void
 }
 
 const initialValues = {
@@ -20,7 +20,7 @@ const FirstStepRegistration: React.FC<FirstStepProps> = ({ nextStepHandler }) =>
         <Formik
             initialValues={initialValues}
             validationSchema={registrationValidationFirstStep}
-            onSubmit={nextStepHandler}
+            onSubmit={(values) => nextStepHandler(values)}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
