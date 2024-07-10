@@ -20,6 +20,7 @@ const SecondStepRegistration = ({ firstStepData }: { firstStepData: any }) => {
     const onSubmitHandler = async (values: typeof initialValues) => {
         const { email, displayName } = firstStepData
         const { password } = values
+        console.log(email, password, displayName);
         const error = await signUpWithEmail(email, password, displayName)
 
         if (error) {

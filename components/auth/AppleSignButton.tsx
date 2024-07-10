@@ -2,9 +2,11 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../ui/Themed';
 import { isDarkMode } from '@/hooks/useColors';
+import { useAuth } from '@/context/AuthContext';
 
 export default function AppleSignButton({ isLogin }: { isLogin: boolean }) {
     const isDark = isDarkMode();
+    const { signInWithApple } = useAuth();
 
     return (
         <View style={styles.container}>
@@ -22,19 +24,8 @@ export default function AppleSignButton({ isLogin }: { isLogin: boolean }) {
                 }
                 cornerRadius={15}
                 style={styles.button}
-                onPress={async () => {
-                    try {
-                        const credential = await AppleAuthentication.signInAsync({
-                            requestedScopes: [
-                                AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                                AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                            ],
-                        });
-                        // signed in
-                    } catch (e) {
+                onPress={signInWithApple}
 
-                    }
-                }}
             />
         </View>
     );

@@ -48,7 +48,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     token: credential.identityToken,
                 })
                 if (!error) {
-
                     if (credential.fullName?.givenName && credential.fullName?.familyName) {
                         const display_name = credential.fullName?.givenName + " " + credential.fullName?.familyName;
 
@@ -65,9 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             })
                             .eq('id', user?.id)
 
-                        const { data } = await supabase.from('users').select('*').eq('id', user?.id).single();
-
-                        setUser(snakeToCamel(data));
+                        setUser(user)
                     }
 
 
