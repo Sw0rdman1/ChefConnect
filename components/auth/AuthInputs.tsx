@@ -1,9 +1,11 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native'
 import { Text, TextInput, TextInputProps, View } from '../ui/Themed'
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useColors } from '@/hooks/useColors';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
+const { width } = Dimensions.get('window')
 
 interface InputProps extends TextInputProps {
     status: 'empty' | 'error' | 'success',
@@ -25,16 +27,22 @@ const DisplayNameInput: React.FC<InputProps> = ({ status, error, ...props }) => 
     }
 
     return (
-        <View style={[styles.inputContainer, { borderColor: color() }]}>
-            <Ionicons style={styles.icon} name="person-circle" size={32} color={color()} />
-            <TextInput
-                style={[styles.input, { color: color() }]}
-                autoCapitalize="words"
-                placeholder="Display Name"
-                {...props}
-            />
-            {status === 'success' && <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} />}
-            {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+        <View style={styles.container}>
+
+            <View style={[styles.inputContainer, { borderColor: color() }]}>
+                <Ionicons style={styles.icon} name="person-circle" size={32} color={color()} />
+                <TextInput
+                    style={[styles.input, { color: color() }]}
+                    autoCapitalize="words"
+                    placeholder="Display Name"
+                    {...props}
+                />
+                {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+            </View>
+            {status === 'success' ?
+                <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} /> :
+                <View style={{ width: 25 }} />
+            }
         </View>
     )
 }
@@ -54,18 +62,24 @@ const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
     }
 
     return (
-        <View style={[styles.inputContainer, { borderColor: color() }]}>
-            <Entypo style={styles.icon} name="mail" size={28} color={color()} />
-            <TextInput
-                style={[styles.input, { color: color() }]}
-                autoCapitalize="none"
-                placeholder="Email"
-                keyboardType="email-address"
-                {...props}
-            />
-            {status === 'success' && <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} />}
-            {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+        <View style={styles.container}>
+            <View style={[styles.inputContainer, { borderColor: color() }]}>
+                <Entypo style={styles.icon} name="mail" size={28} color={color()} />
+                <TextInput
+                    style={[styles.input, { color: color() }]}
+                    autoCapitalize="none"
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    {...props}
+                />
+                {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+            </View>
+            {status === 'success' ?
+                <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} /> :
+                <View style={{ width: 25 }} />
+            }
         </View>
+
     )
 }
 
@@ -73,17 +87,22 @@ const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 
     return (
-        <View style={styles.inputContainer}>
-            <Entypo style={styles.icon} name="lock" size={28} color='gray' />
-            <TextInput
-                style={styles.input}
-                autoCapitalize="none"
-                placeholder="Password"
-                secureTextEntry
-                {...props}
-            />
-            {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+        <View style={styles.container}>
+
+            <View style={styles.inputContainer}>
+                <Entypo style={styles.icon} name="lock" size={28} color='gray' />
+                <TextInput
+                    style={styles.input}
+                    autoCapitalize="none"
+                    placeholder="Password"
+                    secureTextEntry
+                    {...props}
+                />
+                {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+            </View>
+            <View style={{ width: 25 }} />
         </View>
+
     )
 }
 
@@ -91,34 +110,35 @@ const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 export { DisplayNameInput, EmailInput, PasswordInput }
 
 const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
     inputContainer: {
-        width: '100%',
+        width: width - 75,
+        marginLeft: 15,
         flexDirection: 'row',
         borderColor: 'gray',
         borderBottomWidth: 1,
         padding: 5,
-        paddingBottom: 10,
         alignItems: 'center',
-        marginBottom: 10,
     },
     input: {
         fontSize: 20,
         fontWeight: '500',
         padding: 5,
-        flexGrow: 1,
-        paddingRight: 60,
         paddingLeft: 10,
+        marginRight: 10,
+        flexGrow: 1,
     },
     icon: {
-        marginRight: 5,
         height: 28,
         width: 28,
     },
     successIcon: {
-        position: 'absolute',
-        right: 5,
-        height: 24,
-        width: 24,
+        height: 25,
+        width: 25,
     },
     errorText: {
         position: 'absolute',
