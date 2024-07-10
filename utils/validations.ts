@@ -5,9 +5,13 @@ export const loginValidation = Yup.object().shape({
     password: Yup.string().required('Password is required'),
 });
 
-export const registrationValidation = Yup.object().shape({
-    email: Yup.string().email('Invalid email adress!'),
-    displayName: Yup.string().min(2, 'Display name must be at least 2 characters'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), ''], 'Passwords must match'),
+export const registrationValidationFirstStep = Yup.object().shape({
+    email: Yup.string().email('Invalid email adress!').required('Email is required'),
+    displayName: Yup.string().min(2, 'Display name must be at least 2 characters').required('Display name is required'),
+});
+
+
+export const registrationValidationSecondStep = Yup.object().shape({
+    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), ''], 'Passwords must match').required('Password confirmation is required'),
 });

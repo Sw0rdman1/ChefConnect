@@ -1,10 +1,10 @@
 import { Formik } from "formik";
-import { registrationValidation } from "@/utils/validations";
 import { Text, View } from "../ui/Themed";
 import { PasswordInput } from "./AuthInputs";
 import { calculateStatus } from "@/utils/helpers";
 import { StyleSheet } from "react-native";
 import Button from "../ui/Button";
+import { registrationValidationSecondStep } from "@/utils/validations";
 
 const initialValues = {
     password: '',
@@ -15,7 +15,7 @@ const SecondStepRegistration = () => {
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={registrationValidation}
+            validationSchema={registrationValidationSecondStep}
             onSubmit={(values) => {
                 console.log(values);
             }}
@@ -43,8 +43,10 @@ const SecondStepRegistration = () => {
                         status={calculateStatus(errors.confirmPassword, touched.confirmPassword, values.confirmPassword)}
                         placeholder="Confirm Password"
                     />
+
                     <View style={styles.buttonContainer}>
                         <Button
+                            disabled={Object.keys(errors).length > 0 || Object.keys(touched).length === 0}
                             onPress={handleSubmit}
                             text={"Create Account"}
                         />
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         gap: 10,
+        marginLeft: 10,
     },
     title: {
         fontSize: 34,

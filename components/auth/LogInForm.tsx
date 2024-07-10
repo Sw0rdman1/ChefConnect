@@ -31,7 +31,7 @@ const LogInForm = () => {
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
-                    <Text style={[styles.title]}>Welcome Back!</Text>
+                    <Text style={styles.title}>Welcome Back!</Text>
                     <EmailInput
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
@@ -49,7 +49,7 @@ const LogInForm = () => {
 
                     <View style={styles.buttonContainer}>
                         <Button
-                            disabled={Object.keys(errors).length > 0}
+                            disabled={Object.keys(errors).length > 0 || Object.keys(touched).length === 0}
                             onPress={handleSubmit}
                             text="Log In"
                         />
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
         fontSize: 34,
         fontWeight: 'bold',
         marginBottom: 10,
+        marginLeft: 10,
     },
     buttonContainer: {
         marginTop: 10,
