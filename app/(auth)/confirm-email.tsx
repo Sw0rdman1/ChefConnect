@@ -7,27 +7,29 @@ import Button from '@/components/ui/Button'
 
 const { height, width } = Dimensions.get('window')
 
-const SuccessScreen = () => {
+const ConfirmEmailScreen = () => {
     const { tint } = useColors()
 
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../assets/images/auth/success-banner.jpg')}
+                source={require('../../assets/images/auth/verify-banner.jpg')}
                 style={styles.image}
                 contentFit='cover'
             />
             <View style={styles.textContainer}>
                 <View style={styles.textChildContainer}>
-                    <Text style={styles.title}>Great Job Chef!</Text>
-                    <Text style={styles.subtitle}>Welcome to <Text style={[styles.subtitle, { color: tint }]}>ChefConnect</Text></Text>
+                    <Text style={styles.title}>We have problem Chef</Text>
+                    <Text style={styles.subtitle}>
+                        Your email is not verified yet.
+                    </Text>
                     <Text style={styles.verifyEmail}>
-                        Just one more thing, we sent you an email to verify your account.
+                        We sent you an email to verify your account.
                         Please check your inbox and complete your registration, so you can start sharing your favorite recipes with the world!
                     </Text>
 
-                    <Link href={"log-in"} asChild>
-                        <Button text="Go to Log In" />
+                    <Link href={"(app)"} asChild>
+                        <Button text="Refresh app" />
                     </Link>
 
                     <Text style={styles.verifyEmail}>
@@ -41,7 +43,7 @@ const SuccessScreen = () => {
     )
 }
 
-export default SuccessScreen
+export default ConfirmEmailScreen
 
 const styles = StyleSheet.create({
     container: {
