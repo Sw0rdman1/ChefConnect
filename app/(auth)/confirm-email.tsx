@@ -1,14 +1,12 @@
 import { Dimensions, StyleSheet } from 'react-native'
 import { Text, View } from '@/components/ui/Themed'
 import { Image } from 'expo-image'
-import { useColors } from '@/hooks/useColors'
 import { Link } from 'expo-router'
 import Button from '@/components/ui/Button'
 
 const { height, width } = Dimensions.get('window')
 
 const ConfirmEmailScreen = () => {
-    const { tint } = useColors()
 
     return (
         <View style={styles.container}>
@@ -28,7 +26,7 @@ const ConfirmEmailScreen = () => {
                         Please check your inbox and complete your registration, so you can start sharing your favorite recipes with the world!
                     </Text>
 
-                    <Link href={"log-in"} asChild>
+                    <Link href={"/"} asChild>
                         <Button text="Refresh app" />
                     </Link>
 
