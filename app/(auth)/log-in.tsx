@@ -6,24 +6,17 @@ import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
 import { useColors } from '@/hooks/useColors';
 import Banner from '@/components/auth/Banner';
+import SwitchForm from '@/components/auth/SwitchForm';
 
 const LogInScreen = () => {
     const { tint } = useColors()
 
     return (
         <View style={styles.container}>
-            <Banner
-                source={require('../../assets/images/auth/login-banner.jpg')}
-                height={250}
-            />
+            <Banner source={require('../../assets/images/auth/login-banner.jpg')} height={250} />
             <LogInForm />
             <AppleSignButton isLogin />
-            <Text style={styles.registration}>
-                Don't have an account?{' '}
-                <Text onPress={() => { router.push('registration') }} style={{ color: tint, fontWeight: '700' }}>
-                    Sign Up
-                </Text>
-            </Text>
+            <SwitchForm isLogin />
 
         </View>
     )
@@ -36,9 +29,5 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
-    registration: {
-        marginTop: 30,
-        fontSize: 18,
-        fontWeight: '700',
-    },
+
 })

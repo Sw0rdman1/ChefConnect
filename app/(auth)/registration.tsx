@@ -1,6 +1,7 @@
 import AppleSignButton from '@/components/auth/AppleSignButton'
 import Banner from '@/components/auth/Banner'
 import RegistrationForm from '@/components/auth/RegistrationForm'
+import SwitchForm from '@/components/auth/SwitchForm'
 import { StyleSheet, View } from 'react-native'
 
 const RegistrationScreen = () => {
@@ -12,6 +13,7 @@ const RegistrationScreen = () => {
             />
             <RegistrationForm />
             <AppleSignButton isLogin={false} />
+            <SwitchForm isLogin={false} />
         </View>
     )
 }
@@ -21,6 +23,7 @@ export default RegistrationScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
     },
     imageContainer: {
         height: 200,

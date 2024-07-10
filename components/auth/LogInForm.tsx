@@ -46,18 +46,13 @@ const LogInForm = () => {
                         error={errors.password}
                         status={calculateStatus(errors.password, touched.password, values.password)}
                     />
-                    <View style={styles.forgotPasswordContainer}>
-                        <Text
-                            onPress={() => {
-                                console.log('Forgot Password?');
-                            }}
-                            style={[styles.forgotPasswordText, { color: tint }]}
-                        >
-                            Forgot Password?
-                        </Text>
-                    </View>
+
                     <View style={styles.buttonContainer}>
-                        <Button onPress={handleSubmit} text="Log In" />
+                        <Button
+                            disabled={Object.keys(errors).length > 0}
+                            onPress={handleSubmit}
+                            text="Log In"
+                        />
                     </View>
 
                 </View>

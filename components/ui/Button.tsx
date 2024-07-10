@@ -6,13 +6,18 @@ import { StyleSheet, Text, Touchable, TouchableOpacity } from 'react-native'
 interface ButtonProps {
     onPress?: () => void;
     text: string;
+    disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = forwardRef(({ text, onPress }, ref) => {
-    const { tint } = useColors()
+const Button: React.FC<ButtonProps> = forwardRef(({ text, onPress, disabled }, ref) => {
+    const { tint, tintLowOpacity } = useColors()
 
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.buttonContainer, { backgroundColor: tint }]}>
+        <TouchableOpacity
+            disabled={disabled}
+            onPress={onPress}
+            style={[styles.buttonContainer, { backgroundColor: disabled ? tintLowOpacity : tint }]}
+        >
             <Text style={styles.buttonText}>{text}</Text>
         </TouchableOpacity>
     );
