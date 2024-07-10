@@ -5,6 +5,8 @@ import { calculateStatus } from "@/utils/helpers";
 import { StyleSheet } from "react-native";
 import Button from "../ui/Button";
 import { registrationValidationSecondStep } from "@/utils/validations";
+import { useAuth } from "@/context/AuthContext";
+import { router } from "expo-router";
 
 const initialValues = {
     password: '',
@@ -12,14 +14,26 @@ const initialValues = {
 }
 
 const SecondStepRegistration = ({ firstStepData }: { firstStepData: any }) => {
+    const { signUpWithEmail } = useAuth()
+
+
+    const onSubmitHandler = async (values: typeof initialValues) => {
+        const { email, displayName } = firstStepData
+        const { password } = values
+        const error = await signUpWithEmail(email, password, displayName)
+
+        if (error) {
+            //handle Error
+        } else {
+            router.push('success')
+        }
+
+    }
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={registrationValidationSecondStep}
-            onSubmit={(values) => {
-                const user = { ...firstStepData, ...values }
-                console.log(user);
-            }}
+            onSubmit={(values) => { onSubmitHandler(values) }}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>

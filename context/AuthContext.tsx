@@ -109,7 +109,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         })
 
         if (error) {
-            console.error('Error signing up:', error.message)
+            console.log('Error signing up:', error.message)
             return error
         }
 

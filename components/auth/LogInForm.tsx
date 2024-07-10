@@ -5,6 +5,8 @@ import { Formik } from 'formik'
 import { loginValidation } from '@/utils/validations'
 import { EmailInput, PasswordInput } from './AuthInputs'
 import Button from '../ui/Button'
+import { calculateStatus } from '@/utils/helpers'
+import { useAuth } from '@/context/AuthContext'
 
 const initialValues = {
     email: '',
@@ -12,22 +14,23 @@ const initialValues = {
 }
 
 const LogInForm = () => {
-    const { tint } = useColors()
+    const { signInWithEmail } = useAuth()
 
-    const calculateStatus = (error: string | undefined, touched: boolean | undefined, value: string) => {
-        if (!value || !touched) return 'empty'
-        if (touched && error) return 'error'
-        return 'success'
+    const onSubmitHandler = async (values: typeof initialValues) => {
+        const { email, password } = values
+        const error = await signInWithEmail(email, password)
+
+        if (error) {
+            //handle Error
+        }
+
     }
 
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={loginValidation}
-            onSubmit={(values) => {
-                console.log(values);
-                // handle form submission
-            }}
+            onSubmit={(values) => { onSubmitHandler(values) }}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
