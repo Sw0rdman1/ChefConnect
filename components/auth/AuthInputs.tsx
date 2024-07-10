@@ -4,6 +4,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useColors } from '@/hooks/useColors';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useState } from 'react';
 
 const { width } = Dimensions.get('window')
 
@@ -37,12 +38,12 @@ const DisplayNameInput: React.FC<InputProps> = ({ status, error, ...props }) => 
                     placeholder="Display Name"
                     {...props}
                 />
+                {status === 'success' ?
+                    <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} /> :
+                    <View style={{ width: 25 }} />
+                }
                 {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
             </View>
-            {status === 'success' ?
-                <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} /> :
-                <View style={{ width: 25 }} />
-            }
         </View>
     )
 }
@@ -72,12 +73,14 @@ const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
                     keyboardType="email-address"
                     {...props}
                 />
+                {status === 'success' ?
+                    <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} /> :
+                    <View style={{ width: 25 }} />
+                }
                 {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+
             </View>
-            {status === 'success' ?
-                <AntDesign style={styles.successIcon} name="checkcircle" size={24} color={tint} /> :
-                <View style={{ width: 25 }} />
-            }
+
         </View>
 
     )
@@ -85,6 +88,7 @@ const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 
 
 const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
+    const [secureTextEntry, setSecureTextEntry] = useState(true)
 
     return (
         <View style={styles.container}>
@@ -95,9 +99,14 @@ const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
                     style={styles.input}
                     autoCapitalize="none"
                     placeholder="Password"
-                    secureTextEntry
+                    secureTextEntry={secureTextEntry}
+                    keyboardType={secureTextEntry ? 'default' : 'visible-password'}
                     {...props}
                 />
+                {secureTextEntry ?
+                    <Ionicons style={styles.icon} name="eye-off" size={28} color='gray' onPress={() => setSecureTextEntry(false)} /> :
+                    <Ionicons style={styles.icon} name="eye" size={28} color='gray' onPress={() => setSecureTextEntry(true)} />
+                }
                 {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
             </View>
             <View style={{ width: 25 }} />
@@ -125,6 +134,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     input: {
+        width: '80%',
         fontSize: 20,
         fontWeight: '500',
         padding: 5,
