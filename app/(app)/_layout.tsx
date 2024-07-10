@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 
 
-export default function TabLayout() {
+export default function MainScreenLayout() {
     const { isLoading, session } = useAuth();
 
     if (isLoading) {

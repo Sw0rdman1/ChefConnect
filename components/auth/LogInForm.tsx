@@ -8,6 +8,8 @@ import Button from '../ui/Button'
 import { calculateStatus } from '@/utils/helpers'
 import { useAuth } from '@/context/AuthContext'
 import { router } from 'expo-router'
+import { useState } from 'react'
+import { useToast } from '@/context/ToastNotificationContext'
 
 const initialValues = {
     email: '',
@@ -16,19 +18,22 @@ const initialValues = {
 
 const LogInForm = () => {
     const { signInWithEmail } = useAuth()
+    const { showToast } = useToast()
 
     const onSubmitHandler = async (values: typeof initialValues) => {
         const { email, password } = values
         const error = await signInWithEmail(email, password)
 
         if (error) {
-            if (error.message = 'Email not confirmed') {
+            if (error.message = 'Invalid login credentials') {
+                showToast({
+                    text: 'Invalid email/password',
+                    severity: 'error'
+                })
+            } else if (error.message = 'Email not confirmed') {
                 router.push('confirm-email')
             }
-
-            //handle Error
         }
-
     }
 
     return (
