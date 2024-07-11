@@ -54,8 +54,8 @@ function RootLayoutNav() {
       <AuthProvider>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
-            <Stack.Screen name="(main)" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(main)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
           </Stack>
         </ThemeProvider>
       </AuthProvider>
