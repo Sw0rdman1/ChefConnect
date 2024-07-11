@@ -11,7 +11,7 @@ export default function AuthLayout() {
     }
 
     if (session && session.user) {
-        return <Redirect href="(app)" />;
+        return <Redirect href="(main)" />;
     }
 
 
