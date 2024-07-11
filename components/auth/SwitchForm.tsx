@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native'
-import React from 'react'
 import { Text } from '../ui/Themed'
 import { router } from 'expo-router'
 import { useColors } from '@/hooks/useColors'
