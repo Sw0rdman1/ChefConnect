@@ -8,17 +8,33 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 interface ActionProps {
     icon: React.ComponentProps<typeof Ionicons>['name']
     text: string,
-    onPressHandler: () => void
+    pageToGo?: string
+    logOut?: boolean
 }
 
-const Action: React.FC<ActionProps> = ({ icon, text, onPressHandler }) => {
+const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
     const { text: textColor, tint } = useColors()
+    const { signOut } = useAuth()
+
+    const goToPageHandler = (page: string) => {
+        router.push(page)
+    }
+
+    const handlePress = () => {
+        if (logOut) {
+            signOut()
+        } else if (pageToGo) {
+            goToPageHandler(pageToGo)
+        }
+    }
 
     return (
-        <TouchableOpacity onPress={onPressHandler} style={styles.actionContainer}>
+        <TouchableOpacity onPress={handlePress} style={styles.actionContainer}>
             <View style={styles.leftSide}>
-                {icon && <Ionicons name={icon} size={28} color={tint} />}
-                <Text style={styles.actionName}>{text}</Text>
+                {icon && <Ionicons name={icon} size={28} color={logOut ? 'red' : tint} />}
+                <Text style={[styles.actionName, { color: logOut ? 'red' : textColor }]}>
+                    {text}
+                </Text>
             </View>
             <View style={styles.rightSide}>
                 <Ionicons name="chevron-forward" size={28} color={textColor} />
@@ -30,21 +46,13 @@ const Action: React.FC<ActionProps> = ({ icon, text, onPressHandler }) => {
 }
 
 const ProfileActions = () => {
-    const { signOut } = useAuth()
 
-    const goToPageHandler = (page: string) => {
-        router.push(page)
-    }
-
-    const logOutHandler = () => {
-        signOut()
-    }
 
     return (
         <View style={styles.container}>
-            <Action icon="person-outline" text="Edit profile" onPressHandler={goToPageHandler.bind(null, 'EditProfile')} />
-            <Action icon="settings-outline" text="Settings" onPressHandler={goToPageHandler.bind(null, 'Settings')} />
-            <Action icon="log-out-outline" text="Log out" onPressHandler={logOutHandler} />
+            <Action icon="person-outline" text="Edit profile" pageToGo="edit-profile" />
+            <Action icon="settings-outline" text="Settings" pageToGo="settings" />
+            <Action icon="log-out-outline" text="Log out" logOut />
         </View>
     )
 }
