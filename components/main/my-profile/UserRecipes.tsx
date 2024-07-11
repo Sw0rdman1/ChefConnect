@@ -8,31 +8,21 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 interface ActionProps {
     icon: React.ComponentProps<typeof Ionicons>['name']
     text: string,
-    pageToGo?: string
-    logOut?: boolean
+    pageToGo: string
 }
 
-const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
+const Action: React.FC<ActionProps> = ({ icon, text, pageToGo }) => {
     const { text: textColor, tint } = useColors()
-    const { signOut } = useAuth()
-
-    const goToPageHandler = (page: string) => {
-        router.push(page)
-    }
 
     const handlePress = () => {
-        if (logOut) {
-            signOut()
-        } else if (pageToGo) {
-            goToPageHandler(pageToGo)
-        }
+        router.push(pageToGo)
     }
 
     return (
         <TouchableOpacity onPress={handlePress} style={styles.actionContainer}>
             <View style={styles.leftSide}>
-                {icon && <Ionicons name={icon} size={28} color={logOut ? 'red' : 'gray'} />}
-                <Text style={[styles.actionName, { color: logOut ? 'red' : textColor }]}>
+                {icon && <Ionicons name={icon} size={28} color={tint} />}
+                <Text style={[styles.actionName, { color: textColor }]}>
                     {text}
                 </Text>
             </View>
@@ -45,23 +35,21 @@ const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
     )
 }
 
-const ProfileActions = () => {
-
+const UserRecipes = () => {
 
     return (
         <View style={styles.container}>
-            <Action icon="person-outline" text="Edit profile" pageToGo="edit-profile" />
-            <Action icon="settings-outline" text="Settings" pageToGo="settings" />
-            <Action icon="log-out-outline" text="Log out" logOut />
+            <Action text='My recipes' icon='book-outline' pageToGo='my-recipes' />
+            <Action text='Saved recipes' icon='bookmark-outline' pageToGo='saved-recipes' />
         </View>
     )
 }
 
-export default ProfileActions
+export default UserRecipes
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 40,
+        marginTop: 60,
         paddingHorizontal: 20,
         borderRadius: 20,
     },
