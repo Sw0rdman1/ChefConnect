@@ -15,7 +15,7 @@ const MainScreenHeader = () => {
             <Text style={[styles.title, { color: tint }]}>
                 ChefConnect
             </Text>
-            <Avatar size={45} href='my-profile' source={user?.profilePicture} />
+            <Avatar size={45} href='(my-profile)' source={user?.profilePicture} />
         </View>
     )
 }

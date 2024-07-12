@@ -10,7 +10,6 @@ const MyProfileScreen = () => {
     const { top } = useSafeAreaInsets()
     const { backgroundDarker } = useColors()
 
-
     return (
         <View style={[styles.container, { paddingTop: top + 30, backgroundColor: backgroundDarker }]}>
             <MyProfileHeader />

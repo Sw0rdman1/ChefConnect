@@ -39,10 +39,6 @@ const MyProfileHeader = () => {
 export default MyProfileHeader
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 15,
-    },
     titleContainer: {
         backgroundColor: 'transparent',
         flexDirection: 'row',

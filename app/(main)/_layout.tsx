@@ -23,7 +23,7 @@ export default function MainScreenLayout() {
         <AppProvider>
             <Stack>
                 <Stack.Screen name="index" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
-                <Stack.Screen name="my-profile" options={{ headerShown: false, animation: 'fade_from_bottom' }} />
+                <Stack.Screen name="(my-profile)" options={{ headerShown: false, animation: 'fade_from_bottom' }} />
             </Stack>
         </AppProvider>
     );
