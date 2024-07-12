@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router'
 
-const EditProfileHeader = () => {
+const ProfileActionHeaders = ({ title }: { title: string }) => {
     const { text } = useColors()
 
     const goBackHandler = () => {
@@ -16,12 +16,12 @@ const EditProfileHeader = () => {
             <TouchableOpacity onPress={goBackHandler}>
                 <Ionicons name="chevron-back" size={28} color={text} />
             </TouchableOpacity>
-            <Text style={styles.title}>Edit Profile</Text>
+            <Text style={styles.title}>{title}</Text>
         </View>
     )
 }
 
-export default EditProfileHeader
+export default ProfileActionHeaders
 
 const styles = StyleSheet.create({
     titleContainer: {

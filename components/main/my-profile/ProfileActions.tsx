@@ -51,6 +51,7 @@ const ProfileActions = () => {
     return (
         <View style={styles.container}>
             <Action icon="person-outline" text="Edit profile" pageToGo="edit-profile" />
+            <Action icon="lock-closed-outline" text="Change password" pageToGo="change-password" />
             <Action icon="settings-outline" text="Settings" pageToGo="settings" />
             <Action icon="log-out-outline" text="Log out" logOut />
         </View>

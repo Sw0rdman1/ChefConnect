@@ -1,5 +1,5 @@
 import EditProfileForm from '@/components/main/my-profile/EditProfileForm'
-import EditProfileHeader from '@/components/main/my-profile/EditProfileHeader'
+import ProfileActionHeader from '@/components/main/my-profile/ProfileActionHeader'
 import { View } from '@/components/ui/Themed'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -9,7 +9,7 @@ const EditProfileScreen = () => {
 
   return (
     <View style={[styles.container, { paddingTop: top + 30 }]}>
-      <EditProfileHeader />
+      <ProfileActionHeader title='Edit Profile' />
       <EditProfileForm />
     </View>
   )
