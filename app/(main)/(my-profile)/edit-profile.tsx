@@ -1,3 +1,4 @@
+import EditProfileForm from '@/components/main/my-profile/EditProfileForm'
 import EditProfileHeader from '@/components/main/my-profile/EditProfileHeader'
 import { View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors'
@@ -11,6 +12,7 @@ const EditProfileScreen = () => {
   return (
     <View style={[styles.container, { paddingTop: top + 30, backgroundColor: backgroundDarker }]}>
       <EditProfileHeader />
+      <EditProfileForm />
     </View>
   )
 }
@@ -20,6 +22,6 @@ export default EditProfileScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
   },
 })
