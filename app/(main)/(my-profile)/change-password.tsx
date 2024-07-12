@@ -1,3 +1,4 @@
+import ChangePasswordForm from '@/components/main/my-profile/ChangePassworForm'
 import ProfileActionHeaders from '@/components/main/my-profile/ProfileActionHeader'
 import { Text, View } from '@/components/ui/Themed'
 import { StyleSheet } from 'react-native'
@@ -9,6 +10,7 @@ const ChangePasswordScreen = () => {
     return (
         <View style={[styles.container, { paddingTop: top + 30 }]}>
             <ProfileActionHeaders title="Change Password" />
+            <ChangePasswordForm />
         </View>
     )
 }
