@@ -8,6 +8,7 @@ import { editProfileValidation } from '@/utils/validations'
 import Button from '@/components/ui/Button'
 import { calculateStatus } from '@/utils/helpers'
 import { DisplayNameInput, EmailInput } from './EditProfileInputs'
+import ImageUpload from '@/components/ui/ImageUpload'
 
 const noUserInitialValues = {
     email: '',
@@ -58,6 +59,10 @@ const EditProfileForm = () => {
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
+                    <ImageUpload
+                        imageUrl={values.profilePicture as string}
+                        setImageUrl={handleChange('profilePicture')}
+                    />
                     <DisplayNameInput
                         onChangeText={handleChange('displayName')}
                         onBlur={handleBlur('displayName')}
@@ -90,11 +95,13 @@ export default EditProfileForm
 
 const styles = StyleSheet.create({
     container: {
+        alignItems: 'center',
         paddingBottom: 10,
         paddingTop: 30,
         gap: 25,
     },
     buttonContainer: {
+        width: '60%',
         marginTop: 10,
         marginHorizontal: 20,
     },
