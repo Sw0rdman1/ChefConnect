@@ -4,6 +4,7 @@ create table users (
   email text unique,
   display_name text,
   profile_picture text,
+  bio text,
 
   constraint display_name_length check (char_length(display_name) >= 2)
 );

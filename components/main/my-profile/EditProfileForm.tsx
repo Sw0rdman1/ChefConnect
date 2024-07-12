@@ -7,11 +7,12 @@ import { Formik } from 'formik'
 import { editProfileValidation } from '@/utils/validations'
 import Button from '@/components/ui/Button'
 import { calculateStatus } from '@/utils/helpers'
-import { DisplayNameInput, EmailInput } from './EditProfileInputs'
+import { DisplayNameInput, BioInput } from './EditProfileInputs'
 import ImageUpload from '@/components/ui/ImageUpload'
 
 const noUserInitialValues = {
     email: '',
+    bio: '',
     displayName: '',
     id: '',
     profilePicture: '',
@@ -70,12 +71,12 @@ const EditProfileForm = () => {
                         error={errors.displayName}
                         status={calculateStatus(errors.displayName, touched.displayName, values.displayName)}
                     />
-                    <EmailInput
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                        error={errors.email}
-                        status={calculateStatus(errors.email, touched.email, values.email)}
+                    <BioInput
+                        onChangeText={handleChange('bio')}
+                        onBlur={handleBlur('bio')}
+                        value={values.bio}
+                        error={errors.bio}
+                        status={calculateStatus(errors.bio, touched.bio, values.bio)}
                     />
                     <View style={styles.buttonContainer}>
                         <Button

@@ -2,7 +2,8 @@ interface User {
     id: string;
     email: string;
     displayName: string;
-    profilePicture?: string;
+    bio: string;
+    profilePicture: string;
     updated_at: Date;
 }
 

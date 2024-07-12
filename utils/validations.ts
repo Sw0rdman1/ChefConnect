@@ -18,5 +18,4 @@ export const registrationValidationSecondStep = Yup.object().shape({
 
 export const editProfileValidation = Yup.object().shape({
     displayName: Yup.string().min(2, 'Display name must be at least 2 characters').required('Display name is required'),
-    email: Yup.string().email('Invalid email adress!').required('Email is required'),
 });

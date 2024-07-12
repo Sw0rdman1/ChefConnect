@@ -48,7 +48,7 @@ const DisplayNameInput: React.FC<InputProps> = ({ status, error, ...props }) => 
     )
 }
 
-const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
+const BioInput: React.FC<InputProps> = ({ status, error, ...props }) => {
     const { tint } = useColors()
 
     const color = () => {
@@ -65,12 +65,11 @@ const EmailInput: React.FC<InputProps> = ({ status, error, ...props }) => {
     return (
         <View style={styles.container}>
             <View style={[styles.inputContainer, { borderColor: color() }]}>
-                <Entypo style={styles.icon} name="mail" size={28} color={color()} />
+                <Entypo style={styles.icon} name="text" size={28} color={color()} />
                 <TextInput
                     style={[styles.input, { color: color() }]}
-                    autoCapitalize="none"
-                    placeholder="Email"
-                    keyboardType="email-address"
+                    placeholder="Bio"
+                    multiline
                     {...props}
                 />
                 {status === 'success' ?
@@ -116,7 +115,7 @@ const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 }
 
 
-export { DisplayNameInput, EmailInput, PasswordInput }
+export { DisplayNameInput, BioInput, PasswordInput }
 
 const styles = StyleSheet.create({
     container: {
