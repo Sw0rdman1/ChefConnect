@@ -53,11 +53,12 @@ const styles = StyleSheet.create({
     userInformations: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'transparent'
+        paddingHorizontal: 10,
+        paddingVertical: 15,
+        borderRadius: 15,
     },
     userDetails: {
         marginLeft: 10,
-        backgroundColor: 'transparent',
         gap: 2,
     },
     displayName: {

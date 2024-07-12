@@ -19,7 +19,10 @@ const Action: React.FC<ActionProps> = ({ icon, text, pageToGo }) => {
     }
 
     return (
-        <TouchableOpacity onPress={handlePress} style={styles.actionContainer}>
+        <TouchableOpacity
+            onPress={handlePress}
+            style={[styles.actionContainer, { borderBottomColor: `${textColor}10` }]}
+        >
             <View style={styles.leftSide}>
                 {icon && <Ionicons name={icon} size={28} color={tint} />}
                 <Text style={[styles.actionName, { color: textColor }]}>
@@ -49,7 +52,7 @@ export default UserRecipes
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 60,
+        marginTop: 40,
         paddingHorizontal: 20,
         borderRadius: 20,
     },
@@ -60,7 +63,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 20,
         borderBottomWidth: 1,
-        borderBottomColor: 'rgba(0,0,0,0.1)',
     },
     leftSide: {
         flexDirection: 'row',

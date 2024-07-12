@@ -29,7 +29,7 @@ const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
     }
 
     return (
-        <TouchableOpacity onPress={handlePress} style={styles.actionContainer}>
+        <TouchableOpacity onPress={handlePress} style={[styles.actionContainer, { borderBottomColor: `${textColor}10` }]}>
             <View style={styles.leftSide}>
                 {icon && <Ionicons name={icon} size={28} color={logOut ? 'red' : 'gray'} />}
                 <Text style={[styles.actionName, { color: logOut ? 'red' : textColor }]}>
@@ -37,7 +37,7 @@ const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
                 </Text>
             </View>
             <View style={styles.rightSide}>
-                <Ionicons name="chevron-forward" size={28} color={textColor} />
+                <Ionicons name="chevron-forward" size={28} color={logOut ? 'red' : textColor} />
             </View>
 
         </TouchableOpacity>
