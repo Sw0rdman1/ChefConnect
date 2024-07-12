@@ -46,6 +46,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     provider: 'apple',
                     token: credential.identityToken,
                 })
+
+                console.log(user);
+
                 if (!error) {
                     if (credential.fullName?.givenName && credential.fullName?.familyName) {
                         const display_name = credential.fullName?.givenName + " " + credential.fullName?.familyName;
@@ -125,6 +128,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
             setSession(session);
+
 
             if (session?.user) {
                 setUser(session.user);
