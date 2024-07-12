@@ -4,13 +4,17 @@ import { useColors } from '@/hooks/useColors'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router'
+import { useApp } from '@/context/AppContext';
 
 const MyProfileHeader = () => {
     const { text } = useColors()
+    const { user } = useApp()
 
     const goBackHandler = () => {
         router.back()
     }
+
+    if (!user) return null
 
     return (
         <>
@@ -22,10 +26,10 @@ const MyProfileHeader = () => {
             </View>
 
             <View style={styles.userInformations}>
-                <Avatar size={80} />
+                <Avatar size={80} source={user.profilePicture} />
                 <View style={styles.userDetails}>
-                    <Text style={styles.displayName}>Bozidar Vujasinovic</Text>
-                    <Text style={styles.email}>vujasinovicb2019@gmail.com</Text>
+                    <Text style={styles.displayName}>{user.displayName}</Text>
+                    <Text style={styles.email}>{user.email}</Text>
                 </View>
             </View>
         </>

@@ -1,6 +1,7 @@
 import { Redirect, Stack } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import LoadingScreen from '@/components/ui/LoadingScreen';
+import { AppProvider } from '@/context/AppContext';
 
 
 export default function MainScreenLayout() {
@@ -19,9 +20,11 @@ export default function MainScreenLayout() {
     }
 
     return (
-        <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
-            <Stack.Screen name="my-profile" options={{ headerShown: false, animation: 'fade_from_bottom' }} />
-        </Stack>
+        <AppProvider>
+            <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
+                <Stack.Screen name="my-profile" options={{ headerShown: false, animation: 'fade_from_bottom' }} />
+            </Stack>
+        </AppProvider>
     );
 }
