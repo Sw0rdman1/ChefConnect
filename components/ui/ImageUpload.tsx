@@ -6,6 +6,8 @@ import { useColors } from '@/hooks/useColors';
 import { useApp } from '@/context/AppContext';
 import { uploadImage } from '@/services/ImageService';
 import { Image } from 'expo-image';
+import { BlurView } from 'expo-blur';
+import { View } from './Themed';
 
 interface ImagePickerProps {
     imageUrl: string;
@@ -37,25 +39,28 @@ const ImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, setImageUrl }) => {
     };
 
     const renderImage = () => {
-        if (!imageUrl) {
+        if (!imagePreview) {
+            if (imageUrl) {
+                return (
+                    <Image source={{ uri: imageUrl }} style={styles.image} />
+                )
+            }
             return (
-                <Image source={DEFAULT_AVATAR} style={styles.image} />
+                <Image source={{ uri: DEFAULT_AVATAR }} style={styles.image} />
             )
         }
 
-
         if (imagePreview && loading) {
             return (
-                <>
-                    <Image blurRadius={50} source={{ uri: imagePreview.uri }} style={styles.uploadingImage} />
+                <View style={styles.uploadingImage}>
+                    <Image source={imagePreview.uri} style={styles.uploadingImage} />
                     <ActivityIndicator style={styles.spinner} size="large" color={tint} />
-
-                </>
+                </View>
             )
         }
 
         return (
-            <Image source={imageUrl} style={styles.image} />
+            <Image source={imagePreview} style={styles.image} />
         )
 
     }
@@ -102,7 +107,8 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         flex: 1,
-        borderRadius: 100
+        borderRadius: 100,
+        overflow: 'hidden',
     },
     spinner: {
         position: 'absolute',

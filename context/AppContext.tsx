@@ -9,11 +9,13 @@ import { snakeToCamel } from '@/utils/caseConverter';
 interface AppContextProps {
     user: User | null;
     setUser: (user: User | null) => void;
+    refreshUser: () => Promise<void>;
 }
 
 export const AppContext = createContext<AppContextProps>({
     user: null,
     setUser: () => { },
+    refreshUser: async () => { }
 });
 
 interface AppProviderProps {
@@ -23,6 +25,20 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const { user: authUser } = useAuth()
+
+    const refreshUser = async () => {
+        if (authUser) {
+            const { data } = await supabase
+                .from('users')
+                .select('*')
+                .eq('id', authUser.id)
+                .single();
+
+            setUser(snakeToCamel(data));
+        } else {
+            setUser(null);
+        }
+    }
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -45,7 +61,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     }, [authUser])
 
     return (
-        <AppContext.Provider value={{ user, setUser }}>
+        <AppContext.Provider value={{ user, setUser, refreshUser }}>
             {children}
         </AppContext.Provider>
     );

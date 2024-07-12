@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button'
 import { calculateStatus } from '@/utils/helpers'
 import { DisplayNameInput, BioInput } from './EditProfileInputs'
 import ImageUpload from '@/components/ui/ImageUpload'
+import { router } from 'expo-router'
 
 const noUserInitialValues = {
     email: '',
@@ -20,27 +21,41 @@ const noUserInitialValues = {
 }
 
 const EditProfileForm = () => {
-    const { user } = useApp()
+    const { user, refreshUser } = useApp()
     const { showToast } = useToast()
     const initialValues = user ? { ...user } : noUserInitialValues
 
 
     const onSubmitHandler = async (values: typeof initialValues) => {
-        const { email, displayName, id, profilePicture, updated_at } = values
+        const { email, displayName, id, profilePicture, bio } = values
         try {
 
             const updates = {
                 id,
-                displaty_name: displayName,
+                display_name: displayName,
                 profile_picture: profilePicture,
                 email,
+                bio,
                 updated_at: new Date(),
             }
 
-            const { error } = await supabase.from('users').upsert(updates)
+
+            const { error } =
+                await supabase.from('users').
+                    update(updates).
+                    eq('id', id)
+
 
             if (error) {
+                console.log(error);
                 throw error
+            } else {
+                await refreshUser()
+                showToast({
+                    text: 'Profile updated successfully',
+                    severity: 'success'
+                })
+                router.back()
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -80,7 +95,7 @@ const EditProfileForm = () => {
                     />
                     <View style={styles.buttonContainer}>
                         <Button
-                            disabled={Object.keys(errors).length > 0 || Object.keys(touched).length === 0}
+                            disabled={Object.keys(errors).length > 0}
                             onPress={handleSubmit}
                             text={"Edit Profile"}
                         />

@@ -69,7 +69,6 @@ const BioInput: React.FC<InputProps> = ({ status, error, ...props }) => {
                 <TextInput
                     style={[styles.input, { color: color() }]}
                     placeholder="Bio"
-                    multiline
                     {...props}
                 />
                 {status === 'success' ?
@@ -91,7 +90,6 @@ const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
 
     return (
         <View style={styles.container}>
-
             <View style={styles.inputContainer}>
                 <Entypo style={styles.icon} name="lock" size={28} color='gray' />
                 <TextInput
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     inputContainer: {
-        width: width - 50,
+        width: width - 60,
         marginLeft: 10,
         flexDirection: 'row',
         borderColor: 'gray',
