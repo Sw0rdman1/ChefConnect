@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastNotificationContext';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,15 +51,17 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ToastProvider>
-      <AuthProvider>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="(main)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
-          </Stack>
-        </ThemeProvider>
-      </AuthProvider>
-    </ToastProvider>
+    <GestureHandlerRootView>
+      <ToastProvider>
+        <AuthProvider>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Stack>
+              <Stack.Screen name="(main)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
+            </Stack>
+          </ThemeProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </GestureHandlerRootView>
   );
 }
