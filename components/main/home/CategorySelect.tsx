@@ -2,6 +2,7 @@ import { Text, View } from '@/components/ui/Themed'
 import { useCategories } from '@/hooks/useCategories'
 import { useColors } from '@/hooks/useColors'
 import { Image } from 'expo-image'
+import { useState } from 'react'
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 
 interface CategoryEntity {
@@ -34,7 +35,8 @@ const InitialCategories = ({ categories }: { categories: CategoryEntity[] }) => 
 }
 
 const CategorySelect = () => {
-    const categories = useCategories()
+    const [selectedCategory, setSelectedCategory] = useState<CategoryEntity | null>(null)
+    const categories = useCategories(selectedCategory?.id as string)
 
     return (
         <View style={styles.container}>
