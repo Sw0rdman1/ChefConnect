@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { View } from '@/components/ui/Themed'
+import { Text, View } from '@/components/ui/Themed'
 import { useApp } from '@/context/AppContext'
 import { useToast } from '@/context/ToastNotificationContext'
 import { supabase } from '@/config/supabase'
@@ -61,6 +61,9 @@ const ChangePasswordForm = () => {
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View style={styles.container}>
+                    <Text style={styles.title}>
+                        Your password must be at least 6 characters long and something you don't use elsewhere.
+                    </Text>
                     <PasswordInput
                         onChangeText={handleChange('newPassword')}
                         onBlur={handleBlur('newPassword')}
@@ -96,9 +99,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        paddingBottom: 100,
+        marginTop: 10,
         gap: 45,
+    },
+    title: {
+        fontSize: 16,
+        fontWeight: '500',
+        paddingHorizontal: 20,
     },
     buttonContainer: {
         width: '60%',
