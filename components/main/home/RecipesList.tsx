@@ -1,10 +1,12 @@
 import { Text, View } from "@/components/ui/Themed";
 import { useRecipesContext } from "@/context/RecipesContext";
-import { Dimensions, FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import RecipeCard from "./RecipeCard";
+import { useColors } from "@/hooks/useColors";
 
 const RecipesList = () => {
   const { recipes } = useRecipesContext();
+  const { backgroundDarker } = useColors();
 
   if (recipes.length === 0) {
     return (
@@ -20,6 +22,9 @@ const RecipesList = () => {
       data={recipes}
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
       keyExtractor={(recipe) => recipe.id}
+      ListFooterComponent={
+        <View style={{ height: 200, backgroundColor: backgroundDarker }} />
+      }
     />
   );
 };
@@ -30,6 +35,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 10,
-    marginBottom: 50,
+    marginBottom: 10,
+    paddingTop: 120,
   },
 });

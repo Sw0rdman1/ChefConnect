@@ -45,6 +45,45 @@ const recipes: Recipe[] = [
     created_by: "3",
     created_at: "2021-01-03T12:00:00Z",
   },
+  {
+    id: "4",
+    title: "Caesar Salad",
+    description: "A fresh salad",
+    category: "002002",
+    ingredients: ["Lettuce", "Croutons", "Parmesan", "Dressing"],
+    steps: ["Mix ingredients", "Serve cold"],
+    image:
+      "https://www.allrecipes.com/thmb/JTW0AIVY5PFxqLrf_-CDzT4OZQY=/0x512/filters:no_upscale():max_bytes(150000):strip_icc()/229063-Classic-Restaurant-Caesar-Salad-ddmfs-4x3-231-89bafa5e54dd4a8c933cf2a5f9f12a6f.jpg",
+    prepareTime: 15,
+    created_by: "4",
+    created_at: "2021-01-04T12:00:00Z",
+  },
+  {
+    id: "5",
+    title: "Margarita Pizza",
+    description: "A classic pizza",
+    category: "002003",
+    ingredients: ["Dough", "Tomato", "Mozzarella", "Basil"],
+    steps: ["Roll out dough", "Add toppings", "Bake in oven"],
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/c/c8/Pizza_Margherita_stu_spivack.jpg",
+    prepareTime: 30,
+    created_by: "5",
+    created_at: "2021-01-05T12:00:00Z",
+  },
+  {
+    id: "6",
+    title: "Beef Stew",
+    description: "A hearty stew",
+    category: "001002",
+    ingredients: ["Beef", "Potatoes", "Carrots", "Onion"],
+    steps: ["Brown beef", "Add vegetables", "Simmer until tender"],
+    image:
+      "https://mojo.generalmills.com/api/public/content/LASaPpVD5E6LGty8lf97zA_webp_base.webp?v=0971028d&t=e724eca7b3c24a8aaa6e089ed9e611fd",
+    prepareTime: 120,
+    created_by: "6",
+    created_at: "2021-01-06T12:00:00Z",
+  },
 ];
 
 export const useRecipes = (searchTerm: string, category: string) => {

@@ -1,20 +1,15 @@
 import { View } from "@/components/ui/Themed";
 import { StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { useColors } from "@/hooks/useColors";
 import MainScreenHeader from "@/components/main/home/MainScreenHeader";
 import FilterBottomSheet from "@/components/main/home/FilterBottomSheet";
 import RecipesList from "@/components/main/home/RecipesList";
 
 const MainScreen = () => {
-  const { background, backgroundDarker } = useColors();
+  const { backgroundDarker } = useColors();
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={[background, backgroundDarker, backgroundDarker]}
-        style={styles.linearGradient}
-      />
+    <View style={[styles.container, { backgroundColor: backgroundDarker }]}>
       <MainScreenHeader />
       <RecipesList />
       <FilterBottomSheet />
