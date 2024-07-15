@@ -104,7 +104,7 @@ const PasswordInput: React.FC<InputProps> = ({ status, error, ...props }) => {
                     <Ionicons style={styles.icon} name="eye-off" size={28} color='gray' onPress={() => setSecureTextEntry(false)} /> :
                     <Ionicons style={styles.icon} name="eye" size={28} color='gray' onPress={() => setSecureTextEntry(true)} />
                 }
-                {(status === 'error' && error) && <Text style={styles.errorText}>{error}</Text>}
+                {(error) && <Text style={styles.errorText}>{error}</Text>}
             </View>
             <View style={{ width: 25 }} />
         </View>

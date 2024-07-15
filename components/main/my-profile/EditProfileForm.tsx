@@ -29,7 +29,6 @@ const EditProfileForm = () => {
     const onSubmitHandler = async (values: typeof initialValues) => {
         const { email, displayName, id, profilePicture, bio } = values
         try {
-
             const updates = {
                 id,
                 display_name: displayName,
