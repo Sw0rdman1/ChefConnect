@@ -1,4 +1,4 @@
-import { Recipe } from "@/models/Recipe";
+import Recipe from "@/models/Recipe";
 
 const recipes: Recipe[] = [
   {
@@ -13,7 +13,8 @@ const recipes: Recipe[] = [
       "Mix eggs and cheese",
       "Combine everything",
     ],
-    image: "https://images.unsplash.com/photo-1606783566129-0e8f3f6e9f3d",
+    image:
+      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-1001491_11-2e0fa5c.jpg?quality=90&resize=440,400",
     prepareTime: 30,
     created_by: "1",
     created_at: "2021-01-01T12:00:00Z",
@@ -25,7 +26,8 @@ const recipes: Recipe[] = [
     category: "001004",
     ingredients: ["Chicken", "Onion", "Tomato", "Spices"],
     steps: ["Fry onion", "Add chicken and spices", "Cook until done"],
-    image: "https://images.unsplash.com/photo-1606783566129-0e8f3f6e9f3d",
+    image:
+      "https://www.allrecipes.com/thmb/FL-xnyAllLyHcKdkjUZkotVlHR8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/46822-indian-chicken-curry-ii-DDMFS-4x3-39160aaa95674ee395b9d4609e3b0988.jpg",
     prepareTime: 45,
     created_by: "2",
     created_at: "2021-01-02T12:00:00Z",
@@ -37,7 +39,8 @@ const recipes: Recipe[] = [
     category: "002001",
     ingredients: ["Flour", "Sugar", "Cocoa", "Eggs"],
     steps: ["Mix ingredients", "Bake in oven", "Cool and serve"],
-    image: "https://images.unsplash.com/photo-1606783566129-0e8f3f6e9f3d",
+    image:
+      "https://sallysbakingaddiction.com/wp-content/uploads/2013/04/triple-chocolate-cake-4.jpg",
     prepareTime: 60,
     created_by: "3",
     created_at: "2021-01-03T12:00:00Z",

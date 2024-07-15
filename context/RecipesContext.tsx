@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { Recipe } from "@/models/Recipe";
+import Recipe from "@/models/Recipe";
 import { useRecipes } from "@/hooks/useRecipes";
 
 interface RecipesContextProps {

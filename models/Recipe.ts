@@ -1,4 +1,4 @@
-export interface Recipe {
+export default interface Recipe {
   id: string;
   title: string;
   description: string;

@@ -4,24 +4,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useColors } from "@/hooks/useColors";
 import MainScreenHeader from "@/components/main/home/MainScreenHeader";
 import FilterBottomSheet from "@/components/main/home/FilterBottomSheet";
-import { useRecipesContext } from "@/context/RecipesContext";
-import { useEffect } from "react";
+import RecipesList from "@/components/main/home/RecipesList";
 
 const MainScreen = () => {
   const { background, backgroundDarker } = useColors();
-  const { recipes } = useRecipesContext();
-
-  useEffect(() => {
-    console.log(recipes.length);
-  }, [recipes]);
 
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={[background, background, backgroundDarker]}
+        colors={[background, backgroundDarker, backgroundDarker]}
         style={styles.linearGradient}
       />
       <MainScreenHeader />
+      <RecipesList />
       <FilterBottomSheet />
     </View>
   );
