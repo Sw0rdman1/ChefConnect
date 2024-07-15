@@ -1,30 +1,42 @@
-import { Redirect, Stack } from 'expo-router';
-import { useAuth } from '@/context/AuthContext';
-import LoadingScreen from '@/components/ui/LoadingScreen';
-import { AppProvider } from '@/context/AppContext';
-
+import { Redirect, Stack } from "expo-router";
+import { useAuth } from "@/context/AuthContext";
+import LoadingScreen from "@/components/ui/LoadingScreen";
+import { AppProvider } from "@/context/AppContext";
+import { RecipeProvider } from "@/context/RecipesContext";
 
 export default function MainScreenLayout() {
-    const { isLoading, session } = useAuth();
+  const { isLoading, session } = useAuth();
 
-    if (isLoading) {
-        return <LoadingScreen />;
-    }
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
-    if (!session || !session.user) {
-        return <Redirect href="(auth)" />;
-    }
+  if (!session || !session.user) {
+    return <Redirect href="(auth)" />;
+  }
 
-    if (session.user && session.user.email_confirmed_at === null) {
-        return <Redirect href="(auth)/confirm-email" />;
-    }
+  if (session.user && session.user.email_confirmed_at === null) {
+    return <Redirect href="(auth)/confirm-email" />;
+  }
 
-    return (
-        <AppProvider>
-            <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false, animation: 'fade_from_bottom', gestureEnabled: false }} />
-                <Stack.Screen name="(my-profile)" options={{ headerShown: false, animation: 'fade_from_bottom' }} />
-            </Stack>
-        </AppProvider>
-    );
+  return (
+    <AppProvider>
+      <RecipeProvider>
+        <Stack>
+          <Stack.Screen
+            name="index"
+            options={{
+              headerShown: false,
+              animation: "fade_from_bottom",
+              gestureEnabled: false,
+            }}
+          />
+          <Stack.Screen
+            name="(my-profile)"
+            options={{ headerShown: false, animation: "fade_from_bottom" }}
+          />
+        </Stack>
+      </RecipeProvider>
+    </AppProvider>
+  );
 }

@@ -5,35 +5,35 @@ import { useRecipes } from "@/hooks/useRecipes";
 interface RecipesContextProps {
   recipes: Recipe[];
   searchTerm: string;
-  category: string;
+  selectedCategoryID: string;
   setSearchTerm: (value: string) => void;
-  setCategory: (value: string) => void;
+  setSelectedCategoryID: (value: string) => void;
 }
 
 export const RecipesContext = createContext<RecipesContextProps>({
   recipes: [],
   searchTerm: "",
-  category: "",
+  selectedCategoryID: "",
   setSearchTerm: () => {},
-  setCategory: () => {},
+  setSelectedCategoryID: () => {},
 });
 
-interface AppProviderProps {
+interface RecipeProviderProps {
   children: React.ReactNode;
 }
 
-export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
+export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [category, setCategory] = useState("");
-  const recipes = useRecipes(searchTerm, category);
+  const [selectedCategoryID, setSelectedCategoryID] = useState("");
+  const recipes = useRecipes(searchTerm, selectedCategoryID);
 
   return (
     <RecipesContext.Provider
       value={{
         recipes,
-        category,
+        selectedCategoryID,
         searchTerm,
-        setCategory,
+        setSelectedCategoryID,
         setSearchTerm,
       }}
     >
