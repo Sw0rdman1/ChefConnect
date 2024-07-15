@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        aspectRatio: 1,
         borderRadius: 20,
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.3,

@@ -20,7 +20,7 @@ const FilterBottomSheet = () => {
     return (
         <BottomSheet
             backgroundStyle={{ backgroundColor: background }}
-            snapPoints={[60, '60%']}
+            snapPoints={[60, 480]}
             ref={bottomSheetRef}
             onChange={handleSheetChanges}
             backdropComponent={(backdropProps) => (
