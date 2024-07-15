@@ -1,9 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Category } from '@/models/Category'
 import { Image } from 'expo-image'
 import { Ionicons } from '@expo/vector-icons'
 import { useColors } from '@/hooks/useColors'
+import { Text, View } from '@/components/ui/Themed'
 
 interface SelectedCategoryProps {
     selectedCategory: Category | undefined
@@ -41,7 +42,7 @@ const SelectedCategory: React.FC<SelectedCategoryProps> = ({ selectedCategory, c
                         <View style={[styles.lastCategory, { backgroundColor: background, shadowColor: text }]}>
                             <View style={styles.categoryInfo}>
                                 <Image source={selectedCategory.image} style={{ width: 50, height: 50 }} />
-                                <Text style={[styles.lastCategoryText, { color: tint }]}>
+                                <Text style={[styles.lastCategoryText, { color: text }]}>
                                     {selectedCategory.name}
                                 </Text>
                             </View>
