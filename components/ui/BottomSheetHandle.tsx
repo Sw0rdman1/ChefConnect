@@ -2,12 +2,13 @@ import React, { useMemo } from "react";
 import { StyleProp, StyleSheet, ViewStyle } from "react-native";
 import { BottomSheetHandleProps } from "@gorhom/bottom-sheet";
 import Animated, {
-    Extrapolate,
+    Extrapolation,
     interpolate,
     useAnimatedStyle,
     useDerivedValue,
 } from "react-native-reanimated";
 import { toRad } from "react-native-redash";
+import { useColors } from "@/hooks/useColors";
 
 // @ts-ignore
 export const transformOrigin = ({ x, y }, ...transformations) => {
@@ -26,20 +27,19 @@ interface HandleProps extends BottomSheetHandleProps {
 }
 
 const Handle: React.FC<HandleProps> = ({ style, animatedIndex }) => {
-    //#region animations
-    const indicatorTransformOriginY = useDerivedValue(() =>
-        interpolate(animatedIndex.value, [0, 1, 2], [-1, 0, 1], Extrapolate.CLAMP)
-    );
-    //#endregion
+    const { background, tint } = useColors()
 
-    //#region styles
-    const containerStyle = useMemo(() => [styles.header, style], [style]);
+    const indicatorTransformOriginY = useDerivedValue(() =>
+        interpolate(animatedIndex.value, [0, 1, 2], [-1, 0, 1], Extrapolation.CLAMP)
+    );
+
+    const containerStyle = useMemo(() => [styles.header, style, { borderBottomColor: background }], [style]);
     const containerAnimatedStyle = useAnimatedStyle(() => {
         const borderTopRadius = interpolate(
             animatedIndex.value,
             [1, 2],
             [20, 0],
-            Extrapolate.CLAMP
+            Extrapolation.CLAMP
         );
         return {
             borderTopLeftRadius: borderTopRadius,
@@ -48,8 +48,10 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex }) => {
     });
     const leftIndicatorStyle = useMemo(
         () => ({
+            backgroundColor: tint,
             ...styles.indicator,
             ...styles.leftIndicator,
+
         }),
         []
     );
@@ -58,7 +60,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex }) => {
             animatedIndex.value,
             [0, 1, 2],
             [toRad(-30), 0, toRad(30)],
-            Extrapolate.CLAMP
+            Extrapolation.CLAMP
         );
         return {
             transform: transformOrigin(
@@ -67,13 +69,14 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex }) => {
                     rotate: `${leftIndicatorRotate}rad`,
                 },
                 {
-                    translateX: -5,
+                    translateX: -7,
                 }
             ),
         };
     });
     const rightIndicatorStyle = useMemo(
         () => ({
+            backgroundColor: tint,
             ...styles.indicator,
             ...styles.rightIndicator,
         }),
@@ -84,7 +87,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex }) => {
             animatedIndex.value,
             [0, 1, 2],
             [toRad(30), 0, toRad(-30)],
-            Extrapolate.CLAMP
+            Extrapolation.CLAMP
         );
         return {
             transform: transformOrigin(
@@ -93,7 +96,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex }) => {
                     rotate: `${rightIndicatorRotate}rad`,
                 },
                 {
-                    translateX: 5,
+                    translateX: 7,
                 }
             ),
         };
@@ -103,7 +106,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex }) => {
     // render
     return (
         <Animated.View
-            style={[containerStyle, containerAnimatedStyle]}
+            style={[containerStyle, containerAnimatedStyle, { backgroundColor: background }]}
             renderToHardwareTextureAndroid={true}
         >
             <Animated.View style={[leftIndicatorStyle, leftIndicatorAnimatedStyle]} />
@@ -122,15 +125,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "white",
-        paddingVertical: 14,
+        height: 40,
         borderBottomWidth: 1,
-        borderBottomColor: "#fff",
     },
     indicator: {
         position: "absolute",
-        width: 10,
+        width: 15,
         height: 4,
-        backgroundColor: "#999",
     },
     leftIndicator: {
         borderTopStartRadius: 2,

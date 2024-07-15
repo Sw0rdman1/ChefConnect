@@ -1,18 +1,16 @@
-import MainScreenHeader from '@/components/main/home/MainScreenHeader'
 import { View } from '@/components/ui/Themed'
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useColors } from '@/hooks/useColors';
+import MainScreenHeader from '@/components/main/home/MainScreenHeader'
 import FilterBottomSheet from '@/components/main/home/FilterBottomSheet';
 
-const { height } = Dimensions.get('window')
-
 const MainScreen = () => {
-    const { background, tintBackground } = useColors()
+    const { background, backgroundDarker } = useColors()
 
     return (
         <View style={styles.container}>
-            <LinearGradient colors={[tintBackground, background, background]} style={styles.linearGradient} />
+            <LinearGradient colors={[background, background, backgroundDarker]} style={styles.linearGradient} />
             <MainScreenHeader />
             <FilterBottomSheet />
         </View>
@@ -31,6 +29,5 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        height: height / 2
     },
 })
