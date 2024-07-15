@@ -13,10 +13,14 @@ const categories = [
     { id: '002003', name: 'Pies', image: require('../assets/images/main/categories/002003.png') },
 ]
 
-export function useCategories(selectedCategory: string) {
-    if (selectedCategory) {
-        return categories.filter(category => category.id.startsWith(selectedCategory))
+export function useCategories(selectedCategoryID: string) {
+    if (selectedCategoryID) {
+        return categories.filter(category => category.id.startsWith(selectedCategoryID) && category.id.length !== selectedCategoryID.length)
     } else {
         return categories.filter(category => category.id.length === 3)
     }
+}
+
+export function useSelectedCategory(selectedCategoryID: string) {
+    return categories.find(category => category.id === selectedCategoryID)
 }
