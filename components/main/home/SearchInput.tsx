@@ -15,7 +15,7 @@ const SearchInput = () => {
             <BottomSheetTextInput
                 value={searchTerm}
                 onChangeText={setSearchTerm}
-                placeholder="Search for recipes"
+                placeholder="Search recipes by name"
                 placeholderTextColor={placeholderText}
 
                 style={[styles.textInput, { color: text }]}

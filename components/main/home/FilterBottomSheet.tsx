@@ -5,6 +5,7 @@ import { useCallback, useRef } from 'react';
 import Handle from '../../ui/BottomSheetHandle';
 import SearchInput from './SearchInput';
 import { useColors } from '@/hooks/useColors';
+import CategorySelect from './CategorySelect';
 
 const { width } = Dimensions.get('window')
 
@@ -19,7 +20,7 @@ const FilterBottomSheet = () => {
     return (
         <BottomSheet
             backgroundStyle={{ backgroundColor: background }}
-            snapPoints={[60, '50%']}
+            snapPoints={[60, '60%']}
             ref={bottomSheetRef}
             onChange={handleSheetChanges}
             backdropComponent={(backdropProps) => (
@@ -35,6 +36,7 @@ const FilterBottomSheet = () => {
             <BottomSheetView style={[styles.container, { backgroundColor: background }]}>
                 <Text style={styles.title}>Find that one recipe you love</Text>
                 <SearchInput />
+                <CategorySelect />
             </BottomSheetView>
         </BottomSheet>
     )
@@ -45,11 +47,11 @@ export default FilterBottomSheet
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width,
+        width: '100%',
         paddingHorizontal: 20,
     },
     title: {
-        fontSize: 22,
+        fontSize: 23,
         fontWeight: '800',
         marginVertical: 20,
     },
