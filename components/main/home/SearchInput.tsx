@@ -1,4 +1,4 @@
-import { View } from "@/components/ui/Themed";
+import { TextInput, View } from "@/components/ui/Themed";
 import { StyleSheet } from "react-native";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,7 +14,7 @@ const SearchInput = () => {
       style={[styles.inputContainer, { backgroundColor: backgroundDarker }]}
     >
       <Ionicons name="search" size={24} color={text} />
-      <BottomSheetTextInput
+      <TextInput
         value={searchTerm}
         onChangeText={setSearchTerm}
         placeholder="Search recipes by name"
@@ -42,5 +42,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontSize: 16,
     fontWeight: "500",
+    backgroundColor: 'transparent'
   },
 });

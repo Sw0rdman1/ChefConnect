@@ -5,17 +5,19 @@ import { Image } from "expo-image";
 import { useColors } from "@/hooks/useColors";
 import { Ionicons } from "@expo/vector-icons";
 
+const BORDER_RADIUS = 15;
+
 interface RecipeCardProps {
   recipe: RecipeEntity;
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
-  const { background } = useColors();
+  const { background, text } = useColors();
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={[styles.container, { backgroundColor: background }]}
+      style={[styles.container, { backgroundColor: background, shadowColor: text }]}
     >
       <Image
         contentFit="fill"
@@ -39,22 +41,30 @@ export default RecipeCard;
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    padding: 5,
     marginHorizontal: 15,
-    marginVertical: 10,
-    height: 175,
-    borderRadius: 10,
-    gap: 10,
+    marginVertical: 15,
+    height: 160,
+    borderRadius: BORDER_RADIUS,
+    gap: 5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   image: {
-    height: "100%",
+    height: '100%',
     aspectRatio: 1,
-    borderRadius: 10,
+    borderTopLeftRadius: BORDER_RADIUS,
+    borderBottomLeftRadius: BORDER_RADIUS,
+
   },
   textContainer: {
     flex: 1,
+    marginTop: 5,
     padding: 5,
     gap: 5,
+    borderTopRightRadius: BORDER_RADIUS,
+    borderBottomRightRadius: BORDER_RADIUS,
   },
   title: {
     fontSize: 18,
@@ -66,7 +76,7 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   prepareTimeContainer: {
-    marginTop: 10,
+    marginTop: 5,
     flexDirection: "row",
     gap: 5,
     alignItems: "center",

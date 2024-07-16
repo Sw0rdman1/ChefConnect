@@ -16,7 +16,7 @@ const FilterBottomSheet = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const { background } = useColors();
 
-  const handleSheetChanges = useCallback((index: number) => {}, []);
+  const handleSheetChanges = useCallback((index: number) => { }, []);
 
   return (
     <BottomSheet

@@ -8,21 +8,19 @@ import { BlurView } from "expo-blur";
 
 const MainScreenHeader = () => {
   const { top } = useSafeAreaInsets();
-  const { tint, background } = useColors();
+  const { tint } = useColors();
   const { user } = useApp();
 
   return (
-    <BlurView
-      intensity={90}
-      tint="systemMaterial"
+    <View
       style={[
         styles.container,
-        { paddingTop: top + 5, backgroundColor: background },
+        { paddingTop: top + 5 },
       ]}
     >
-      <Avatar size={40} href="(my-profile)" source={user?.profilePicture} />
       <Text style={[styles.title, { color: tint }]}>ChefConnect</Text>
-    </BlurView>
+      <Avatar size={35} href="(my-profile)" source={user?.profilePicture} />
+    </View>
   );
 };
 
