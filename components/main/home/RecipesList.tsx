@@ -3,7 +3,7 @@ import { useRecipesContext } from "@/context/RecipesContext";
 import { FlatList, StyleSheet } from "react-native";
 import RecipeCard from "./RecipeCard";
 import { useColors } from "@/hooks/useColors";
-import MainScreenHeader from "./MainScreenHeader";
+import RecipeListHeader from "./RecipeListHeader";
 
 const RecipesList = () => {
   const { recipes } = useRecipesContext();
@@ -12,7 +12,7 @@ const RecipesList = () => {
   if (recipes.length === 0) {
     return (
       <View style={styles.container}>
-        <MainScreenHeader />
+        <RecipeListHeader />
         <Text style={styles.text}>
           Unfortunatly, we couldn't find any recipes for you. 🥺
         </Text>
@@ -22,15 +22,15 @@ const RecipesList = () => {
 
   return (
     <FlatList
-      ListHeaderComponent={<MainScreenHeader />}
-      stickyHeaderIndices={[0]}
-      stickyHeaderHiddenOnScroll
-      style={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor: 'transparent' }}
       data={recipes}
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
       keyExtractor={(recipe) => recipe.id}
+      ListHeaderComponent={
+        <View style={{ height: 180, backgroundColor: 'transparent' }} />
+      }
       ListFooterComponent={
-        <View style={{ height: 100, backgroundColor: backgroundDarker }} />
+        <View style={{ height: 100, backgroundColor: 'transparent' }} />
       }
     />
   );
