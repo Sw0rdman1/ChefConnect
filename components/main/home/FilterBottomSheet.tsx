@@ -1,29 +1,29 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Text } from "@/components/ui/Themed";
 import BottomSheet, {
   BottomSheetView,
   BottomSheetBackdrop,
 } from "@gorhom/bottom-sheet";
-import { useCallback, useRef } from "react";
 import Handle from "../../ui/BottomSheetHandle";
 import SearchInput from "./SearchInput";
 import { useColors } from "@/hooks/useColors";
 import CategorySelect from "./CategorySelect";
 
-const { width } = Dimensions.get("window");
 
-const FilterBottomSheet = () => {
-  const bottomSheetRef = useRef<BottomSheet>(null);
+interface FilterBottomSheetProps {
+  bottomSheetRef: React.RefObject<BottomSheet>;
+}
+
+const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ bottomSheetRef }) => {
   const { background } = useColors();
 
-  const handleSheetChanges = useCallback((index: number) => { }, []);
 
   return (
     <BottomSheet
       backgroundStyle={{ backgroundColor: background }}
       snapPoints={[60, 480]}
+      enablePanDownToClose={true}
       ref={bottomSheetRef}
-      onChange={handleSheetChanges}
       backdropComponent={(backdropProps) => (
         <BottomSheetBackdrop {...backdropProps} enableTouchThrough={true} />
       )}

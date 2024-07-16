@@ -4,15 +4,22 @@ import { useColors } from "@/hooks/useColors";
 import MainScreenHeader from "@/components/main/home/MainScreenHeader";
 import FilterBottomSheet from "@/components/main/home/FilterBottomSheet";
 import RecipesList from "@/components/main/home/RecipesList";
+import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet";
+import { useRef } from "react";
 
 const MainScreen = () => {
   const { backgroundDarker } = useColors();
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const openFilterBottomSheet = () => {
+    bottomSheetRef.current?.expand();
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: backgroundDarker }]}>
-      <MainScreenHeader />
+      <MainScreenHeader openFilterBottomSheet={openFilterBottomSheet} />
       <RecipesList />
-      <FilterBottomSheet />
+      <FilterBottomSheet bottomSheetRef={bottomSheetRef} />
     </View>
   );
 };

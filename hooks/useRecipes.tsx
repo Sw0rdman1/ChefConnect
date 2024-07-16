@@ -139,13 +139,13 @@ export const useRecipes = (searchTerm: string, category: string) => {
 
   if (searchTerm) {
     filteredRecipes = filteredRecipes.filter((recipe) =>
-      recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
+      recipe.title.toLowerCase().startsWith(searchTerm.toLowerCase())
     );
   }
 
   if (category) {
     filteredRecipes = filteredRecipes.filter(
-      (recipe) => recipe.category === category
+      (recipe) => recipe.category.toLowerCase().startsWith(category.toLowerCase())
     );
   }
 

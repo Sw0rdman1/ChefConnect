@@ -22,12 +22,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       activeOpacity={0.7}
       style={[styles.container, { backgroundColor: background, shadowColor: text }]}
     >
-      <View style={styles.creatorContainer}>
-        <Avatar size={25} source={recipe.createdBy.profilePicture} />
-        <Text style={styles.creator}>
-          {recipe.createdBy.displayName}
-        </Text>
-      </View>
       <Image
         contentFit="fill"
         source={{ uri: recipe.image }}
@@ -72,7 +66,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    aspectRatio: 1,
+    aspectRatio: 1.1,
     borderTopLeftRadius: BORDER_RADIUS,
     borderBottomLeftRadius: BORDER_RADIUS,
   },
@@ -101,23 +95,6 @@ const styles = StyleSheet.create({
   },
   prepareTime: {
     fontSize: 14,
-    fontWeight: "600",
-    color: "gray",
-  },
-  creatorContainer: {
-    position: 'absolute',
-    bottom: 5,
-    left: 5,
-    zIndex: 100,
-    borderRadius: 20,
-    marginTop: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
-    paddingRight: 10
-  },
-  creator: {
-    fontSize: 16,
     fontWeight: "600",
     color: "gray",
   },

@@ -4,9 +4,14 @@ import Avatar from "../../ui/Avatar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "@/hooks/useColors";
 import { useApp } from "@/context/AppContext";
-import { BlurView } from "expo-blur";
+import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
-const MainScreenHeader = () => {
+interface MainScreenHeaderProps {
+  openFilterBottomSheet: () => void;
+}
+
+const MainScreenHeader: React.FC<MainScreenHeaderProps> = ({ openFilterBottomSheet }) => {
   const { top } = useSafeAreaInsets();
   const { tint } = useColors();
   const { user } = useApp();
@@ -18,8 +23,11 @@ const MainScreenHeader = () => {
         { paddingTop: top + 5 },
       ]}
     >
-      <Text style={[styles.title, { color: tint }]}>ChefConnect</Text>
       <Avatar size={35} href="(my-profile)" source={user?.profilePicture} />
+      <Text style={[styles.title, { color: tint }]}>ChefConnect</Text>
+      <TouchableOpacity activeOpacity={0.7} onPress={openFilterBottomSheet}>
+        <Ionicons name="filter" size={22} color={tint} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -28,17 +36,11 @@ export default MainScreenHeader;
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
     paddingHorizontal: 20,
     paddingBottom: 25,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
   },
   title: {
     fontSize: 32,

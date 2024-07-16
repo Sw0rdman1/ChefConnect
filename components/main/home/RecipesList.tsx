@@ -34,8 +34,7 @@ export default RecipesList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
     marginBottom: 10,
-    paddingTop: 120,
+    paddingTop: 10,
   },
 });
