@@ -3,6 +3,7 @@ import { useRecipesContext } from "@/context/RecipesContext";
 import { FlatList, StyleSheet } from "react-native";
 import RecipeCard from "./RecipeCard";
 import { useColors } from "@/hooks/useColors";
+import MainScreenHeader from "./MainScreenHeader";
 
 const RecipesList = () => {
   const { recipes } = useRecipesContext();
@@ -18,6 +19,9 @@ const RecipesList = () => {
 
   return (
     <FlatList
+      ListHeaderComponent={<MainScreenHeader />}
+      stickyHeaderIndices={[0]}
+      stickyHeaderHiddenOnScroll
       style={styles.container}
       data={recipes}
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
@@ -35,6 +39,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginBottom: 10,
-    paddingTop: 10,
   },
 });

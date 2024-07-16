@@ -8,7 +8,6 @@ import BottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSh
 import { useRef } from "react";
 
 const MainScreen = () => {
-  const { backgroundDarker } = useColors();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const openFilterBottomSheet = () => {
@@ -16,8 +15,7 @@ const MainScreen = () => {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: backgroundDarker }]}>
-      <MainScreenHeader openFilterBottomSheet={openFilterBottomSheet} />
+    <View style={styles.container}>
       <RecipesList />
       <FilterBottomSheet bottomSheetRef={bottomSheetRef} />
     </View>

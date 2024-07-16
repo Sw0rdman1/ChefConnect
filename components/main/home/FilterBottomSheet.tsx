@@ -22,7 +22,6 @@ const FilterBottomSheet: React.FC<FilterBottomSheetProps> = ({ bottomSheetRef })
     <BottomSheet
       backgroundStyle={{ backgroundColor: background }}
       snapPoints={[60, 480]}
-      enablePanDownToClose={true}
       ref={bottomSheetRef}
       backdropComponent={(backdropProps) => (
         <BottomSheetBackdrop {...backdropProps} enableTouchThrough={true} />
