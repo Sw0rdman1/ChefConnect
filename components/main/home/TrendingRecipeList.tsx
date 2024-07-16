@@ -1,8 +1,10 @@
 import { Text, View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors'
+import { useTrenindRecipes } from '@/hooks/useRecipes'
 import { useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import RecipeCard from './RecipeCard'
 
 interface CategoryProps {
     title: string,
@@ -21,6 +23,8 @@ const Category: React.FC<CategoryProps> = ({ title, selected, onPress }) => {
 
 const TrendingRecipeList = () => {
     const [selectedCategory, setSelectedCategory] = useState<'trending' | 'bestRated' | 'new'>('trending')
+    const recipes = useTrenindRecipes(selectedCategory)
+
     return (
         <View style={styles.container}>
             <View style={styles.categorySelectContainer}>
@@ -28,6 +32,18 @@ const TrendingRecipeList = () => {
                 <Category title="New 🆕" selected={selectedCategory === 'new'} onPress={() => setSelectedCategory('new')} />
                 <Category title="Best Rated ✅" selected={selectedCategory === 'bestRated'} onPress={() => setSelectedCategory('bestRated')} />
             </View>
+            <FlatList
+                data={recipes}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={recipe => recipe.id}
+                renderItem={({ item: recipe }) => (
+                    <RecipeCard recipe={recipe} horizontal />
+                )}
+            />
+            <Text style={styles.title}>
+                All recipes
+            </Text>
         </View>
     )
 }
@@ -37,6 +53,7 @@ export default TrendingRecipeList
 const styles = StyleSheet.create({
     container: {
         paddingTop: 170,
+        backgroundColor: 'transparent'
     },
     categorySelectContainer: {
         flexDirection: 'row',
@@ -54,6 +71,13 @@ const styles = StyleSheet.create({
     categoryText: {
         fontSize: 14,
         fontWeight: 'bold'
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        marginHorizontal: 20,
+        marginTop: 30
     }
 
 })

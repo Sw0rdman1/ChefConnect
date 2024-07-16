@@ -11,21 +11,28 @@ const BORDER_RADIUS = 15;
 
 interface RecipeCardProps {
   recipe: RecipeEntity;
+  horizontal?: boolean;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
-  const { background, text, tint, tintLowOpacity, backgroundDarker } = useColors();
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
+  const { background, text, tint, tintLowOpacity } = useColors();
   const [isSaved, setIsSaved] = useState(false);
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={[styles.container, { backgroundColor: background, shadowColor: text }]}
-    >
+      style={[styles.container,
+      {
+        paddingRight: horizontal ? 15 : 0,
+        height: horizontal ? 100 : 150,
+        backgroundColor: background,
+        shadowColor: text
+      }
+      ]}>
       <Image
         contentFit="fill"
         source={{ uri: recipe.image }}
-        style={styles.image}
+        style={[styles.image, { width: horizontal ? 100 : 150 }]}
       />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{recipe.title}</Text>
@@ -34,16 +41,17 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           <Ionicons name="time-sharp" size={16} color="gray" />
           <Text style={styles.prepareTime}>{recipe.prepareTime} minutes</Text>
         </View>
-        <TouchableOpacity
-          style={[styles.saveButton, { backgroundColor: isSaved ? tintLowOpacity : background, shadowColor: isSaved ? tintLowOpacity : text }]}
-          onPress={() => setIsSaved(!isSaved)}
-        >
-          <Text style={[styles.saveText, { color: tint }]}>
-            {isSaved ? 'Saved' : 'Save'}
-          </Text>
-          <Ionicons name={isSaved ? 'bookmark' : 'bookmark-outline'} size={18} color={tint} />
-
-        </TouchableOpacity>
+        {!horizontal &&
+          <TouchableOpacity
+            style={[styles.saveButton, { backgroundColor: isSaved ? tintLowOpacity : background, shadowColor: isSaved ? tintLowOpacity : text }]}
+            onPress={() => setIsSaved(!isSaved)}
+          >
+            <Text style={[styles.saveText, { color: tint }]}>
+              {isSaved ? 'Saved' : 'Save'}
+            </Text>
+            <Ionicons name={isSaved ? 'bookmark' : 'bookmark-outline'} size={18} color={tint} />
+          </TouchableOpacity>
+        }
 
       </View>
     </TouchableOpacity >
@@ -66,7 +74,6 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    aspectRatio: 1.1,
     borderTopLeftRadius: BORDER_RADIUS,
     borderBottomLeftRadius: BORDER_RADIUS,
   },

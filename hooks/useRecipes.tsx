@@ -151,3 +151,15 @@ export const useRecipes = (searchTerm: string, category: string) => {
 
   return filteredRecipes;
 };
+
+export const useTrenindRecipes = (selectedCategory: 'trending' | 'bestRated' | 'new') => {
+  if (selectedCategory === 'trending') {
+    return recipes.slice(0, 3)
+  }
+  if (selectedCategory === 'bestRated') {
+    return recipes.slice(1, 4)
+  }
+  if (selectedCategory === 'new') {
+    return recipes.slice(2, 5)
+  }
+}
