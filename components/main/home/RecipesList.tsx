@@ -4,10 +4,10 @@ import { FlatList, StyleSheet } from "react-native";
 import RecipeCard from "./RecipeCard";
 import { useColors } from "@/hooks/useColors";
 import RecipeListHeader from "./RecipeListHeader";
+import TrendingRecipeList from "./TrendingRecipeList";
 
 const RecipesList = () => {
-  const { recipes } = useRecipesContext();
-  const { backgroundDarker } = useColors();
+  const { recipes, searchTerm, selectedCategoryID } = useRecipesContext();
 
   if (recipes.length === 0) {
     return (
@@ -27,7 +27,7 @@ const RecipesList = () => {
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
       keyExtractor={(recipe) => recipe.id}
       ListHeaderComponent={
-        <View style={{ height: 180, backgroundColor: 'transparent' }} />
+        (!searchTerm && !selectedCategoryID) ? <TrendingRecipeList /> : <View style={{ height: 170 }} />
       }
       ListFooterComponent={
         <View style={{ height: 100, backgroundColor: 'transparent' }} />

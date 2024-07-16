@@ -41,7 +41,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           <Text style={[styles.saveText, { color: tint }]}>
             {isSaved ? 'Saved' : 'Save'}
           </Text>
-          <Ionicons name={isSaved ? 'bookmark' : 'bookmark-outline'} size={20} color={tint} />
+          <Ionicons name={isSaved ? 'bookmark' : 'bookmark-outline'} size={18} color={tint} />
 
         </TouchableOpacity>
 

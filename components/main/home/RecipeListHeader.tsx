@@ -4,6 +4,8 @@ import Avatar from "../../ui/Avatar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useApp } from "@/context/AppContext";
 import { BlurView } from "expo-blur";
+import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import { router } from "expo-router";
 
 const RecipeListHeader = () => {
   const { top } = useSafeAreaInsets();
@@ -34,7 +36,7 @@ const RecipeListHeader = () => {
         <Text style={[styles.subtitle]}>{generateGreeting()}</Text>
         <Text style={[styles.title]}>{`What would you like to eat for ${generateMeal()}`}</Text>
       </View>
-      <Avatar size={50} source={user?.profilePicture} />
+      <Avatar size={50} source={user?.profilePicture} href="(my-profile)" />
 
     </BlurView>
   );
@@ -44,6 +46,8 @@ export default RecipeListHeader;
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
+    height: 160,
     position: 'absolute',
     top: 0,
     left: 0,

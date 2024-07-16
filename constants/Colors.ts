@@ -1,5 +1,5 @@
 const tint = '#FF9800';
-const tintLowOpacity = `${tint}40`;
+const tintLowOpacity = `${tint}20`;
 export default {
   light: {
     text: '#333333',
