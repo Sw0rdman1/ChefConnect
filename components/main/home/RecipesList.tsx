@@ -12,7 +12,10 @@ const RecipesList = () => {
   if (recipes.length === 0) {
     return (
       <View style={styles.container}>
-        <Text>No recipes found</Text>
+        <MainScreenHeader />
+        <Text style={styles.text}>
+          Unfortunatly, we couldn't find any recipes for you. 🥺
+        </Text>
       </View>
     );
   }
@@ -22,12 +25,12 @@ const RecipesList = () => {
       ListHeaderComponent={<MainScreenHeader />}
       stickyHeaderIndices={[0]}
       stickyHeaderHiddenOnScroll
-      style={styles.container}
+      style={{ flex: 1 }}
       data={recipes}
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
       keyExtractor={(recipe) => recipe.id}
       ListFooterComponent={
-        <View style={{ height: 200, backgroundColor: backgroundDarker }} />
+        <View style={{ height: 100, backgroundColor: backgroundDarker }} />
       }
     />
   );
@@ -38,6 +41,14 @@ export default RecipesList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 10,
+    gap: 50,
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "500",
+    paddingHorizontal: 50,
+    textAlign: "center",
+
   },
 });
