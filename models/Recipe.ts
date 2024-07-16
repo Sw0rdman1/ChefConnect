@@ -1,3 +1,5 @@
+import User from "./User";
+
 export default interface Recipe {
   id: string;
   title: string;
@@ -7,6 +9,6 @@ export default interface Recipe {
   steps: string[];
   image: string;
   prepareTime: number;
-  created_by: string; // User ID
+  createdBy: User;
   created_at: string;
 }

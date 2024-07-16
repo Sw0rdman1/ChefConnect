@@ -16,7 +16,15 @@ const recipes: Recipe[] = [
     image:
       "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-1001491_11-2e0fa5c.jpg?quality=90&resize=440,400",
     prepareTime: 30,
-    created_by: "1",
+    createdBy: {
+      displayName: 'Bozidar',
+      email: 'vujasinovicb2019@gmail.com',
+      bio: 'Ja sam kuhar',
+      id: '1',
+      profilePicture: '',
+      updated_at: new Date()
+
+    },
     created_at: "2021-01-01T12:00:00Z",
   },
   {
@@ -29,7 +37,15 @@ const recipes: Recipe[] = [
     image:
       "https://www.allrecipes.com/thmb/FL-xnyAllLyHcKdkjUZkotVlHR8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/46822-indian-chicken-curry-ii-DDMFS-4x3-39160aaa95674ee395b9d4609e3b0988.jpg",
     prepareTime: 45,
-    created_by: "2",
+    createdBy: {
+      displayName: 'Bozidar',
+      email: 'vujasinovicb2019@gmail.com',
+      bio: 'Ja sam kuhar',
+      id: '1',
+      profilePicture: '',
+      updated_at: new Date()
+
+    },
     created_at: "2021-01-02T12:00:00Z",
   },
   {
@@ -42,7 +58,15 @@ const recipes: Recipe[] = [
     image:
       "https://sallysbakingaddiction.com/wp-content/uploads/2013/04/triple-chocolate-cake-4.jpg",
     prepareTime: 60,
-    created_by: "3",
+    createdBy: {
+      displayName: 'Bozidar',
+      email: 'vujasinovicb2019@gmail.com',
+      bio: 'Ja sam kuhar',
+      id: '1',
+      profilePicture: '',
+      updated_at: new Date()
+
+    },
     created_at: "2021-01-03T12:00:00Z",
   },
   {
@@ -55,7 +79,15 @@ const recipes: Recipe[] = [
     image:
       "https://www.allrecipes.com/thmb/JTW0AIVY5PFxqLrf_-CDzT4OZQY=/0x512/filters:no_upscale():max_bytes(150000):strip_icc()/229063-Classic-Restaurant-Caesar-Salad-ddmfs-4x3-231-89bafa5e54dd4a8c933cf2a5f9f12a6f.jpg",
     prepareTime: 15,
-    created_by: "4",
+    createdBy: {
+      displayName: 'Bozidar',
+      email: 'vujasinovicb2019@gmail.com',
+      bio: 'Ja sam kuhar',
+      id: '1',
+      profilePicture: '',
+      updated_at: new Date()
+
+    },
     created_at: "2021-01-04T12:00:00Z",
   },
   {
@@ -68,7 +100,15 @@ const recipes: Recipe[] = [
     image:
       "https://upload.wikimedia.org/wikipedia/commons/c/c8/Pizza_Margherita_stu_spivack.jpg",
     prepareTime: 30,
-    created_by: "5",
+    createdBy: {
+      displayName: 'Bozidar',
+      email: 'vujasinovicb2019@gmail.com',
+      bio: 'Ja sam kuhar',
+      id: '1',
+      profilePicture: '',
+      updated_at: new Date()
+
+    },
     created_at: "2021-01-05T12:00:00Z",
   },
   {
@@ -81,21 +121,33 @@ const recipes: Recipe[] = [
     image:
       "https://mojo.generalmills.com/api/public/content/LASaPpVD5E6LGty8lf97zA_webp_base.webp?v=0971028d&t=e724eca7b3c24a8aaa6e089ed9e611fd",
     prepareTime: 120,
-    created_by: "6",
+    createdBy: {
+      displayName: 'Bozidar',
+      email: 'vujasinovicb2019@gmail.com',
+      bio: 'Ja sam kuhar',
+      id: '1',
+      profilePicture: '',
+      updated_at: new Date()
+
+    },
     created_at: "2021-01-06T12:00:00Z",
   },
 ];
 
 export const useRecipes = (searchTerm: string, category: string) => {
-  const filteredRecipes = recipes.filter((recipe) => {
-    if (searchTerm) {
-      return recipe.title.toLowerCase().startsWith(searchTerm.toLowerCase());
-    }
-    if (category) {
-      return recipe.category.toLowerCase().startsWith(category.toLowerCase());
-    }
-    return true;
-  });
+  let filteredRecipes = recipes;
+
+  if (searchTerm) {
+    filteredRecipes = filteredRecipes.filter((recipe) =>
+      recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  if (category) {
+    filteredRecipes = filteredRecipes.filter(
+      (recipe) => recipe.category === category
+    );
+  }
 
   return filteredRecipes;
 };

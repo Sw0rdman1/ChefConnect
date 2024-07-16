@@ -4,6 +4,8 @@ import RecipeEntity from "@/models/Recipe";
 import { Image } from "expo-image";
 import { useColors } from "@/hooks/useColors";
 import { Ionicons } from "@expo/vector-icons";
+import Avatar from "@/components/ui/Avatar";
+import { useState } from "react";
 
 const BORDER_RADIUS = 15;
 
@@ -12,13 +14,20 @@ interface RecipeCardProps {
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
-  const { background, text } = useColors();
+  const { background, text, tint, tintLowOpacity, backgroundDarker } = useColors();
+  const [isSaved, setIsSaved] = useState(false);
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       style={[styles.container, { backgroundColor: background, shadowColor: text }]}
     >
+      <View style={styles.creatorContainer}>
+        <Avatar size={25} source={recipe.createdBy.profilePicture} />
+        <Text style={styles.creator}>
+          {recipe.createdBy.displayName}
+        </Text>
+      </View>
       <Image
         contentFit="fill"
         source={{ uri: recipe.image }}
@@ -31,8 +40,19 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           <Ionicons name="time-sharp" size={16} color="gray" />
           <Text style={styles.prepareTime}>{recipe.prepareTime} minutes</Text>
         </View>
+        <TouchableOpacity
+          style={[styles.saveButton, { backgroundColor: isSaved ? tintLowOpacity : background, shadowColor: isSaved ? tintLowOpacity : text }]}
+          onPress={() => setIsSaved(!isSaved)}
+        >
+          <Text style={[styles.saveText, { color: tint }]}>
+            {isSaved ? 'Saved' : 'Save'}
+          </Text>
+          <Ionicons name={isSaved ? 'bookmark' : 'bookmark-outline'} size={20} color={tint} />
+
+        </TouchableOpacity>
+
       </View>
-    </TouchableOpacity>
+    </TouchableOpacity >
   );
 };
 
@@ -40,10 +60,10 @@ export default RecipeCard;
 
 const styles = StyleSheet.create({
   container: {
+    height: 150,
     flexDirection: "row",
     marginHorizontal: 15,
     marginVertical: 15,
-    height: 160,
     borderRadius: BORDER_RADIUS,
     gap: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -52,17 +72,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   image: {
-    height: '100%',
     aspectRatio: 1,
     borderTopLeftRadius: BORDER_RADIUS,
     borderBottomLeftRadius: BORDER_RADIUS,
-
   },
   textContainer: {
     flex: 1,
     marginTop: 5,
     padding: 5,
-    gap: 5,
+    gap: 7,
     borderTopRightRadius: BORDER_RADIUS,
     borderBottomRightRadius: BORDER_RADIUS,
   },
@@ -86,4 +104,40 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "gray",
   },
+  creatorContainer: {
+    position: 'absolute',
+    bottom: 5,
+    left: 5,
+    zIndex: 100,
+    borderRadius: 20,
+    marginTop: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    paddingRight: 10
+  },
+  creator: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "gray",
+  },
+  saveButton: {
+    marginTop: 15,
+    marginRight: 10,
+    height: 30,
+    borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 3,
+  },
+  saveText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: 'white',
+    marginRight: 5,
+  }
 });
