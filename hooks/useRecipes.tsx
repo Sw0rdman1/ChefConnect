@@ -16,8 +16,8 @@ const recipes: Recipe[] = [
       "Mix eggs and cheese",
       "Combine everything",
     ],
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-1001491_11-2e0fa5c.jpg?quality=90&resize=440,400",
+    bannerImage:
+      "https://bannerImages.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-bannerImage-legacy-id-1001491_11-2e0fa5c.jpg?quality=90&resize=440,400",
     prepareTime: 30,
     createdBy: {
       displayName: 'Bozidar',
@@ -37,7 +37,7 @@ const recipes: Recipe[] = [
     category: "001004",
     ingredients: ["Chicken", "Onion", "Tomato", "Spices"],
     steps: ["Fry onion", "Add chicken and spices", "Cook until done"],
-    image:
+    bannerImage:
       "https://www.allrecipes.com/thmb/FL-xnyAllLyHcKdkjUZkotVlHR8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/46822-indian-chicken-curry-ii-DDMFS-4x3-39160aaa95674ee395b9d4609e3b0988.jpg",
     prepareTime: 45,
     createdBy: {
@@ -58,7 +58,7 @@ const recipes: Recipe[] = [
     category: "002001",
     ingredients: ["Flour", "Sugar", "Cocoa", "Eggs"],
     steps: ["Mix ingredients", "Bake in oven", "Cool and serve"],
-    image:
+    bannerImage:
       "https://sallysbakingaddiction.com/wp-content/uploads/2013/04/triple-chocolate-cake-4.jpg",
     prepareTime: 60,
     createdBy: {
@@ -79,7 +79,7 @@ const recipes: Recipe[] = [
     category: "002002",
     ingredients: ["Lettuce", "Croutons", "Parmesan", "Dressing"],
     steps: ["Mix ingredients", "Serve cold"],
-    image:
+    bannerImage:
       "https://www.allrecipes.com/thmb/JTW0AIVY5PFxqLrf_-CDzT4OZQY=/0x512/filters:no_upscale():max_bytes(150000):strip_icc()/229063-Classic-Restaurant-Caesar-Salad-ddmfs-4x3-231-89bafa5e54dd4a8c933cf2a5f9f12a6f.jpg",
     prepareTime: 15,
     createdBy: {
@@ -100,7 +100,7 @@ const recipes: Recipe[] = [
     category: "002003",
     ingredients: ["Dough", "Tomato", "Mozzarella", "Basil"],
     steps: ["Roll out dough", "Add toppings", "Bake in oven"],
-    image:
+    bannerImage:
       "https://upload.wikimedia.org/wikipedia/commons/c/c8/Pizza_Margherita_stu_spivack.jpg",
     prepareTime: 30,
     createdBy: {
@@ -121,7 +121,7 @@ const recipes: Recipe[] = [
     category: "001002",
     ingredients: ["Beef", "Potatoes", "Carrots", "Onion"],
     steps: ["Brown beef", "Add vegetables", "Simmer until tender"],
-    image:
+    bannerImage:
       "https://mojo.generalmills.com/api/public/content/LASaPpVD5E6LGty8lf97zA_webp_base.webp?v=0971028d&t=e724eca7b3c24a8aaa6e089ed9e611fd",
     prepareTime: 120,
     createdBy: {
@@ -138,13 +138,14 @@ const recipes: Recipe[] = [
 ];
 
 export const useRecipes = (searchTerm: string, category: string) => {
-  const [recipes, setRecipes] = useState<Recipe[]>();
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
 
   useEffect(() => {
     async function fetchSelectedCategory() {
       try {
+        setLoading(true);
         const recipes = await getRecipes(category, searchTerm);
         setRecipes(recipes);
       } catch (error) {

@@ -7,7 +7,7 @@ export default interface Recipe {
   category: string;
   ingredients: string[];
   steps: string[];
-  image: string;
+  bannerImage: string;
   prepareTime: number;
   createdBy: User;
   created_at: string;

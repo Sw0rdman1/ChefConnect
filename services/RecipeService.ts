@@ -1,4 +1,6 @@
 import { supabase } from "@/config/supabase";
+import Recipe from "@/models/Recipe";
+import { snakeToCamel } from "@/utils/caseConverter";
 
 export const getRecipes = async (selectedCategoryID: string, searchTerm: string) => {
     let query = supabase.from("recipes").select("*");
@@ -20,8 +22,10 @@ export const getRecipes = async (selectedCategoryID: string, searchTerm: string)
         throw error;
     }
 
+    console.log(recipes);
+
     if (recipes) {
-        return recipes;
+        return snakeToCamel(recipes) as Recipe[];
     } else {
         return [];
     }
@@ -47,6 +51,9 @@ export const getTrendingRecipes = async (selectedCategory: 'trending' | 'bestRat
         console.log(error);
         throw error;
     }
+
+    console.log(recipes);
+
 
     if (recipes) {
         return recipes;

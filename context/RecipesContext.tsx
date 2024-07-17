@@ -8,14 +8,16 @@ interface RecipesContextProps {
   selectedCategoryID: string;
   setSearchTerm: (value: string) => void;
   setSelectedCategoryID: (value: string) => void;
+  loading: boolean;
 }
 
 export const RecipesContext = createContext<RecipesContextProps>({
   recipes: [],
   searchTerm: "",
   selectedCategoryID: "",
-  setSearchTerm: () => {},
-  setSelectedCategoryID: () => {},
+  setSearchTerm: () => { },
+  setSelectedCategoryID: () => { },
+  loading: true,
 });
 
 interface RecipeProviderProps {
@@ -25,11 +27,12 @@ interface RecipeProviderProps {
 export const RecipeProvider: React.FC<RecipeProviderProps> = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategoryID, setSelectedCategoryID] = useState("");
-  const recipes = useRecipes(searchTerm, selectedCategoryID);
+  const { recipes, loading } = useRecipes(searchTerm, selectedCategoryID);
 
   return (
     <RecipesContext.Provider
       value={{
+        loading,
         recipes,
         selectedCategoryID,
         searchTerm,

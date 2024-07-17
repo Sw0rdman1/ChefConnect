@@ -5,6 +5,7 @@ import { Image } from "expo-image";
 import { useColors } from "@/hooks/useColors";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
+import { getPublicURL } from "@/utils/helpers";
 
 const BORDER_RADIUS = 15;
 
@@ -30,7 +31,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
       ]}>
       <Image
         contentFit="fill"
-        source={{ uri: recipe.image }}
+        source={{ uri: horizontal ? recipe.bannerImage : getPublicURL("recipes", `${recipe.bannerImage}`) }}
         style={[styles.image, { width: horizontal ? 100 : 150 }]}
       />
       <View style={styles.textContainer}>

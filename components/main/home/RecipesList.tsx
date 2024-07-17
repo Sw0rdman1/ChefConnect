@@ -1,17 +1,28 @@
 import { Text, View } from "@/components/ui/Themed";
 import { useRecipesContext } from "@/context/RecipesContext";
-import { FlatList, StyleSheet } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet } from "react-native";
 import RecipeCard from "./RecipeCard";
 import TrendingRecipeList from "./TrendingRecipeList";
 import RecipeListHeader from "./RecipeListHeader";
 import MainScreenHeader from "./MainScreenHeader";
+import { useColors } from "@/hooks/useColors";
 
 interface RecipesListProps {
   openFiltersHandler: () => void;
 }
 
 const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
-  const { recipes } = useRecipesContext();
+  const { recipes, loading } = useRecipesContext();
+  const { tint } = useColors();
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <MainScreenHeader />
+        <ActivityIndicator style={{ marginTop: 250 }} size="large" color={tint} />
+      </View>
+    );
+  }
 
   if (recipes.length === 0) {
     return (
@@ -56,6 +67,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     paddingHorizontal: 50,
     textAlign: "center",
-
+    marginTop: 250,
   },
 });
