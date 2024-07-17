@@ -46,7 +46,7 @@ const Category: React.FC<CategoryProps> = ({
 const CategorySelect = () => {
   const { selectedCategoryID, setSelectedCategoryID } = useRecipesContext();
   const { categories } = useCategories(selectedCategoryID);
-  const selectedCategory = useSelectedCategory(selectedCategoryID);
+  const { selectedCategory } = useSelectedCategory(selectedCategoryID);
 
   const handleCategorySelect = (category: CategoryEntity) => {
     setSelectedCategoryID(category.id);

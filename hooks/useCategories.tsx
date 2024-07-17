@@ -1,37 +1,29 @@
 import { supabase } from "@/config/supabase";
+import { useToast } from "@/context/ToastNotificationContext";
 import { Category } from "@/models/Category";
+import { getCategoriesBasedOnSelectedCategory, getCategoryByID } from "@/services/CategoryService";
 import { useEffect, useState } from "react";
 
 export function useCategories(selectedCategoryID: string) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
 
   useEffect(() => {
     async function fetchCategories() {
-      let query = supabase.from("categories").select("*");
+      try {
+        const categories = await getCategoriesBasedOnSelectedCategory(selectedCategoryID)
 
-      if (selectedCategoryID) {
-        query = query
-          .ilike("id", selectedCategoryID + "%")
-          .neq("id", selectedCategoryID);
-      } else {
-        query = query.in("id", ["001", "002"]);
-      }
-
-      let { data: categories, error } = await query;
-
-      console.log("categories", categories);
-
-      if (error) {
-        console.error(error);
-        setLoading(false);
-        return;
-      }
-
-      if (categories) {
         setCategories(categories);
+      } catch (error) {
+        showToast({
+          severity: 'error',
+          text: 'Failed to fetch categories'
+        });
+      } finally {
         setLoading(false);
       }
+
     }
 
     fetchCategories();
@@ -44,32 +36,27 @@ export function useSelectedCategory(selectedCategoryID: string) {
   const [selectedCategory, setSelectedCategory] = useState<
     Category | undefined
   >();
+  const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
 
   useEffect(() => {
     async function fetchSelectedCategory() {
-      if (!selectedCategoryID) {
-        setSelectedCategory(undefined);
-        return;
-      }
+      try {
+        const selectedCategory = await getCategoryByID(selectedCategoryID)
 
-      let { data: category, error } = await supabase
-        .from("categories")
-        .select("*")
-        .eq("id", selectedCategoryID)
-        .single();
-
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      if (category) {
-        setSelectedCategory(category);
+        setSelectedCategory(selectedCategory);
+      } catch (error) {
+        showToast({
+          severity: 'error',
+          text: 'Failed to fetch categories'
+        });
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchSelectedCategory();
   }, [selectedCategoryID]);
 
-  return selectedCategory;
+  return { loading, selectedCategory };
 }
