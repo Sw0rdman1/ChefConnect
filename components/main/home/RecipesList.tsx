@@ -6,14 +6,20 @@ import TrendingRecipeList from "./TrendingRecipeList";
 import RecipeListHeader from "./RecipeListHeader";
 import MainScreenHeader from "./MainScreenHeader";
 import { useColors } from "@/hooks/useColors";
+import Button from "@/components/ui/Button";
 
 interface RecipesListProps {
   openFiltersHandler: () => void;
 }
 
 const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
-  const { recipes, loading } = useRecipesContext();
+  const { recipes, loading, setSearchTerm, setSelectedCategoryID } = useRecipesContext();
   const { tint } = useColors();
+
+  const removeFiltersHandler = () => {
+    setSelectedCategoryID("");
+    setSearchTerm("");
+  }
 
   if (loading) {
     return (
@@ -31,6 +37,7 @@ const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
         <Text style={styles.text}>
           Unfortunatly, we couldn't find any recipes for you. 🥺
         </Text>
+        <Button onPress={removeFiltersHandler} text="Show all" />
       </View>
     );
   }
@@ -59,13 +66,13 @@ export default RecipesList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 50,
+    gap: 20,
     alignItems: "center",
+    paddingHorizontal: 50,
   },
   text: {
     fontSize: 20,
     fontWeight: "500",
-    paddingHorizontal: 50,
     textAlign: "center",
     marginTop: 250,
   },
