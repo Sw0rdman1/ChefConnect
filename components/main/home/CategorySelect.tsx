@@ -7,6 +7,7 @@ import { FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import SelectedCategory from "./SelectedCategory";
 import { useRecipesContext } from "@/context/RecipesContext";
+import { getPublicURL } from "@/utils/helpers";
 
 interface CategoryEntity {
   id: string;
@@ -33,7 +34,10 @@ const Category: React.FC<CategoryProps> = ({
         { backgroundColor: background, shadowColor: text },
       ]}
     >
-      <Image source={category.image} style={{ width: 120, height: 120 }} />
+      <Image
+        source={getPublicURL("categories", `${category.id}.png`)}
+        style={{ width: 120, height: 120 }}
+      />
       <Text style={styles.categoryText}>{category.name}</Text>
     </TouchableOpacity>
   );
@@ -41,7 +45,7 @@ const Category: React.FC<CategoryProps> = ({
 
 const CategorySelect = () => {
   const { selectedCategoryID, setSelectedCategoryID } = useRecipesContext();
-  const categories = useCategories(selectedCategoryID);
+  const { categories } = useCategories(selectedCategoryID);
   const selectedCategory = useSelectedCategory(selectedCategoryID);
 
   const handleCategorySelect = (category: CategoryEntity) => {

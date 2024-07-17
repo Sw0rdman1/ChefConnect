@@ -5,6 +5,8 @@ import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import { useColors } from "@/hooks/useColors";
 import { Text, View } from "@/components/ui/Themed";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { getPublicURL } from "@/utils/helpers";
 
 interface SelectedCategoryProps {
   selectedCategory: Category | undefined;
@@ -39,7 +41,10 @@ const SelectedCategory: React.FC<SelectedCategoryProps> = ({
               ]}
             >
               <Image
-                source={selectedCategory.image}
+                source={getPublicURL(
+                  "categories",
+                  `${selectedCategory.id}.png`
+                )}
                 style={{ width: 35, height: 35 }}
               />
               <Text style={styles.selectedCategoryText}>
@@ -61,7 +66,10 @@ const SelectedCategory: React.FC<SelectedCategoryProps> = ({
             >
               <View style={styles.categoryInfo}>
                 <Image
-                  source={selectedCategory.image}
+                  source={getPublicURL(
+                    "categories",
+                    `${selectedCategory.id}.png`
+                  )}
                   style={{ width: 50, height: 50 }}
                 />
                 <Text style={[styles.lastCategoryText, { color: text }]}>

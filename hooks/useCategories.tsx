@@ -1,26 +1,75 @@
-const categories = [
-    { id: '001', name: 'Savory', image: require('../assets/images/main/categories/001.png') },
-    { id: '002', name: 'Sweet', image: require('../assets/images/main/categories/002.png') },
-    { id: '001001', name: 'Burger', image: require('../assets/images/main/categories/001001.png') },
-    { id: '001002', name: 'Pizza', image: require('../assets/images/main/categories/001002.png') },
-    { id: '001003', name: 'Fish food', image: require('../assets/images/main/categories/001003.png') },
-    { id: '001004', name: 'Salads', image: require('../assets/images/main/categories/001004.png') },
-    { id: '001005', name: 'Breakfast', image: require('../assets/images/main/categories/001005.png') },
-    { id: '001006', name: 'Sandwiches', image: require('../assets/images/main/categories/001006.png') },
-    { id: '001007', name: 'Tacos', image: require('../assets/images/main/categories/001007.png') },
-    { id: '002001', name: 'Cakes', image: require('../assets/images/main/categories/002001.png') },
-    { id: '002002', name: 'Cookies', image: require('../assets/images/main/categories/002002.png') },
-    { id: '002003', name: 'Pies', image: require('../assets/images/main/categories/002003.png') },
-]
+import { supabase } from "@/config/supabase";
+import { Category } from "@/models/Category";
+import { useEffect, useState } from "react";
 
 export function useCategories(selectedCategoryID: string) {
-    if (selectedCategoryID) {
-        return categories.filter(category => category.id.startsWith(selectedCategoryID) && category.id.length !== selectedCategoryID.length)
-    } else {
-        return categories.filter(category => category.id.length === 3)
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      let query = supabase.from("categories").select("*");
+
+      if (selectedCategoryID) {
+        query = query
+          .ilike("id", selectedCategoryID + "%")
+          .neq("id", selectedCategoryID);
+      } else {
+        query = query.in("id", ["001", "002"]);
+      }
+
+      let { data: categories, error } = await query;
+
+      console.log("categories", categories);
+
+      if (error) {
+        console.error(error);
+        setLoading(false);
+        return;
+      }
+
+      if (categories) {
+        setCategories(categories);
+        setLoading(false);
+      }
     }
+
+    fetchCategories();
+  }, [selectedCategoryID]);
+
+  return { loading, categories };
 }
 
 export function useSelectedCategory(selectedCategoryID: string) {
-    return categories.find(category => category.id === selectedCategoryID)
+  const [selectedCategory, setSelectedCategory] = useState<
+    Category | undefined
+  >();
+
+  useEffect(() => {
+    async function fetchSelectedCategory() {
+      if (!selectedCategoryID) {
+        setSelectedCategory(undefined);
+        return;
+      }
+
+      let { data: category, error } = await supabase
+        .from("categories")
+        .select("*")
+        .eq("id", selectedCategoryID)
+        .single();
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      if (category) {
+        setSelectedCategory(category);
+      }
+    }
+
+    fetchSelectedCategory();
+  }, [selectedCategoryID]);
+
+  return selectedCategory;
 }
