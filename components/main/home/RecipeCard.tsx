@@ -4,7 +4,6 @@ import RecipeEntity from "@/models/Recipe";
 import { Image } from "expo-image";
 import { useColors } from "@/hooks/useColors";
 import { Ionicons } from "@expo/vector-icons";
-import Avatar from "@/components/ui/Avatar";
 import { useState } from "react";
 
 const BORDER_RADIUS = 15;

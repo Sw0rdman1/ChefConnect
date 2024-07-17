@@ -1,83 +1,49 @@
-import { StyleSheet } from "react-native";
-import { Text, View } from "../../ui/Themed";
-import Avatar from "../../ui/Avatar";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useApp } from "@/context/AppContext";
-import { BlurView } from "expo-blur";
-import { TouchableOpacity } from "@gorhom/bottom-sheet";
-import { router } from "expo-router";
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import { useColors } from '@/hooks/useColors'
+import { Text, View } from '@/components/ui/Themed'
+import { Ionicons } from '@expo/vector-icons';
 
-const RecipeListHeader = () => {
-  const { top } = useSafeAreaInsets();
-  const { user } = useApp();
+interface RecipeListHeaderProps {
+    openFiltersHandler: () => void
+}
 
-  const generateMeal = () => {
-    const currentHour = new Date().getHours();
+const RecipeListHeader: React.FC<RecipeListHeaderProps> = ({ openFiltersHandler }) => {
+    const { tint } = useColors()
 
-    if (currentHour < 12) {
-      return "breakfast?"
-    } else if (currentHour < 18) {
-      return "lunch?"
-    }
-    return "dinner?"
-  }
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Recipes</Text>
+            <TouchableOpacity style={styles.filterContainer} onPress={openFiltersHandler}>
+                <Ionicons name="filter" size={24} color={tint} />
+                <Text style={[styles.filterText, { color: tint }]}>Filters</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
 
-  const generateGreeting = () => {
-    if (user?.displayName) {
-      return `Hi, ${user?.displayName.split(' ')[0]} 👋🏻`
-    } else {
-      return "Hi there 👋🏻"
-    }
-  }
-
-  return (
-    <BlurView intensity={100} style={[styles.container, { paddingTop: top + 10 }]}>
-      <View style={styles.leftSide}>
-        <Text style={[styles.subtitle]}>{generateGreeting()}</Text>
-        <Text style={[styles.title]}>{`What would you like to eat for ${generateMeal()}`}</Text>
-      </View>
-      <Avatar size={50} source={user?.profilePicture} href="(my-profile)" />
-
-    </BlurView>
-  );
-};
-
-export default RecipeListHeader;
+export default RecipeListHeader
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: 160,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 100,
-    paddingHorizontal: 20,
-    paddingBottom: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 20,
-    color: "gray",
-  },
-  leftSide: {
-    flex: 1,
-    gap: 5,
-    backgroundColor: "transparent",
-  },
-  circle: {
-    position: 'absolute',
-    right: -100,
-    top: -50,
-    width: 200,
-    height: 200,
-    borderRadius: 150,
-  }
-
-});
+    container: {
+        paddingTop: 30,
+        paddingHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold'
+    },
+    filterContainer: {
+        padding: 10,
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 5
+    },
+    filterText: {
+        fontSize: 18,
+        fontWeight: 'bold'
+    }
+})

@@ -2,17 +2,21 @@ import { Text, View } from "@/components/ui/Themed";
 import { useRecipesContext } from "@/context/RecipesContext";
 import { FlatList, StyleSheet } from "react-native";
 import RecipeCard from "./RecipeCard";
-import { useColors } from "@/hooks/useColors";
-import RecipeListHeader from "./RecipeListHeader";
 import TrendingRecipeList from "./TrendingRecipeList";
+import RecipeListHeader from "./RecipeListHeader";
+import MainScreenHeader from "./MainScreenHeader";
 
-const RecipesList = () => {
-  const { recipes, searchTerm, selectedCategoryID } = useRecipesContext();
+interface RecipesListProps {
+  openFiltersHandler: () => void;
+}
+
+const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
+  const { recipes } = useRecipesContext();
 
   if (recipes.length === 0) {
     return (
       <View style={styles.container}>
-        <RecipeListHeader />
+        <MainScreenHeader />
         <Text style={styles.text}>
           Unfortunatly, we couldn't find any recipes for you. 🥺
         </Text>
@@ -27,7 +31,10 @@ const RecipesList = () => {
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
       keyExtractor={(recipe) => recipe.id}
       ListHeaderComponent={
-        (!searchTerm && !selectedCategoryID) ? <TrendingRecipeList /> : <View style={{ height: 170 }} />
+        <View style={{}}>
+          <TrendingRecipeList />
+          <RecipeListHeader openFiltersHandler={openFiltersHandler} />
+        </View>
       }
       ListFooterComponent={
         <View style={{ height: 100, backgroundColor: 'transparent' }} />

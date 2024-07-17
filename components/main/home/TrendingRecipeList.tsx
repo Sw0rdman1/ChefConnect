@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import RecipeCard from './RecipeCard'
+import { useRecipesContext } from '@/context/RecipesContext'
 
 interface CategoryProps {
     title: string,
@@ -24,6 +25,11 @@ const Category: React.FC<CategoryProps> = ({ title, selected, onPress }) => {
 const TrendingRecipeList = () => {
     const [selectedCategory, setSelectedCategory] = useState<'trending' | 'bestRated' | 'new'>('trending')
     const recipes = useTrenindRecipes(selectedCategory)
+    const { searchTerm, selectedCategoryID } = useRecipesContext()
+
+    if (searchTerm || selectedCategoryID) {
+        return <View style={{ height: 150 }} />
+    }
 
     return (
         <View style={styles.container}>
@@ -41,9 +47,7 @@ const TrendingRecipeList = () => {
                     <RecipeCard recipe={recipe} horizontal />
                 )}
             />
-            <Text style={styles.title}>
-                All recipes
-            </Text>
+
         </View>
     )
 }
