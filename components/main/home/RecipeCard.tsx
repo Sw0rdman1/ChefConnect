@@ -6,6 +6,7 @@ import { useColors } from "@/hooks/useColors";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { getPublicURL } from "@/utils/helpers";
+import { router } from "expo-router";
 
 const BORDER_RADIUS = 15;
 
@@ -18,9 +19,14 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
   const { background, text, tint, tintLowOpacity } = useColors();
   const [isSaved, setIsSaved] = useState(false);
 
+  const openRecipeScreenHandler = () => {
+    router.push(`(recipe)/${recipe.id}`);
+  }
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
+      onPress={openRecipeScreenHandler}
       style={[styles.container,
       {
         paddingRight: horizontal ? 15 : 0,

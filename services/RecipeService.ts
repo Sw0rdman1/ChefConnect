@@ -29,7 +29,6 @@ export const getRecipes = async (selectedCategoryID: string, searchTerm: string)
     } else {
         return [];
     }
-
 }
 
 export const getTrendingRecipes = async (selectedCategory: 'trending' | 'bestRated' | 'new') => {
@@ -61,4 +60,19 @@ export const getTrendingRecipes = async (selectedCategory: 'trending' | 'bestRat
         return [];
     }
 
-}    
+}
+
+export const getRecipeByID = async (recipeID: string) => {
+    let { data: recipe, error } = await supabase.from("recipes").select("*").eq("id", recipeID).single();
+
+    if (error) {
+        console.log(error);
+        throw error;
+    }
+
+    if (recipe) {
+        return snakeToCamel(recipe) as Recipe;
+    } else {
+        return null;
+    }
+}

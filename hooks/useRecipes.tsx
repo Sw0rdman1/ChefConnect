@@ -1,6 +1,6 @@
 import { useToast } from "@/context/ToastNotificationContext";
 import Recipe from "@/models/Recipe";
-import { getRecipes } from "@/services/RecipeService";
+import { getRecipeByID, getRecipes } from "@/services/RecipeService";
 import { useEffect, useState } from "react";
 
 const recipes: Recipe[] = [
@@ -174,4 +174,31 @@ export const useTrenindRecipes = (selectedCategory: 'trending' | 'bestRated' | '
   if (selectedCategory === 'new') {
     return recipes.slice(2, 5)
   }
+}
+
+export const useRecipe = (recipeID: string) => {
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    async function fetchRecipe() {
+      try {
+        setLoading(true);
+        const recipe = await getRecipeByID(recipeID);
+        setRecipe(recipe);
+      } catch (error) {
+        showToast({
+          severity: 'error',
+          text: 'Failed to fetch recipe'
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchRecipe();
+  }, [recipeID]);
+
+  return { loading, recipe };
 }
