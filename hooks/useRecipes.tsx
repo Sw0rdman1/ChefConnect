@@ -1,4 +1,7 @@
+import { useToast } from "@/context/ToastNotificationContext";
 import Recipe from "@/models/Recipe";
+import { getRecipes } from "@/services/RecipeService";
+import { useEffect, useState } from "react";
 
 const recipes: Recipe[] = [
   {
@@ -135,21 +138,29 @@ const recipes: Recipe[] = [
 ];
 
 export const useRecipes = (searchTerm: string, category: string) => {
-  let filteredRecipes = recipes;
+  const [recipes, setRecipes] = useState<Recipe[]>();
+  const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
 
-  if (searchTerm) {
-    filteredRecipes = filteredRecipes.filter((recipe) =>
-      recipe.title.toLowerCase().startsWith(searchTerm.toLowerCase())
-    );
-  }
+  useEffect(() => {
+    async function fetchSelectedCategory() {
+      try {
+        const recipes = await getRecipes(category, searchTerm);
+        setRecipes(recipes);
+      } catch (error) {
+        showToast({
+          severity: 'error',
+          text: 'Failed to fetch recipes'
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  if (category) {
-    filteredRecipes = filteredRecipes.filter(
-      (recipe) => recipe.category.toLowerCase().startsWith(category.toLowerCase())
-    );
-  }
+    fetchSelectedCategory();
+  }, [searchTerm, category]);
 
-  return filteredRecipes;
+  return { loading, recipes };
 };
 
 export const useTrenindRecipes = (selectedCategory: 'trending' | 'bestRated' | 'new') => {
