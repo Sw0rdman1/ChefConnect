@@ -2,6 +2,7 @@ import {
   Text as DefaultText,
   View as DefaultView,
   TextInput as DefaultTextInput,
+  ScrollView as DefaultScrollView,
   useColorScheme
 } from 'react-native';
 
@@ -15,6 +16,8 @@ type ThemeProps = {
 export type TextProps = ThemeProps & DefaultText['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
 export type TextInputProps = ThemeProps & DefaultTextInput['props'];
+export type ScrollViewProps = ThemeProps & DefaultScrollView['props'];
+
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -51,4 +54,13 @@ export function TextInput(props: TextInputProps) {
 
 
   return <DefaultTextInput style={[{ color, backgroundColor }, style]} {...otherProps} />;
+}
+
+export function ScrollView(props: ScrollViewProps) {
+  const { style, contentContainerStyle, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+
+  return <DefaultScrollView
+    contentContainerStyle={[{ backgroundColor }, contentContainerStyle]}
+    style={[{ backgroundColor }, style]} {...otherProps} />;
 }

@@ -1,11 +1,13 @@
 import LoadingScreen from '@/components/ui/LoadingScreen';
-import { ScrollView, StyleSheet } from 'react-native'
-import { Text } from '@/components/ui/Themed'
+import { StyleSheet } from 'react-native'
+import { ScrollView, Text, View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors';
 import { useRecipe } from '@/hooks/useRecipes';
 import { getPublicURL } from '@/utils/helpers';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
+import AnimatedHeader from '@/components/ui/AnimatedHeader';
+import RecipeHeader from '@/components/main/recipe/RecipeHeader';
 
 const RecipeScreen = () => {
     const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
@@ -26,13 +28,14 @@ const RecipeScreen = () => {
 
 
     return (
-        <ScrollView style={{ backgroundColor: background }} contentContainerStyle={[styles.container, { backgroundColor: background }]}>
-            <Image
-                source={{ uri: getPublicURL('recipes', recipe.bannerImage) }}
-                style={{ width: '100%', aspectRatio: 1 }}
-            />
+        <AnimatedHeader
+            headerComponent={<RecipeHeader recipe={recipe} />}
+            minHeight={200}
+            maxHeight={550}
+        >
             <Text style={styles.text}>{recipe.title}</Text>
-        </ScrollView>
+            <View style={{ height: 1700, width: "100%" }} />
+        </AnimatedHeader>
     )
 }
 
