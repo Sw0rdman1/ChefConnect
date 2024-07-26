@@ -1,3 +1,4 @@
+import BackButton from '@/components/ui/BackButton';
 import { View } from '@/components/ui/Themed'
 import Recipe from '@/models/Recipe';
 import { getPublicURL } from '@/utils/helpers';
@@ -12,11 +13,12 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ recipe }) => {
     return (
         <View style={styles.container}>
             <View style={styles.opacity} />
+            <BackButton />
             <Image
                 source={{ uri: getPublicURL("recipes", `${recipe.bannerImage}`) }}
                 style={styles.image}
             />
-            <View style={styles.bottomView} />
+            <View style={styles.borderRadius} />
         </View>
     )
 }
@@ -29,24 +31,25 @@ const styles = StyleSheet.create({
         height: "100%",
     },
     image: {
+        zIndex: 0,
         position: "absolute",
         width: "100%",
         height: "100%",
-    },
-    bottomView: {
-        position: "absolute",
-        bottom: 0,
-        width: "100%",
-        height: 70,
-        borderTopLeftRadius: 35,
-        borderTopRightRadius: 35,
-        zIndex: 2,
     },
     opacity: {
         position: "absolute",
         width: "100%",
         height: "100%",
-        backgroundColor: "rgba(0,0,0,0.2)",
+        backgroundColor: "rgba(0,0,0,0.3)",
         zIndex: 1,
+    },
+    borderRadius: {
+        position: "absolute",
+        bottom: 0,
+        width: "100%",
+        height: 40,
+        zIndex: 2,
+        borderTopLeftRadius: 35,
+        borderTopRightRadius: 35,
     },
 })

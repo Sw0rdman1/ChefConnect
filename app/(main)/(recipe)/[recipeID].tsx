@@ -33,8 +33,9 @@ const RecipeScreen = () => {
             minHeight={200}
             maxHeight={550}
         >
-            <Text style={styles.text}>{recipe.title}</Text>
-            <View style={{ height: 1700, width: "100%" }} />
+            <View style={styles.container}>
+                <Text style={styles.text}>{recipe.title}</Text>
+            </View>
         </AnimatedHeader>
     )
 }
@@ -43,12 +44,14 @@ export default RecipeScreen
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
+        height: 1500,
         gap: 10,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        paddingHorizontal: 20,
     },
     text: {
-        fontSize: 30,
+        fontSize: 32,
         fontWeight: 'bold'
     }
 })

@@ -43,6 +43,7 @@ const AnimatedHeader: React.FC<ScrollViewScreenProps> = ({ children, headerCompo
                     }
                 )}
             >
+                <Animated.View style={{ height: animatedHeight }} />
                 {children}
             </ScrollView>
         </View>

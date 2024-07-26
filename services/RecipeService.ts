@@ -22,8 +22,6 @@ export const getRecipes = async (selectedCategoryID: string, searchTerm: string)
         throw error;
     }
 
-    console.log(recipes);
-
     if (recipes) {
         return snakeToCamel(recipes) as Recipe[];
     } else {
