@@ -1,6 +1,7 @@
 import { Animated, StyleSheet } from "react-native";
 import { useRef } from "react";
 import { ScrollView, View } from "./Themed";
+import SaveButton from "../main/recipe/SaveButton";
 
 
 interface ScrollViewScreenProps {
@@ -45,6 +46,7 @@ const AnimatedHeader: React.FC<ScrollViewScreenProps> = ({ children, headerCompo
             >
                 <Animated.View style={{ height: animatedHeight }} />
                 {children}
+
             </ScrollView>
         </View>
     );

@@ -10,6 +10,7 @@ import AnimatedHeader from '@/components/ui/AnimatedHeader';
 import RecipeHeader from '@/components/main/recipe/RecipeHeader';
 import RecipeTitle from '@/components/main/recipe/RecipeTitle';
 import SaveButton from '@/components/main/recipe/SaveButton';
+import IngredientsList from '@/components/main/recipe/IngredientsList';
 
 const RecipeScreen = () => {
     const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
@@ -32,11 +33,12 @@ const RecipeScreen = () => {
         <AnimatedHeader
             headerComponent={<RecipeHeader recipe={recipe} />}
             minHeight={300}
-            maxHeight={600}
+            maxHeight={550}
         >
             <View style={[styles.container, { backgroundColor: `${background}95` }]}>
                 <RecipeTitle recipe={recipe} />
                 <SaveButton />
+                <IngredientsList recipe={recipe} />
             </View>
         </AnimatedHeader>
     )
