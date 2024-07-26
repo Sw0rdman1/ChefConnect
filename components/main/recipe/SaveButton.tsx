@@ -35,7 +35,7 @@ export default SaveButton
 const styles = StyleSheet.create({
     container: {
         height: 50,
-        marginTop: 10,
+        marginVertical: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',

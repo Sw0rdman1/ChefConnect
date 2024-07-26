@@ -8,6 +8,7 @@ interface IngredientsListProps {
 
 const IngredientsList: React.FC<IngredientsListProps> = ({ recipe }) => {
     console.log(recipe.ingredients);
+    const ingredients = [{}]
 
     return (
         <View style={styles.container}>
@@ -20,7 +21,7 @@ export default IngredientsList
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginTop: 10,
         paddingHorizontal: 5,
     },
     title: {

@@ -1,16 +1,14 @@
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import { StyleSheet } from 'react-native'
-import { ScrollView, Text, View } from '@/components/ui/Themed'
+import { View } from '@/components/ui/Themed'
 import { useColors } from '@/hooks/useColors';
 import { useRecipe } from '@/hooks/useRecipes';
-import { getPublicURL } from '@/utils/helpers';
-import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import AnimatedHeader from '@/components/ui/AnimatedHeader';
 import RecipeHeader from '@/components/main/recipe/RecipeHeader';
 import RecipeTitle from '@/components/main/recipe/RecipeTitle';
-import SaveButton from '@/components/main/recipe/SaveButton';
 import IngredientsList from '@/components/main/recipe/IngredientsList';
+
 
 const RecipeScreen = () => {
     const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
@@ -37,7 +35,6 @@ const RecipeScreen = () => {
         >
             <View style={[styles.container, { backgroundColor: `${background}95` }]}>
                 <RecipeTitle recipe={recipe} />
-                <SaveButton />
                 <IngredientsList recipe={recipe} />
             </View>
         </AnimatedHeader>

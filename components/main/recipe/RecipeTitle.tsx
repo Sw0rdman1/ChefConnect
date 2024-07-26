@@ -4,6 +4,7 @@ import Recipe from '@/models/Recipe';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import SaveButton from './SaveButton';
 interface RecipeTitleProps {
     recipe: Recipe;
 }
@@ -20,6 +21,7 @@ const RecipeTitle: React.FC<RecipeTitleProps> = ({ recipe }) => {
                     {recipe.description}
                 </Text>
             </View>
+            <SaveButton />
             <View style={styles.infoContainer}>
                 <View style={[styles.prepTime, { backgroundColor: backgroundDarker }]}>
                     <View style={styles.label}>
