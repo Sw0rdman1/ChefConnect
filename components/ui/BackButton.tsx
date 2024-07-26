@@ -12,7 +12,10 @@ const BackButton = () => {
     }
 
     return (
-        <TouchableOpacity onPress={handleBack} style={[styles.container, { backgroundColor: `${background}70` }]} >
+        <TouchableOpacity
+            onPress={handleBack}
+            style={[styles.container, { backgroundColor: `${background}80` }]}
+        >
             <Ionicons name="chevron-back" size={24} color={background} />
         </TouchableOpacity>
     )
@@ -27,7 +30,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         position: 'absolute',
         top: 30,
-        left: 20,
+        left: 10,
         zIndex: 101,
         justifyContent: 'center',
         alignItems: 'center',

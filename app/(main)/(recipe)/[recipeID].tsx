@@ -8,6 +8,7 @@ import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import AnimatedHeader from '@/components/ui/AnimatedHeader';
 import RecipeHeader from '@/components/main/recipe/RecipeHeader';
+import RecipeTitle from '@/components/main/recipe/RecipeTitle';
 
 const RecipeScreen = () => {
     const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
@@ -20,11 +21,10 @@ const RecipeScreen = () => {
         )
     }
 
-    if (!recipe || !recipeID) {
+    if (!recipe) {
         router.back();
         return null;
     }
-
 
 
     return (
@@ -33,8 +33,8 @@ const RecipeScreen = () => {
             minHeight={200}
             maxHeight={550}
         >
-            <View style={styles.container}>
-                <Text style={styles.text}>{recipe.title}</Text>
+            <View style={[styles.container, { backgroundColor: `${background}95` }]}>
+                <RecipeTitle recipe={recipe} />
             </View>
         </AnimatedHeader>
     )
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         gap: 10,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
     },
     text: {
         fontSize: 32,
