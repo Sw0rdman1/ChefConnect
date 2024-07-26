@@ -37,7 +37,7 @@ export default function MainScreenLayout() {
           />
           <Stack.Screen
             name="(recipe)/[recipeID]"
-            options={{ headerShown: false, presentation: 'modal' }}
+            options={{ headerShown: false, animation: "fade_from_bottom" }}
           />
         </Stack>
       </RecipeProvider>

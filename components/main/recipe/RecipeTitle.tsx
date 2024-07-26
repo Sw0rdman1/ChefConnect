@@ -1,6 +1,7 @@
+import { Text } from '@/components/ui/Themed';
 import Recipe from '@/models/Recipe';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 interface RecipeTitleProps {
     recipe: Recipe;
