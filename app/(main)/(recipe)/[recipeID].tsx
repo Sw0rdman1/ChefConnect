@@ -1,5 +1,5 @@
 import LoadingScreen from "@/components/ui/LoadingScreen";
-import { StyleSheet } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 import { View } from "@/components/ui/Themed";
 import { useColors } from "@/hooks/useColors";
 import { useRecipe } from "@/hooks/useRecipes";
@@ -10,8 +10,10 @@ import RecipeTitle from "@/components/main/recipe/RecipeTitle";
 import IngredientsList from "@/components/main/recipe/IngredientsList";
 import SaveButton from "@/components/main/recipe/SaveButton";
 import RecipeInstructions from "@/components/main/recipe/RecipeInstructions";
+import { useRef } from "react";
 
 const RecipeScreen = () => {
+  const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
   const { tint, background } = useColors();
   const { recipe, loading } = useRecipe(recipeID as string);
@@ -27,6 +29,7 @@ const RecipeScreen = () => {
 
   return (
     <AnimatedHeader
+      scrollOffsetY={scrollOffsetY}
       headerComponent={<RecipeHeader recipe={recipe} />}
       minHeight={300}
       maxHeight={550}
