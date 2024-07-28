@@ -52,8 +52,6 @@ export const getTrendingRecipes = async (
     throw error;
   }
 
-  console.log(recipes);
-
   if (recipes) {
     return recipes;
   } else {

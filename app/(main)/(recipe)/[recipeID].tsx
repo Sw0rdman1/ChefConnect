@@ -9,6 +9,7 @@ import RecipeHeader from "@/components/main/recipe/RecipeHeader";
 import RecipeTitle from "@/components/main/recipe/RecipeTitle";
 import IngredientsList from "@/components/main/recipe/IngredientsList";
 import SaveButton from "@/components/main/recipe/SaveButton";
+import RecipeInstructions from "@/components/main/recipe/RecipeInstructions";
 
 const RecipeScreen = () => {
   const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
@@ -34,6 +35,8 @@ const RecipeScreen = () => {
         <RecipeTitle recipe={recipe} />
         <SaveButton />
         <IngredientsList recipeID={recipe.id} />
+        <RecipeInstructions instructions={recipe.steps} />
+        <View style={{ height: 50 }} />
       </View>
     </AnimatedHeader>
   );
@@ -43,7 +46,6 @@ export default RecipeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    height: 1500,
     gap: 10,
     paddingHorizontal: 15,
   },
