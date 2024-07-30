@@ -5,6 +5,10 @@ export default function InboxLayout() {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="[chatID]" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="new-chat"
+        options={{ headerShown: false, presentation: "modal" }}
+      />
     </Stack>
   );
 }
