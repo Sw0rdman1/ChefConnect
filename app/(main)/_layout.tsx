@@ -12,11 +12,11 @@ export default function MainScreenLayout() {
   }
 
   if (!session || !session.user) {
-    return <Redirect href="(auth)" />;
+    return <Redirect href="/(auth)" />;
   }
 
   if (session.user && session.user.email_confirmed_at === null) {
-    return <Redirect href="(auth)/confirm-email" />;
+    return <Redirect href="/(auth)/confirm-email" />;
   }
 
   return (

@@ -12,7 +12,7 @@ const MainScreen = () => {
 
   const openFiltersHandler = () => {
     bottomSheetRef.current?.expand();
-  }
+  };
 
   return (
     <LinearGradient colors={[background, backgroundDarker]} style={{ flex: 1 }}>
@@ -24,5 +24,3 @@ const MainScreen = () => {
 };
 
 export default MainScreen;
-
-

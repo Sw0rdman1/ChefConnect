@@ -25,7 +25,7 @@ export const getRecipes = async (
   }
 
   if (recipes) {
-    const { data: saves, error: saveError } = await supabase
+    const { data: saves } = await supabase
       .from("saves")
       .select("recipe_id")
       .eq("user_id", userID);
@@ -107,8 +107,6 @@ export const getRecipeIngredients = async (recipeID: string) => {
     const ingredientsFormatted = ingredients?.map(
       (ingredient) => ingredient.ingredients
     );
-
-    console.log(ingredientsFormatted);
 
     return snakeToCamel(ingredientsFormatted);
   } else {

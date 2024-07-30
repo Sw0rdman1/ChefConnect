@@ -17,8 +17,9 @@ export const useRecipes = (searchTerm: string, category: string) => {
 
   useEffect(() => {
     async function fetchSelectedCategory() {
+      setLoading(true);
+      if (!user) return;
       try {
-        setLoading(true);
         const recipes = await getRecipes(category, searchTerm, user?.id || "");
         setRecipes(recipes);
       } catch (error) {
@@ -30,9 +31,8 @@ export const useRecipes = (searchTerm: string, category: string) => {
         setLoading(false);
       }
     }
-
     fetchSelectedCategory();
-  }, [searchTerm, category]);
+  }, [searchTerm, category, user?.id]);
 
   return { loading, recipes };
 };
