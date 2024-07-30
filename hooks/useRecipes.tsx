@@ -7,6 +7,7 @@ import {
   getRecipeIngredients,
   getRecipes,
 } from "@/services/RecipeService";
+import { isRecipeSaved } from "@/services/SaveService";
 import { useEffect, useState } from "react";
 
 export const useRecipes = (searchTerm: string, category: string) => {
@@ -42,12 +43,21 @@ export const useRecipe = (recipeID: string) => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
+  const { user } = useApp();
 
   useEffect(() => {
     async function fetchRecipe() {
       try {
         setLoading(true);
         const recipe = await getRecipeByID(recipeID);
+        const isSaved = await isRecipeSaved(recipeID, user?.id as string);
+
+        if (!recipe) {
+          throw new Error("Recipe not found");
+        }
+
+        recipe.isSaved = isSaved;
+
         setRecipe(recipe);
 
         const ingredients = await getRecipeIngredients(recipeID);

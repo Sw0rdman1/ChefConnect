@@ -36,7 +36,7 @@ const RecipeScreen = () => {
     >
       <View style={[styles.container, { backgroundColor: `${background}95` }]}>
         <RecipeTitle recipe={recipe} />
-        <SaveButton />
+        <SaveButton recipe={recipe} />
         <IngredientsList ingredients={ingredients} />
         <RecipeInstructions instructions={recipe.steps} />
         <View style={{ height: 50 }} />

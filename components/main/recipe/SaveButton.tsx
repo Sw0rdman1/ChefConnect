@@ -1,14 +1,24 @@
+import { useApp } from "@/context/AppContext";
 import { useColors } from "@/hooks/useColors";
+import Recipe from "@/models/Recipe";
+import { handleSaveClick } from "@/services/SaveService";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const SaveButton = () => {
-  const [isSaved, setIsSaved] = useState(false);
+interface SaveButtonProps {
+  recipe: Recipe;
+}
+
+const SaveButton: React.FC<SaveButtonProps> = ({ recipe }) => {
+  const [isSaved, setIsSaved] = useState(recipe.isSaved);
   const { tint, background } = useColors();
+  const { user } = useApp();
 
-  const handleSave = () => {
-    setIsSaved(!isSaved);
+  const handleSave = async () => {
+    const wasSaved = isSaved;
+    setIsSaved((prev) => !prev);
+    await handleSaveClick(recipe.id, wasSaved, user?.id as string);
   };
 
   return (

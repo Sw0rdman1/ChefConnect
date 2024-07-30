@@ -7,6 +7,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { getPublicURL } from "@/utils/helpers";
 import { router } from "expo-router";
+import { handleSaveClick } from "@/services/SaveService";
+import { useApp } from "@/context/AppContext";
 
 const BORDER_RADIUS = 15;
 
@@ -18,9 +20,16 @@ interface RecipeCardProps {
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
   const { background, text, tint, tintLowOpacity } = useColors();
   const [isSaved, setIsSaved] = useState(recipe.isSaved);
+  const { user } = useApp();
 
   const openRecipeScreenHandler = () => {
     router.push(`/(recipe)/${recipe.id}`);
+  };
+
+  const handleSavePress = async () => {
+    const wasSaved = isSaved;
+    setIsSaved((prev) => !prev);
+    await handleSaveClick(recipe.id, wasSaved, user?.id as string);
   };
 
   return (
@@ -60,7 +69,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
                 shadowColor: isSaved ? tintLowOpacity : text,
               },
             ]}
-            onPress={() => setIsSaved(!isSaved)}
+            onPress={handleSavePress}
           >
             <Text style={[styles.saveText, { color: tint }]}>
               {isSaved ? "Saved" : "Save"}
