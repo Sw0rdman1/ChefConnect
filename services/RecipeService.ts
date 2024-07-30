@@ -81,7 +81,7 @@ export const getRecipeByID = async (recipeID: string) => {
 export const getRecipeIngredients = async (recipeID: string) => {
   let { data: ingredients, error } = await supabase
     .from("recipe_ingredients")
-    .select("*")
+    .select("ingredients(*)")
     .eq("recipe_id", recipeID);
 
   if (error) {
@@ -90,7 +90,13 @@ export const getRecipeIngredients = async (recipeID: string) => {
   }
 
   if (ingredients) {
-    return snakeToCamel(ingredients);
+    const ingredientsFormatted = ingredients?.map(
+      (ingredient) => ingredient.ingredients
+    );
+
+    console.log(ingredientsFormatted);
+
+    return snakeToCamel(ingredientsFormatted);
   } else {
     return [];
   }

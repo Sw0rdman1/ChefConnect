@@ -15,8 +15,8 @@ import { useRef } from "react";
 const RecipeScreen = () => {
   const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
-  const { tint, background } = useColors();
-  const { recipe, loading } = useRecipe(recipeID as string);
+  const { background } = useColors();
+  const { recipe, ingredients, loading } = useRecipe(recipeID as string);
 
   if (loading) {
     return <LoadingScreen />;
@@ -37,7 +37,7 @@ const RecipeScreen = () => {
       <View style={[styles.container, { backgroundColor: `${background}95` }]}>
         <RecipeTitle recipe={recipe} />
         <SaveButton />
-        <IngredientsList recipeID={recipe.id} />
+        <IngredientsList ingredients={ingredients} />
         <RecipeInstructions instructions={recipe.steps} />
         <View style={{ height: 50 }} />
       </View>

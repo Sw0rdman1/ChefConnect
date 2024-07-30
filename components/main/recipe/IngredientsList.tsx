@@ -1,19 +1,18 @@
 import { Text } from "@/components/ui/Themed";
 import { useColors } from "@/hooks/useColors";
-import { useIngredients } from "@/hooks/useIngredients";
+import { Ingredient } from "@/models/Ingredient";
 import { getPublicURL } from "@/utils/helpers";
 import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 
 interface IngredientsListProps {
-  recipeID: string;
+  ingredients: Ingredient[];
 }
 
-const IngredientsList: React.FC<IngredientsListProps> = ({ recipeID }) => {
-  const { ingredients, loading } = useIngredients(recipeID);
+const IngredientsList: React.FC<IngredientsListProps> = ({ ingredients }) => {
   const { tint } = useColors();
 
-  if (loading) {
+  if (!ingredients) {
     return null;
   }
 
