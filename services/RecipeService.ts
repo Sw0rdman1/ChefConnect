@@ -80,9 +80,9 @@ export const getRecipeByID = async (recipeID: string) => {
 
 export const getRecipeIngredients = async (recipeID: string) => {
   let { data: ingredients, error } = await supabase
-    .from("ingredients")
-    .select("*");
-  // .eq("recipe_id", recipeID);
+    .from("recipe_ingredients")
+    .select("*")
+    .eq("recipe_id", recipeID);
 
   if (error) {
     console.log(error);
