@@ -4,7 +4,8 @@ import { snakeToCamel } from "@/utils/caseConverter";
 
 export const getRecipes = async (
   selectedCategoryID: string,
-  searchTerm: string
+  searchTerm: string,
+  userID: string
 ) => {
   let query = supabase.from("recipes").select("*");
 
@@ -24,6 +25,19 @@ export const getRecipes = async (
   }
 
   if (recipes) {
+    const { data: saves, error: saveError } = await supabase
+      .from("saves")
+      .select("recipe_id")
+      .eq("user_id", userID);
+
+    if (saves) {
+      recipes = recipes.map((recipe) => {
+        return {
+          ...recipe,
+          isSaved: saves.some((save) => save.recipe_id === recipe.id),
+        };
+      });
+    }
     return snakeToCamel(recipes) as Recipe[];
   } else {
     return [];

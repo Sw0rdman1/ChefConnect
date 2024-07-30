@@ -24,7 +24,7 @@ const SecondStepRegistration = ({ firstStepData }: { firstStepData: any }) => {
     if (error) {
       //handle Error
     } else {
-      router.push("success");
+      router.push("/success");
     }
   };
   return (

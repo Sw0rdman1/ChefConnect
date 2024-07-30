@@ -17,27 +17,31 @@ interface RecipeCardProps {
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
   const { background, text, tint, tintLowOpacity } = useColors();
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(recipe.isSaved);
 
   const openRecipeScreenHandler = () => {
-    router.push(`(recipe)/${recipe.id}`);
-  }
+    router.push(`/(recipe)/${recipe.id}`);
+  };
 
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={openRecipeScreenHandler}
-      style={[styles.container,
-      {
-        paddingRight: horizontal ? 15 : 0,
-        height: horizontal ? 100 : 150,
-        backgroundColor: background,
-        shadowColor: text
-      }
-      ]}>
+      style={[
+        styles.container,
+        {
+          paddingRight: horizontal ? 15 : 0,
+          height: horizontal ? 100 : 150,
+          backgroundColor: background,
+          shadowColor: text,
+        },
+      ]}
+    >
       <Image
         contentFit="fill"
-        source={{ uri: horizontal ? recipe.bannerImage : getPublicURL("recipes", `${recipe.bannerImage}`) }}
+        source={{
+          uri: getPublicURL("recipes", `${recipe.bannerImage}`),
+        }}
         style={[styles.image, { width: horizontal ? 100 : 150 }]}
       />
       <View style={styles.textContainer}>
@@ -47,20 +51,29 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
           <Ionicons name="time-sharp" size={16} color="gray" />
           <Text style={styles.prepareTime}>{recipe.prepareTime} minutes</Text>
         </View>
-        {!horizontal &&
+        {!horizontal && (
           <TouchableOpacity
-            style={[styles.saveButton, { backgroundColor: isSaved ? tintLowOpacity : background, shadowColor: isSaved ? tintLowOpacity : text }]}
+            style={[
+              styles.saveButton,
+              {
+                backgroundColor: isSaved ? tintLowOpacity : background,
+                shadowColor: isSaved ? tintLowOpacity : text,
+              },
+            ]}
             onPress={() => setIsSaved(!isSaved)}
           >
             <Text style={[styles.saveText, { color: tint }]}>
-              {isSaved ? 'Saved' : 'Save'}
+              {isSaved ? "Saved" : "Save"}
             </Text>
-            <Ionicons name={isSaved ? 'bookmark' : 'bookmark-outline'} size={18} color={tint} />
+            <Ionicons
+              name={isSaved ? "bookmark" : "bookmark-outline"}
+              size={18}
+              color={tint}
+            />
           </TouchableOpacity>
-        }
-
+        )}
       </View>
-    </TouchableOpacity >
+    </TouchableOpacity>
   );
 };
 
@@ -116,9 +129,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 30,
     borderRadius: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -126,8 +139,8 @@ const styles = StyleSheet.create({
   },
   saveText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: 'white',
+    fontWeight: "600",
+    color: "white",
     marginRight: 5,
-  }
+  },
 });

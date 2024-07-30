@@ -13,19 +13,24 @@ interface RecipesListProps {
 }
 
 const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
-  const { recipes, loading, setSearchTerm, setSelectedCategoryID } = useRecipesContext();
+  const { recipes, loading, setSearchTerm, setSelectedCategoryID } =
+    useRecipesContext();
   const { tint } = useColors();
 
   const removeFiltersHandler = () => {
     setSelectedCategoryID("");
     setSearchTerm("");
-  }
+  };
 
   if (loading) {
     return (
       <View style={styles.container}>
         <MainScreenHeader />
-        <ActivityIndicator style={{ marginTop: 250 }} size="large" color={tint} />
+        <ActivityIndicator
+          style={{ marginTop: 250 }}
+          size="large"
+          color={tint}
+        />
       </View>
     );
   }
@@ -44,18 +49,18 @@ const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
 
   return (
     <FlatList
-      style={{ flex: 1, backgroundColor: 'transparent' }}
+      style={{ flex: 1, backgroundColor: "transparent" }}
       data={recipes}
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
       keyExtractor={(recipe) => recipe.id}
       ListHeaderComponent={
-        <View style={{}}>
+        <View>
           <TrendingRecipeList />
           <RecipeListHeader openFiltersHandler={openFiltersHandler} />
         </View>
       }
       ListFooterComponent={
-        <View style={{ height: 100, backgroundColor: 'transparent' }} />
+        <View style={{ height: 100, backgroundColor: "transparent" }} />
       }
     />
   );

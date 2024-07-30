@@ -14,7 +14,7 @@ const Action: React.FC<ActionProps> = ({ icon, text, pageToGo }) => {
   const { text: textColor, tint } = useColors();
 
   const handlePress = () => {
-    router.push(pageToGo);
+    router.push(`/${pageToGo}`);
   };
 
   return (

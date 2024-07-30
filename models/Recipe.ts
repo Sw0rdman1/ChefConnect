@@ -9,6 +9,7 @@ export default interface Recipe {
   steps: string[];
   bannerImage: string;
   prepareTime: number;
+  isSaved: boolean;
   createdBy: User;
   created_at: string;
 }
