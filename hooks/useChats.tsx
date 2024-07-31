@@ -15,7 +15,6 @@ export const useChats = () => {
       try {
         if (!user) return;
         const chats = await getChats(user?.id);
-        console.log(chats);
         setChats(chats);
         setLoading(false);
       } catch (error) {
