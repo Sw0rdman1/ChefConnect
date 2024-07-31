@@ -2,7 +2,8 @@ import Avatar from "@/components/ui/Avatar";
 import { Text } from "@/components/ui/Themed";
 import { useColors } from "@/hooks/useColors";
 import { Chat } from "@/models/Chat";
-import { StyleSheet, View } from "react-native";
+import { router } from "expo-router";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 interface ChatListItemProps {
   chat: Chat;
@@ -10,14 +11,19 @@ interface ChatListItemProps {
 
 const ChatListItem: React.FC<ChatListItemProps> = ({ chat }) => {
   const { text } = useColors();
+
+  const openChatHandler = () => {
+    router.push(`/${chat.id}`);
+  }
+
   return (
-    <View style={[styles.container, { borderBottomColor: `${text}20` }]}>
+    <TouchableOpacity onPress={openChatHandler} style={[styles.container, { borderBottomColor: `${text}20` }]}>
       <Avatar size={55} source={chat.participant.profilePicture} />
       <View style={styles.textContainer}>
         <Text style={styles.displayName}>{chat.participant.displayName}</Text>
         <Text style={styles.message}>{chat.lastMessage?.text}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
