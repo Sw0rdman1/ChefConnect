@@ -60,7 +60,7 @@ export const getChatWithMessages = async (userID: string, chatID: string) => {
   } as Chat;
 
   return {
-    chat: chatFormatted,
+    chat: snakeToCamel(chatFormatted),
     messages: snakeToCamel(messages) as Message[]
   };
 }
