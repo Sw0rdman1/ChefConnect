@@ -6,7 +6,7 @@ import { ScrollView, View } from "@/components/ui/Themed";
 import { useColors } from "@/hooks/useColors";
 import { useMessages } from "@/hooks/useMessages";
 import { useLocalSearchParams } from "expo-router";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, KeyboardAvoidingView, StyleSheet } from "react-native";
 
 const ChatScreen = () => {
   const { chatID } = useLocalSearchParams<{ chatID: string }>();
@@ -22,17 +22,19 @@ const ChatScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+    >
       <ChatHeader selectedChat={selectedChat} />
       <FlatList
         data={messages}
         renderItem={({ item }) => <Message message={item} />}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ padding: 10 }}
         inverted
-        ListHeaderComponent={<MessageInput chatID={chatID} />}
       />
-    </View>
+      <MessageInput chatID={chatID} />
+    </KeyboardAvoidingView>
   );
 };
 
