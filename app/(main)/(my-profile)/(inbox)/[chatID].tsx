@@ -10,7 +10,7 @@ import { FlatList, KeyboardAvoidingView, StyleSheet } from "react-native";
 
 const ChatScreen = () => {
   const { chatID } = useLocalSearchParams<{ chatID: string }>();
-  const { loading, selectedChat, messages } = useMessages(chatID)
+  const { loading, selectedChat, messages, setMessages } = useMessages(chatID)
   const { backgroundDarker } = useColors();
 
   if (loading) {
@@ -34,7 +34,7 @@ const ChatScreen = () => {
         contentContainerStyle={{ flex: 1, backgroundColor: backgroundDarker, justifyContent: 'flex-end' }}
 
       />
-      <MessageInput chatID={chatID} />
+      <MessageInput chatID={chatID} setMessages={setMessages} />
     </KeyboardAvoidingView>
   );
 };

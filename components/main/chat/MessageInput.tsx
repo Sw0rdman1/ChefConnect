@@ -1,5 +1,8 @@
 import { Text, TextInput, View } from '@/components/ui/Themed'
+import { useToast } from '@/context/ToastNotificationContext'
 import { useColors } from '@/hooks/useColors'
+import { useMessages } from '@/hooks/useMessages'
+import { sendMessage } from '@/services/ChatService'
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
@@ -8,18 +11,30 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface MessageInputProps {
     chatID: string
+    setMessages: (messages: any) => void
 }
 
-const MessageInput: React.FC<MessageInputProps> = ({ chatID }) => {
+const MessageInput: React.FC<MessageInputProps> = ({ chatID, setMessages }) => {
     const [text, setText] = useState('')
     const [isTyping, setIsTyping] = useState(false)
     const { tint, backgroundDarker } = useColors()
     const { bottom } = useSafeAreaInsets()
+    const { showToast } = useToast()
 
     const sendMessageHandler = async () => {
         if (text.trim() === '') return
-
-        setText('')
+        try {
+            const message = await sendMessage(chatID, text)
+            setMessages((prev: any) => [...prev, message])
+        } catch (error) {
+            console.log(error);
+            showToast({
+                text: 'Failed to send message',
+                severity: 'error',
+            })
+        } finally {
+            setText('')
+        }
     }
 
     const onBlurHandler = () => {

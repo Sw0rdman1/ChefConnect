@@ -64,3 +64,34 @@ export const getChatWithMessages = async (userID: string, chatID: string) => {
     messages: snakeToCamel(messages) as Message[]
   };
 }
+
+export const sendMessage = async (chatID: string, text: string) => {
+  const user = await supabase.auth.getUser()
+  if (!user) {
+    throw new Error("User not authenticated");
+  }
+  const userID = user.data.user?.id;
+
+  const { error } = await supabase
+    .from("messages")
+    .insert({
+      chat_id: chatID,
+      user_id: userID,
+      text,
+      created_at: new Date().toISOString(),
+    })
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  return {
+    id: Math.random().toString(),
+    chatID,
+    text,
+    userId: userID,
+    isRead: false,
+    createdAt: new Date(),
+  } as Message;
+}

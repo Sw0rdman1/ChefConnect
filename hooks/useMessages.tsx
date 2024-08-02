@@ -35,5 +35,5 @@ export const useMessages = (chatID: string) => {
         };
         fetchMessages();
     }, []);
-    return { selectedChat, messages, loading };
+    return { selectedChat, messages, loading, setMessages };
 }
