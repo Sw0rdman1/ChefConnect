@@ -31,7 +31,8 @@ const ChatScreen = () => {
         data={messages}
         renderItem={({ item }) => <Message message={item} />}
         keyExtractor={(item) => item.id}
-        inverted
+        contentContainerStyle={{ flex: 1, backgroundColor: backgroundDarker, justifyContent: 'flex-end' }}
+
       />
       <MessageInput chatID={chatID} />
     </KeyboardAvoidingView>

@@ -3,6 +3,6 @@ export interface Message {
   text: string;
   isRead: boolean;
   chatID: string;
-  senderID: string;
+  userId: string;
   createdAt: Date;
 }
