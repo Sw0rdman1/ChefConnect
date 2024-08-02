@@ -33,7 +33,7 @@ export const getChatWithMessages = async (userID: string, chatID: string) => {
     .from("messages")
     .select("*")
     .eq("chat_id", chatID)
-    .order("created_at", { ascending: true });
+    .order("created_at", { ascending: false })
 
   if (error) {
     console.log(error);
