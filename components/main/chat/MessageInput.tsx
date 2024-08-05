@@ -25,7 +25,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chatID, setMessages }) => {
         if (text.trim() === '') return
         try {
             const message = await sendMessage(chatID, text)
-            setMessages((prev: any) => [...prev, message])
+            setMessages((prev: any) => [message, ...prev])
         } catch (error) {
             console.log(error);
             showToast({

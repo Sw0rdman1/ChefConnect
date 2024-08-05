@@ -44,7 +44,7 @@ export const getChats = async (userID: string) => {
         participant:
           chat.firstUserId.id === userID ? chat.secondUserId : chat.firstUserId,
         unreadCount: chat.unreadCount || 0,
-        createdAt: chat.createdAt,
+        createdAt: new Date(chat.createdAt),
       } as Chat;
     })
   );
