@@ -142,3 +142,22 @@ export const sendMessage = async (chatID: string, text: string) => {
   } as Message;
 }
 
+export const markMessagesAsRead = async (chatID: string) => {
+  const user = await supabase.auth.getUser()
+  if (!user) {
+    throw new Error("User not authenticated");
+  }
+  const userID = user.data.user?.id;
+
+  const { error } = await supabase
+    .from("messages")
+    .update({ is_read: true })
+    .eq("chat_id", chatID)
+    .neq("user_id", userID)
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+}
+

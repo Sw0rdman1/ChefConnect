@@ -1,7 +1,6 @@
-import { Text, TextInput, View } from '@/components/ui/Themed'
-import { useToast } from '@/context/ToastNotificationContext'
+import { TextInput, View } from '@/components/ui/Themed'
+import { useChats } from '@/context/ChatContext'
 import { useColors } from '@/hooks/useColors'
-import { useMessages } from '@/hooks/useMessages'
 import { sendMessage } from '@/services/ChatService'
 import { Ionicons } from '@expo/vector-icons'
 import { useState } from 'react'
@@ -16,22 +15,19 @@ interface MessageInputProps {
 
 const MessageInput: React.FC<MessageInputProps> = ({ chatID, setMessages }) => {
     const [text, setText] = useState('')
+    const { setLastMessage } = useChats()
     const [isTyping, setIsTyping] = useState(false)
     const { tint, backgroundDarker } = useColors()
     const { bottom } = useSafeAreaInsets()
-    const { showToast } = useToast()
 
     const sendMessageHandler = async () => {
         if (text.trim() === '') return
         try {
             const message = await sendMessage(chatID, text)
             setMessages((prev: any) => [message, ...prev])
+            setLastMessage(chatID, message)
         } catch (error) {
             console.log(error);
-            showToast({
-                text: 'Failed to send message',
-                severity: 'error',
-            })
         } finally {
             setText('')
         }

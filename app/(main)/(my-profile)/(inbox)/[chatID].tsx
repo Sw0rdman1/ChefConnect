@@ -5,8 +5,10 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 import { ScrollView, Text, View } from "@/components/ui/Themed";
 import { useColors } from "@/hooks/useColors";
 import { useMessages } from "@/hooks/useMessages";
+import { markMessagesAsRead } from "@/services/ChatService";
 import { generateDateText, isDayChanged } from "@/utils/time";
 import { useLocalSearchParams } from "expo-router";
+import { useEffect } from "react";
 import { FlatList, KeyboardAvoidingView, StyleSheet } from "react-native";
 
 const MessageDateSeparator = ({ date }: { date: Date }) => {
@@ -22,6 +24,16 @@ const ChatScreen = () => {
   const { chatID } = useLocalSearchParams<{ chatID: string }>();
   const { loading, selectedChat, messages, setMessages } = useMessages(chatID)
   const { background } = useColors();
+
+  useEffect(() => {
+    const makeMessagesRead = async () => {
+      if (selectedChat) {
+        await markMessagesAsRead(chatID);
+
+      }
+    }
+    makeMessagesRead();
+  }, [selectedChat])
 
   if (loading) {
     return <LoadingScreen />;

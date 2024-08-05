@@ -13,9 +13,12 @@ export const generateTimeString = (date: Date) => {
         return `${hours}h ago`
     } else if (minutes > 0) {
         return `${minutes}m ago`
-    } else {
+    } else if (seconds > 20) {
         return `${seconds}s ago`
+    } else {
+        return 'Just now'
     }
+
 }
 
 export const isDayChanged = (date1: Date, date2: Date) => {

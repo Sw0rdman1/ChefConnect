@@ -9,13 +9,15 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 interface ChatListItemProps {
   chat: Chat;
+  markChatAsRead: (chatID: string) => void;
 }
 
-const ChatListItem: React.FC<ChatListItemProps> = ({ chat }) => {
+const ChatListItem: React.FC<ChatListItemProps> = ({ chat, markChatAsRead }) => {
   const { tint, text } = useColors();
   const { lastMessage } = chat;
 
   const openChatHandler = () => {
+    markChatAsRead(chat.id);
     router.push(`/${chat.id}`);
   }
 
