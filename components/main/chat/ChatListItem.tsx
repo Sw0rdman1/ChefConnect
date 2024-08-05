@@ -31,24 +31,27 @@ const ChatListItem: React.FC<ChatListItemProps> = ({ chat }) => {
       <View style={styles.textContainer}>
         <View style={styles.topContainer}>
           <Text style={styles.displayName}>{chat.participant.displayName}</Text>
-          <Text style={{ color: "gray" }}>
+          <Text style={{ fontWeight: "500", color: chat.unreadCount > 0 ? tint : "gray" }}>
             {generateTimeString(lastMessage.createdAt)}
           </Text>
         </View>
         <View style={styles.bottomContainer}>
-          <Ionicons
-            name="checkmark-done-outline"
-            size={20}
-            color={isYourMessage ?
-              lastMessage.isRead ? tint : text
-              : "transparent"
-            }
-          />
-          <Text style={styles.message}>
-            {lastMessage.text}
-          </Text>
+          <View style={styles.messageContainer}>
+            {isYourMessage && <Ionicons
+              name="checkmark-done-outline"
+              size={20}
+              color={lastMessage.isRead ? tint : text}
+            />}
+            <Text style={styles.message}>
+              {lastMessage.text}
+            </Text>
+          </View>
+          {chat.unreadCount > 0 && (
+            <View style={[styles.unreadMessagesContainer, { backgroundColor: tint }]}>
+              <Text style={styles.unreadMessagesText}>{chat.unreadCount}</Text>
+            </View>
+          )}
         </View>
-
       </View>
     </TouchableOpacity>
   );
@@ -64,6 +67,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     height: 100,
     borderBottomWidth: 1,
+    paddingRight: 20,
   },
   textContainer: {
     flex: 1,
@@ -73,9 +77,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingRight: 10,
   },
   bottomContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  messageContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
@@ -87,5 +95,16 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 18,
     color: "gray",
+  },
+  unreadMessagesContainer: {
+    width: 22,
+    height: 22,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  unreadMessagesText: {
+    color: "white",
+    fontWeight: "bold",
   },
 });

@@ -21,7 +21,7 @@ const MessageDateSeparator = ({ date }: { date: Date }) => {
 const ChatScreen = () => {
   const { chatID } = useLocalSearchParams<{ chatID: string }>();
   const { loading, selectedChat, messages, setMessages } = useMessages(chatID)
-  const { backgroundDarker } = useColors();
+  const { background } = useColors();
 
   if (loading) {
     return <LoadingScreen />;
@@ -33,7 +33,7 @@ const ChatScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { backgroundColor: background }]}
       behavior="padding"
     >
       <ChatHeader selectedChat={selectedChat} />
@@ -48,7 +48,7 @@ const ChatScreen = () => {
           </>
         )}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingBottom: 150, flexGrow: 1 }}
+        contentContainerStyle={{ paddingBottom: 150, backgroundColor: background, flexGrow: 1 }}
         inverted
       />
       <MessageInput chatID={chatID} setMessages={setMessages} />
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   dateSeparator: {
     alignItems: "center",
     padding: 5,
+    paddingBottom: 20,
     backgroundColor: "transparent",
   },
   dateText: {

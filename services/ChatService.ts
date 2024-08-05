@@ -21,10 +21,26 @@ const getLastMessage = async (chatID: string) => {
   return snakeToCamel(messages[0]) as Message;
 }
 
+const getUnredMessageCount = async (chatID: string, userID: string) => {
+  const { data: messages, error } = await supabase
+    .from("messages")
+    .select("*")
+    .eq("chat_id", chatID)
+    .neq("user_id", userID)
+    .eq("is_read", false)
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  return messages.length;
+}
+
 export const getChats = async (userID: string) => {
   const { data: chats, error } = await supabase
     .from("chats")
-    .select("*, first_user_id(*), second_user_id(*), last_message(*)")
+    .select("*, first_user_id(*), second_user_id(*)")
     .or(`first_user_id.eq.${userID},second_user_id.eq.${userID}`);
 
   if (error) {
@@ -36,12 +52,14 @@ export const getChats = async (userID: string) => {
   const chatFormatted = await Promise.all(
     snakeToCamel(chats).map(async (chat: any) => {
       const lastMessage = await getLastMessage(chat.id);
+      const unreadMessageCount = await getUnredMessageCount(chat.id, userID);
+
       return {
         id: chat.id,
         lastMessage,
         participant:
           chat.firstUserId.id === userID ? chat.secondUserId : chat.firstUserId,
-        unreadCount: chat.unreadCount || 0,
+        unreadCount: unreadMessageCount,
         createdAt: new Date(chat.createdAt),
       } as Chat;
     })
@@ -123,3 +141,4 @@ export const sendMessage = async (chatID: string, text: string) => {
     createdAt: new Date(),
   } as Message;
 }
+

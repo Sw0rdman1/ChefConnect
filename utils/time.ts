@@ -42,3 +42,10 @@ export const generateDateText = (date: Date) => {
         return 'Today'
     }
 }
+
+export const getTime = (date: Date) => {
+    const dateFormatted = new Date(date)
+    const hours = dateFormatted.getHours()
+    const minutes = dateFormatted.getMinutes()
+    return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`
+}

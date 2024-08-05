@@ -14,7 +14,7 @@ interface ChatHeaderProps {
 
 const ChatHeader: React.FC<ChatHeaderProps> = ({ selectedChat }) => {
     const { top } = useSafeAreaInsets()
-    const { tint } = useColors()
+    const { tint, text } = useColors()
 
     const goBackHandler = () => {
         router.back()
@@ -23,7 +23,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ selectedChat }) => {
     return (
         <BlurView
             intensity={100}
-            style={[styles.container, { paddingTop: top + 20 }]}
+            style={[styles.container, { paddingTop: top + 20, borderColor: `${text}30` }]}
         >
             <View style={styles.left}>
                 <TouchableOpacity onPress={goBackHandler}>
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         flexDirection: "row",
         alignItems: "center",
+        borderBottomWidth: 1,
     },
     left: {
         flex: 1,
