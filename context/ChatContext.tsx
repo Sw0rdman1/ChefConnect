@@ -1,5 +1,5 @@
 import { Chat } from '@/models/Chat';
-import { getChats } from '@/services/ChatService';
+import { getChats, markMessagesAsRead } from '@/services/ChatService';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useToast } from './ToastNotificationContext';
 import { useApp } from './AppContext';
@@ -8,14 +8,14 @@ import { Message } from '@/models/Message';
 interface ChatContextProps {
     chats: Chat[];
     loading: boolean;
-    markChatAsRead: (chatID: string) => void;
+    markChatAsRead: (chatID: string) => Promise<void>;
     setLastMessage: (chatID: string, message: Message) => void;
 }
 
 export const ChatContext = createContext<ChatContextProps>({
     chats: [],
     loading: true,
-    markChatAsRead: () => { },
+    markChatAsRead: async () => { },
     setLastMessage: () => { },
 });
 
@@ -51,11 +51,12 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         fetchChats();
     }, []);
 
-    const markChatAsRead = (chatID: string) => {
+    const markChatAsRead = async (chatID: string) => {
         const chat = chats.find((chat) => chat.id === chatID);
         if (chat) {
             chat.unreadCount = 0;
             setChats([...chats]);
+            await markMessagesAsRead(chatID)
         }
     }
 
@@ -63,6 +64,14 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         const chat = chats.find((chat) => chat.id === chatID);
         if (chat) {
             chat.lastMessage = message;
+            setChats([...chats]);
+        }
+    }
+
+    const addUnreadMessage = (chatID: string) => {
+        const chat = chats.find((chat) => chat.id === chatID);
+        if (chat) {
+            chat.unreadCount += 1;
             setChats([...chats]);
         }
     }

@@ -161,3 +161,14 @@ export const markMessagesAsRead = async (chatID: string) => {
   }
 }
 
+
+export const getMessageFromRealtimeEvent = (payload: any) => {
+  const newMessage = snakeToCamel(payload.new)
+  return {
+    chatID: newMessage.chatId,
+    text: newMessage.text,
+    userId: newMessage.userId,
+    isRead: newMessage.isRead,
+    createdAt: new Date(newMessage.createdAt),
+  } as Message;
+}

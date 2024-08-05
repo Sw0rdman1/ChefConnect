@@ -2,10 +2,12 @@ import ChatHeader from "@/components/main/chat/ChatHeader";
 import Message from "@/components/main/chat/Message";
 import MessageInput from "@/components/main/chat/MessageInput";
 import LoadingScreen from "@/components/ui/LoadingScreen";
-import { ScrollView, Text, View } from "@/components/ui/Themed";
+import { Text, View } from "@/components/ui/Themed";
+import { supabase } from "@/config/supabase";
+import { useApp } from "@/context/AppContext";
 import { useColors } from "@/hooks/useColors";
 import { useMessages } from "@/hooks/useMessages";
-import { markMessagesAsRead } from "@/services/ChatService";
+import { getMessageFromRealtimeEvent } from "@/services/ChatService";
 import { generateDateText, isDayChanged } from "@/utils/time";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
@@ -24,16 +26,24 @@ const ChatScreen = () => {
   const { chatID } = useLocalSearchParams<{ chatID: string }>();
   const { loading, selectedChat, messages, setMessages } = useMessages(chatID)
   const { background } = useColors();
+  const { user } = useApp()
+
+  const handleInserts = (payload: any) => {
+    const newMessage = getMessageFromRealtimeEvent(payload)
+    if (newMessage.chatID === chatID && newMessage.userId !== user?.id) {
+      setMessages((prev: any) => [newMessage, ...prev])
+    }
+  }
 
   useEffect(() => {
-    const makeMessagesRead = async () => {
-      if (selectedChat) {
-        await markMessagesAsRead(chatID);
-
-      }
-    }
-    makeMessagesRead();
-  }, [selectedChat])
+    supabase
+      .channel('messages')
+      .on('postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'messages' },
+        handleInserts
+      )
+      .subscribe()
+  }, [])
 
   if (loading) {
     return <LoadingScreen />;
@@ -42,6 +52,9 @@ const ChatScreen = () => {
   if (!selectedChat) {
     return null;
   }
+
+
+
 
   return (
     <KeyboardAvoidingView
