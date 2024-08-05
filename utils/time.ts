@@ -17,3 +17,28 @@ export const generateTimeString = (date: Date) => {
         return `${seconds}s ago`
     }
 }
+
+export const isDayChanged = (date1: Date, date2: Date) => {
+    const dateFormatted1 = new Date(date1)
+    const dateFormatted2 = new Date(date2)
+    return dateFormatted1.getDate() !== dateFormatted2.getDate()
+}
+
+export const generateDateText = (date: Date) => {
+    const dateFormatted = new Date(date)
+    const now = new Date()
+    const diff = now.getTime() - dateFormatted.getTime()
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const months = Math.floor(days / 30)
+    const years = Math.floor(months / 12)
+
+    if (years > 0) {
+        return `${years} year${years > 1 ? 's' : ''} ago`
+    } else if (months > 0) {
+        return `${months} month${months > 1 ? 's' : ''} ago`
+    } else if (days > 0) {
+        return `${days} day${days > 1 ? 's' : ''} ago`
+    } else {
+        return 'Today'
+    }
+}

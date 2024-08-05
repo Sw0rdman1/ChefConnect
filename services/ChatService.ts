@@ -11,14 +11,13 @@ const getLastMessage = async (chatID: string) => {
     .order("created_at", { ascending: false })
     .limit(1);
 
-  console.log(messages);
-
 
   if (error) {
     console.log(error);
     throw error;
   }
 
+  messages[0].created_at = new Date(messages[0].created_at);
   return snakeToCamel(messages[0]) as Message;
 }
 
@@ -37,7 +36,6 @@ export const getChats = async (userID: string) => {
   const chatFormatted = await Promise.all(
     snakeToCamel(chats).map(async (chat: any) => {
       const lastMessage = await getLastMessage(chat.id);
-      console.log(lastMessage);
       return {
         id: chat.id,
         lastMessage,
@@ -48,8 +46,6 @@ export const getChats = async (userID: string) => {
       } as Chat;
     })
   );
-
-  console.log(chatFormatted);
 
 
   return chatFormatted;
@@ -86,9 +82,14 @@ export const getChatWithMessages = async (userID: string, chatID: string) => {
       chat.first_user_id.id === userID ? chat.second_user_id : chat.first_user_id,
   } as Chat;
 
+  const messagesFormatted = messages.map((message: any) => {
+    message.created_at = new Date(message.created_at);
+    return snakeToCamel(message) as Message;
+  });
+
   return {
     chat: snakeToCamel(chatFormatted),
-    messages: snakeToCamel(messages) as Message[]
+    messages: messagesFormatted as Message[]
   };
 }
 

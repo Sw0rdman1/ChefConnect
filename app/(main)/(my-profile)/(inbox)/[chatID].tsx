@@ -2,11 +2,21 @@ import ChatHeader from "@/components/main/chat/ChatHeader";
 import Message from "@/components/main/chat/Message";
 import MessageInput from "@/components/main/chat/MessageInput";
 import LoadingScreen from "@/components/ui/LoadingScreen";
-import { ScrollView, View } from "@/components/ui/Themed";
+import { ScrollView, Text, View } from "@/components/ui/Themed";
 import { useColors } from "@/hooks/useColors";
 import { useMessages } from "@/hooks/useMessages";
+import { generateDateText, isDayChanged } from "@/utils/time";
 import { useLocalSearchParams } from "expo-router";
 import { FlatList, KeyboardAvoidingView, StyleSheet } from "react-native";
+
+const MessageDateSeparator = ({ date }: { date: Date }) => {
+
+  return (
+    <View style={styles.dateSeparator}>
+      <Text style={styles.dateText}>{generateDateText(date)}</Text>
+    </View>
+  );
+}
 
 const ChatScreen = () => {
   const { chatID } = useLocalSearchParams<{ chatID: string }>();
@@ -29,9 +39,16 @@ const ChatScreen = () => {
       <ChatHeader selectedChat={selectedChat} />
       <FlatList
         data={messages}
-        renderItem={({ item }) => <Message message={item} />}
+        renderItem={({ item, index }) => (
+          <>
+            <Message message={item} />
+            {index === messages.length - 1 || isDayChanged(item.createdAt, messages[index + 1].createdAt) ? (
+              <MessageDateSeparator date={item.createdAt} />
+            ) : null}
+          </>
+        )}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingBottom: 150, backgroundColor: backgroundDarker, flexGrow: 1 }}
+        contentContainerStyle={{ paddingBottom: 150, flexGrow: 1 }}
         inverted
       />
       <MessageInput chatID={chatID} setMessages={setMessages} />
@@ -44,5 +61,13 @@ export default ChatScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  dateSeparator: {
+    alignItems: "center",
+    padding: 5,
+    backgroundColor: "transparent",
+  },
+  dateText: {
+    color: "gray",
   },
 });
