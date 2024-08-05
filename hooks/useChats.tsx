@@ -18,6 +18,8 @@ export const useChats = () => {
         setChats(chats);
         setLoading(false);
       } catch (error) {
+        console.log(error);
+
         showToast({
           severity: "error",
           text: "Failed to fetch chats",

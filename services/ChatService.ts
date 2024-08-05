@@ -3,6 +3,25 @@ import { Chat } from "@/models/Chat";
 import { Message } from "@/models/Message";
 import { snakeToCamel } from "@/utils/caseConverter";
 
+const getLastMessage = async (chatID: string) => {
+  const { data: messages, error } = await supabase
+    .from("messages")
+    .select("*")
+    .eq("chat_id", chatID)
+    .order("created_at", { ascending: false })
+    .limit(1);
+
+  console.log(messages);
+
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  return snakeToCamel(messages[0]) as Message;
+}
+
 export const getChats = async (userID: string) => {
   const { data: chats, error } = await supabase
     .from("chats")
@@ -14,16 +33,24 @@ export const getChats = async (userID: string) => {
     throw error;
   }
 
-  const chatFormatted = snakeToCamel(chats).map((chat: any) => {
-    return {
-      id: chat.id,
-      lastMessage: chat.lastMessage,
-      participant:
-        chat.firstUserId.id === userID ? chat.secondUserId : chat.firstUserId,
-      unreadCount: chat.unreadCount || 0,
-      createdAt: chat.createdAt,
-    } as Chat;
-  });
+
+  const chatFormatted = await Promise.all(
+    snakeToCamel(chats).map(async (chat: any) => {
+      const lastMessage = await getLastMessage(chat.id);
+      console.log(lastMessage);
+      return {
+        id: chat.id,
+        lastMessage,
+        participant:
+          chat.firstUserId.id === userID ? chat.secondUserId : chat.firstUserId,
+        unreadCount: chat.unreadCount || 0,
+        createdAt: chat.createdAt,
+      } as Chat;
+    })
+  );
+
+  console.log(chatFormatted);
+
 
   return chatFormatted;
 };
