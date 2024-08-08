@@ -10,10 +10,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface MessageInputProps {
     chatID: string
-    setMessages: (messages: any) => void
 }
 
-const MessageInput: React.FC<MessageInputProps> = ({ chatID, setMessages }) => {
+const MessageInput: React.FC<MessageInputProps> = ({ chatID }) => {
     const [text, setText] = useState('')
     const { setLastMessage } = useChats()
     const [isTyping, setIsTyping] = useState(false)
@@ -24,8 +23,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chatID, setMessages }) => {
         if (text.trim() === '') return
         try {
             const message = await sendMessage(chatID, text)
-            setMessages((prev: any) => [message, ...prev])
-            setLastMessage(chatID, message)
+            setLastMessage(message)
         } catch (error) {
             console.log(error);
         } finally {

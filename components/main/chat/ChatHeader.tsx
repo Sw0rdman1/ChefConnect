@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons'
 import Avatar from '@/components/ui/Avatar'
 import { router } from 'expo-router'
 import { useColors } from '@/hooks/useColors'
+import { useMessages } from '@/context/MessagesContext'
 
 interface ChatHeaderProps {
     selectedChat: Chat
@@ -15,8 +16,10 @@ interface ChatHeaderProps {
 const ChatHeader: React.FC<ChatHeaderProps> = ({ selectedChat }) => {
     const { top } = useSafeAreaInsets()
     const { tint, text } = useColors()
+    const { setSelectedChatID } = useMessages()
 
     const goBackHandler = () => {
+        setSelectedChatID('')
         router.back()
     }
 

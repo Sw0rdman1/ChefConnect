@@ -9,7 +9,8 @@ interface ChatContextProps {
     chats: Chat[];
     loading: boolean;
     markChatAsRead: (chatID: string) => Promise<void>;
-    setLastMessage: (chatID: string, message: Message) => void;
+    setLastMessage: (message: Message) => void;
+    addUnreadMessage: (chatID: string) => void;
 }
 
 export const ChatContext = createContext<ChatContextProps>({
@@ -17,6 +18,7 @@ export const ChatContext = createContext<ChatContextProps>({
     loading: true,
     markChatAsRead: async () => { },
     setLastMessage: () => { },
+    addUnreadMessage: () => { },
 });
 
 interface ChatProviderProps {
@@ -36,6 +38,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
                 const chats = await getChats(user?.id);
                 setChats(chats);
                 setLoading(false);
+
             } catch (error) {
                 console.log(error);
 
@@ -60,25 +63,39 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         }
     }
 
-    const setLastMessage = (chatID: string, message: Message) => {
-        const chat = chats.find((chat) => chat.id === chatID);
-        if (chat) {
-            chat.lastMessage = message;
-            setChats([...chats]);
-        }
+    const setLastMessage = (message: Message) => {
+        setChats((prevChats) => {
+            const updatedChats = prevChats.map((chat) => {
+                if (chat.id === message.chatID) {
+                    return {
+                        ...chat,
+                        lastMessage: message,
+                    };
+                }
+                return chat;
+            });
+            return updatedChats;
+        });
     }
 
     const addUnreadMessage = (chatID: string) => {
-        const chat = chats.find((chat) => chat.id === chatID);
-        if (chat) {
-            chat.unreadCount += 1;
-            setChats([...chats]);
-        }
+        setChats((prevChats) => {
+            const updatedChats = prevChats.map((chat) => {
+                if (chat.id === chatID) {
+                    return {
+                        ...chat,
+                        unreadCount: chat.unreadCount + 1,
+                    };
+                }
+                return chat;
+            });
+            return updatedChats;
+        });
     }
 
 
     return (
-        <ChatContext.Provider value={{ chats, loading, markChatAsRead, setLastMessage }}>
+        <ChatContext.Provider value={{ chats, loading, markChatAsRead, setLastMessage, addUnreadMessage }}>
             {children}
         </ChatContext.Provider>
     );

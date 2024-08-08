@@ -1,5 +1,6 @@
 import Avatar from "@/components/ui/Avatar";
 import { Text } from "@/components/ui/Themed";
+import { useMessages } from "@/context/MessagesContext";
 import { useColors } from "@/hooks/useColors";
 import { Chat } from "@/models/Chat";
 import { generateTimeString } from "@/utils/time";
@@ -14,9 +15,11 @@ interface ChatListItemProps {
 
 const ChatListItem: React.FC<ChatListItemProps> = ({ chat, markChatAsRead }) => {
   const { tint, text } = useColors();
+  const { setSelectedChatID, messages } = useMessages();
   const { lastMessage } = chat;
 
   const openChatHandler = async () => {
+    setSelectedChatID(chat.id);
     router.push(`/${chat.id}`);
     await markChatAsRead(chat.id);
   }
@@ -24,6 +27,9 @@ const ChatListItem: React.FC<ChatListItemProps> = ({ chat, markChatAsRead }) => 
   if (!lastMessage) {
     return null;
   }
+
+  const message = messages.find((m) => m.chatID === chat.id);
+  const sortedMessages = messages.sort((a, b) => a.createdAt - b.createdAt);
 
   const isYourMessage = lastMessage.userId !== chat.participant.id
 

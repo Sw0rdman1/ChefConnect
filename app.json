@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "chef-connect",
-    "slug": "chef-connect",
+    "name": "ChefConnect",
+    "slug": "ChefConnect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
