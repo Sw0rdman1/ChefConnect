@@ -15,7 +15,7 @@ interface ChatListItemProps {
 
 const ChatListItem: React.FC<ChatListItemProps> = ({ chat, markChatAsRead }) => {
   const { tint, text } = useColors();
-  const { setSelectedChatID, messages } = useMessages();
+  const { setSelectedChatID } = useMessages();
   const { lastMessage } = chat;
 
   const openChatHandler = async () => {
@@ -27,9 +27,6 @@ const ChatListItem: React.FC<ChatListItemProps> = ({ chat, markChatAsRead }) => 
   if (!lastMessage) {
     return null;
   }
-
-  const message = messages.find((m) => m.chatID === chat.id);
-  const sortedMessages = messages.sort((a, b) => a.createdAt - b.createdAt);
 
   const isYourMessage = lastMessage.userId !== chat.participant.id
 
