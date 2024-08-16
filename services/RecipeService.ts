@@ -76,7 +76,7 @@ export const getTrendingRecipes = async (
 export const getRecipeByID = async (recipeID: string) => {
   let { data: recipe, error } = await supabase
     .from("recipes")
-    .select("*")
+    .select("*, created_by(*)")
     .eq("id", recipeID)
     .single();
 

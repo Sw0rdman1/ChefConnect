@@ -39,6 +39,10 @@ export default function MainScreenLayout() {
             name="(recipe)/[recipeID]"
             options={{ headerShown: false, animation: "fade_from_bottom" }}
           />
+          <Stack.Screen
+            name="(user)/[userID]"
+            options={{ headerShown: false, animation: "fade_from_bottom" }}
+          />
         </Stack>
       </RecipeProvider>
     </AppProvider>

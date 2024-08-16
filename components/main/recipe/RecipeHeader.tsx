@@ -4,6 +4,7 @@ import Recipe from '@/models/Recipe';
 import { getPublicURL } from '@/utils/helpers';
 import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
+import AuthorInfo from './AuthorInfo';
 
 interface RecipeHeaderProps {
     recipe: Recipe;

@@ -11,12 +11,13 @@ import IngredientsList from "@/components/main/recipe/IngredientsList";
 import SaveButton from "@/components/main/recipe/SaveButton";
 import RecipeInstructions from "@/components/main/recipe/RecipeInstructions";
 import { useRef } from "react";
+import RecipeInfo from "@/components/main/recipe/RecipeInfo";
 
 const RecipeScreen = () => {
-  const scrollOffsetY = useRef(new Animated.Value(0)).current;
   const { recipeID } = useLocalSearchParams<{ recipeID: string }>();
   const { background } = useColors();
   const { recipe, ingredients, loading } = useRecipe(recipeID as string);
+  const scrollOffsetY = useRef(new Animated.Value(0)).current;
 
   if (loading) {
     return <LoadingScreen />;
@@ -31,11 +32,12 @@ const RecipeScreen = () => {
     <AnimatedHeader
       scrollOffsetY={scrollOffsetY}
       headerComponent={<RecipeHeader recipe={recipe} />}
-      minHeight={300}
-      maxHeight={550}
+      minHeight={250}
+      maxHeight={500}
     >
       <View style={[styles.container, { backgroundColor: `${background}95` }]}>
         <RecipeTitle recipe={recipe} />
+        <RecipeInfo recipe={recipe} />
         <SaveButton recipe={recipe} />
         <IngredientsList ingredients={ingredients} />
         <RecipeInstructions instructions={recipe.steps} />
