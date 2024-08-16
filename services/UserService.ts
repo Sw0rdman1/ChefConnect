@@ -20,3 +20,17 @@ export const getUserByID = async (userID: string): Promise<User | null> => {
         return null;
     }
 }
+
+export const getUsersByName = async (searchTerm: string): Promise<User[]> => {
+    let { data: users, error } = await supabase
+        .from("users")
+        .select("*")
+        .ilike("display_name", `%${searchTerm}%`);
+
+    if (error) {
+        console.log(error);
+        throw error;
+    }
+
+    return snakeToCamel(users) as User[];
+}
