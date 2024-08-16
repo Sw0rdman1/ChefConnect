@@ -1,8 +1,12 @@
 import { Text, View } from '@/components/ui/Themed'
+import { useApp } from '@/context/AppContext'
+import { useMessages } from '@/context/MessagesContext'
 import { useColors } from '@/hooks/useColors'
 import User from '@/models/User'
+import { returnChatByUsersID } from '@/services/ChatService'
 import { Ionicons } from '@expo/vector-icons'
 import { Image } from 'expo-image'
+import { router } from 'expo-router'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
 const BIOGRAPHY_ICON = require("../../../assets/images/main/biography.png")
@@ -15,6 +19,8 @@ interface UserInformationsProps {
 
 const UserInformations: React.FC<UserInformationsProps> = ({ user, userCardHeight, imageHeight }) => {
     const { tint, text } = useColors()
+    const { user: currentUser } = useApp()
+    const { setSelectedChatID } = useMessages()
 
     const boxShadow = {
         shadowColor: text,
@@ -27,8 +33,10 @@ const UserInformations: React.FC<UserInformationsProps> = ({ user, userCardHeigh
         elevation: 5,
     }
 
-    const openChatHandler = () => {
-        // router.push(`/(inbox)/${userID}`);
+    const openChatHandler = async () => {
+        const chatID = await returnChatByUsersID(currentUser?.id as string, user.id)
+        setSelectedChatID(chatID);
+        router.push(`/(inbox)/${chatID}`)
     }
 
     return (

@@ -173,3 +173,46 @@ export const getMessageFromRealtimeEvent = (payload: any) => {
     createdAt: new Date(newMessage.createdAt),
   } as Message;
 }
+
+
+export const createChat = async (firstUserID: string, secondUserID: string) => {
+  const { data: newChat, error } = await supabase
+    .from("chats")
+    .insert([
+      {
+        first_user_id: firstUserID,
+        second_user_id: secondUserID,
+        created_at: new Date().toISOString(),
+      },
+    ])
+
+  if (!newChat || error) {
+    throw new Error("Failed to create chat");
+  }
+
+  const chat = newChat[0] as Chat;
+
+
+  return chat.id;
+}
+
+
+export const returnChatByUsersID = async (firstUserID: string, secondUserID: string) => {
+  const { data: chats, error } = await supabase
+    .from("chats")
+    .select("*")
+    .or(`first_user_id.eq.${firstUserID},second_user_id.eq.${firstUserID}`)
+    .or(`first_user_id.eq.${secondUserID},second_user_id.eq.${secondUserID}`)
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  if (!chats || chats.length === 0) {
+    const chatID = await createChat(firstUserID, secondUserID);
+    return chatID;
+  }
+
+  return chats[0].id;
+}

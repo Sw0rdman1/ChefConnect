@@ -29,6 +29,9 @@ const ChatScreen = () => {
   const { background } = useColors();
   const { markChatAsRead, setLastMessage } = useChats();
 
+  console.log(chatID);
+
+
 
   const hanleNewMessageInsert = async (payload: any) => {
     const newMessage = getMessageFromRealtimeEvent(payload)

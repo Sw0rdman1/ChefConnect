@@ -11,7 +11,6 @@ const InboxScreen = () => {
   const { chats, loading, markChatAsRead, setLastMessage, addUnreadMessage } = useChats();
 
   const hanleNewMessageInsert = (payload: any) => {
-    console.log('inox');
     const newMessage = getMessageFromRealtimeEvent(payload)
     setLastMessage(newMessage)
     addUnreadMessage(newMessage.chatID)
