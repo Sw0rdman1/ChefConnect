@@ -7,7 +7,6 @@ import { supabase } from "@/config/supabase";
 import { useChats } from "@/context/ChatContext";
 import { useMessages } from "@/context/MessagesContext";
 import { useColors } from "@/hooks/useColors";
-import { Message as MessageEntity } from "@/models/Message";
 import { getMessageFromRealtimeEvent } from "@/services/ChatService";
 import { generateDateText, isDayChanged } from "@/utils/time";
 import { useLocalSearchParams } from "expo-router";
@@ -28,10 +27,6 @@ const ChatScreen = () => {
   const { loading, selectedChat, messages, setSelectedChatID, addNewMessage } = useMessages()
   const { background } = useColors();
   const { markChatAsRead, setLastMessage } = useChats();
-
-  console.log(chatID);
-
-
 
   const hanleNewMessageInsert = async (payload: any) => {
     const newMessage = getMessageFromRealtimeEvent(payload)

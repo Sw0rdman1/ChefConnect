@@ -187,6 +187,7 @@ export const createChat = async (firstUserID: string, secondUserID: string) => {
     ])
 
   if (!newChat || error) {
+    console.log(error);
     throw new Error("Failed to create chat");
   }
 
