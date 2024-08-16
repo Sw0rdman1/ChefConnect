@@ -6,9 +6,11 @@ import LoadingScreen from '@/components/ui/LoadingScreen';
 import { Text, View } from '@/components/ui/Themed';
 import { useColors } from '@/hooks/useColors';
 import { useUserProfile } from '@/hooks/useUserProfile';
+import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import { FlatList, StyleSheet } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const IMAGE_SIZE = 450;
 const USER_CARD_HEIGHT = 100;
@@ -17,6 +19,10 @@ const UserProfileScreen = () => {
     const { userID } = useLocalSearchParams<{ userID: string }>();
     const { user, recipes, loading } = useUserProfile(userID as string, true);
     const { backgroundDarker, tint } = useColors();
+
+    const openChatHandler = () => {
+        // router.push(`/(inbox)/${userID}`);
+    }
 
     if (loading) {
         return <LoadingScreen />;
@@ -47,7 +53,15 @@ const UserProfileScreen = () => {
                         "{user.bio}"
                     </Text>
                 </View>
+                <TouchableOpacity
+                    onPress={openChatHandler}
+                    style={[styles.chatButton, { backgroundColor: tint }]}
+                >
+                    <Ionicons name="chatbubble-ellipses" size={24} color={"white"} />
+                </TouchableOpacity>
             </View>
+
+
             <View style={styles.recipeTitleContainer}>
                 <Text style={[styles.recipeTitle, { color: tint }]}>{recipes.length}</Text>
                 <Text style={styles.recipeTitle}>Recipes</Text>
@@ -98,7 +112,26 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderBottomRightRadius: 50,
         borderTopRightRadius: 50,
-
+        zIndex: 1
+    },
+    chatButton: {
+        height: 50,
+        width: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        borderRadius: 50,
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        position: 'absolute',
+        right: 10,
+        top: -USER_CARD_HEIGHT / 2
     },
     name: {
         fontSize: 26,
