@@ -113,3 +113,34 @@ export const getRecipeIngredients = async (recipeID: string) => {
     return [];
   }
 };
+
+export const getRecipesByUserID = async (userID: string, currentUserID: string) => {
+  let query = supabase.from("recipes").select("*");
+  query = query.eq("created_by", userID)
+
+  let { data: recipes, error } = await query;
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  if (recipes) {
+    const { data: saves } = await supabase
+      .from("saves")
+      .select("recipe_id")
+      .eq("user_id", currentUserID);
+
+    if (saves) {
+      recipes = recipes.map((recipe) => {
+        return {
+          ...recipe,
+          isSaved: saves.some((save) => save.recipe_id === recipe.id),
+        };
+      });
+    }
+    return snakeToCamel(recipes) as Recipe[];
+  } else {
+    return [];
+  }
+};

@@ -1,3 +1,6 @@
+import RecipeCard from '@/components/main/home/RecipeCard';
+import UserProfileRecipeCard from '@/components/main/user-profile/UserProfileRecipeCard';
+import BackButton from '@/components/ui/BackButton';
 import Button from '@/components/ui/Button';
 import LoadingScreen from '@/components/ui/LoadingScreen';
 import { Text, View } from '@/components/ui/Themed';
@@ -5,14 +8,14 @@ import { useColors } from '@/hooks/useColors';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
-import { StyleSheet } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 
 const IMAGE_SIZE = 450;
 const USER_CARD_HEIGHT = 100;
 
 const UserProfileScreen = () => {
     const { userID } = useLocalSearchParams<{ userID: string }>();
-    const { user, loading } = useUserProfile(userID as string);
+    const { user, recipes, loading } = useUserProfile(userID as string, true);
     const { backgroundDarker, tint } = useColors();
 
     if (loading) {
@@ -26,6 +29,7 @@ const UserProfileScreen = () => {
 
     return (
         <View style={[styles.container, { backgroundColor: backgroundDarker }]}>
+            <BackButton />
             <Image
                 source={{ uri: user.profilePicture }}
                 style={styles.image}
@@ -43,9 +47,22 @@ const UserProfileScreen = () => {
                         "{user.bio}"
                     </Text>
                 </View>
-
             </View>
-
+            <View style={styles.recipeTitleContainer}>
+                <Text style={[styles.recipeTitle, { color: tint }]}>{recipes.length}</Text>
+                <Text style={styles.recipeTitle}>Recipes</Text>
+            </View>
+            <FlatList
+                style={{ width: '100%' }}
+                data={recipes}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(recipe) => recipe.id}
+                renderItem={({ item: recipe }) => (
+                    <UserProfileRecipeCard recipe={recipe} />
+                )}
+            />
         </View >
     )
 }
@@ -96,6 +113,23 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         marginRight: 5
+    },
+    recipeTitleContainer: {
+        flexDirection: 'row',
+        gap: 10,
+        marginTop: 20,
+        padding: 5,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
+        alignSelf: 'flex-start',
+        paddingRight: 30,
+        marginBottom: 10
+    },
+    recipeTitle: {
+        fontSize: 20,
+        fontWeight: 'bold'
     }
 
 })
