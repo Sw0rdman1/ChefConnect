@@ -158,7 +158,15 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 20,
         alignSelf: 'flex-start',
         paddingRight: 30,
-        marginBottom: 10
+        marginBottom: 10,
+        shadowColor: 'black',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
     },
     recipeTitle: {
         fontSize: 20,
