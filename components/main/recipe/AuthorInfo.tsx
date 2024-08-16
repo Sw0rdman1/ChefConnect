@@ -1,5 +1,6 @@
 import Avatar from '@/components/ui/Avatar'
 import { Text } from '@/components/ui/Themed'
+import { useApp } from '@/context/AppContext'
 import { useColors } from '@/hooks/useColors'
 import User from '@/models/User'
 import { Image } from 'expo-image'
@@ -13,9 +14,14 @@ interface AuthorInfoProps {
 const AuthorInfo: React.FC<AuthorInfoProps> = ({ user }) => {
     const { background } = useColors()
     const router = useRouter()
+    const { user: currentUser } = useApp()
+
+    const isYourProfile = user.id === currentUser?.id
 
     const openUserProfileHandler = () => {
-        router.push(`/(main)/(user)/${user.id}`)
+        if (!isYourProfile) {
+            router.push(`/(main)/(user)/${user.id}`)
+        }
     }
 
     return (
@@ -35,7 +41,7 @@ const AuthorInfo: React.FC<AuthorInfoProps> = ({ user }) => {
             >
                 <Avatar size={25} source={user.profilePicture} />
                 <Text style={styles.name}>
-                    {user.displayName}
+                    {isYourProfile ? "You" : user.displayName}
                 </Text>
             </TouchableOpacity>
         </View>
