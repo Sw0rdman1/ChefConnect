@@ -9,7 +9,7 @@ import { Image } from 'expo-image'
 import { router } from 'expo-router'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
-const BIOGRAPHY_ICON = require("../../../assets/images/main/biography.png")
+const BIOGRAPHY_ICON = "../../../assets/images/main/biography.png"
 
 interface UserInformationsProps {
     user: User
@@ -46,7 +46,7 @@ const UserInformations: React.FC<UserInformationsProps> = ({ user, userCardHeigh
             </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
                 <Image
-                    source={BIOGRAPHY_ICON}
+                    source={require(BIOGRAPHY_ICON)}
                     style={styles.icon}
                 />
                 <Text style={styles.bio}>

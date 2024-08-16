@@ -1,5 +1,6 @@
 import ChatListItem from "@/components/main/chat/ChatListItem";
 import InboxHeader from "@/components/main/chat/InboxHeader";
+import NoChats from "@/components/main/chat/NoChats";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import { ScrollView, View } from "@/components/ui/Themed";
 import { supabase } from "@/config/supabase";
@@ -9,6 +10,8 @@ import { useEffect } from "react";
 
 const InboxScreen = () => {
   const { chats, loading, markChatAsRead, setLastMessage, addUnreadMessage } = useChats();
+
+  const displayChats = chats.filter((chat) => chat.lastMessage);
 
   const hanleNewMessageInsert = (payload: any) => {
     const newMessage = getMessageFromRealtimeEvent(payload)
@@ -31,8 +34,6 @@ const InboxScreen = () => {
     }
   }, [])
 
-
-
   if (loading) {
     return <LoadingScreen />;
   }
@@ -41,9 +42,12 @@ const InboxScreen = () => {
     <View style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }} stickyHeaderIndices={[0]}>
         <InboxHeader />
-        {chats.map((chat) => (
-          <ChatListItem key={chat.id} chat={chat} markChatAsRead={markChatAsRead} />
-        ))}
+        {displayChats.length > 0 ?
+          displayChats.map((chat) => (
+            <ChatListItem key={chat.id} chat={chat} markChatAsRead={markChatAsRead} />
+          )) :
+          <NoChats />
+        }
       </ScrollView>
     </View>
   );
