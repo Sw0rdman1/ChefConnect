@@ -64,14 +64,6 @@ const ProfileActions = () => {
         text="Edit profile"
         pageToGo="edit-profile"
       />
-      {user?.app_metadata.provider === "email" && (
-        <Action
-          icon="lock-closed-outline"
-          text="Change password"
-          pageToGo="change-password"
-        />
-      )}
-      <Action icon="settings-outline" text="Settings" pageToGo="settings" />
       <Action icon="log-out-outline" text="Log out" logOut />
     </View>
   );

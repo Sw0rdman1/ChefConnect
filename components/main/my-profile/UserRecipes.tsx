@@ -41,6 +41,11 @@ const UserRecipes = () => {
         icon="chatbubble-ellipses-outline"
         pageToGo="(inbox)"
       />
+      <Action
+        text="Add new recipe"
+        icon="add-circle-outline"
+        pageToGo="new-recipe"
+      />
       <Action text="My recipes" icon="book-outline" pageToGo="my-recipes" />
       <Action
         text="Saved recipes"
