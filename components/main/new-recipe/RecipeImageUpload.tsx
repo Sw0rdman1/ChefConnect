@@ -9,6 +9,7 @@ import { View } from '@/components/ui/Themed';
 
 const DEFAULT_RECIPE_IMAGE = require('../../../assets/images/main/gallery.png')
 const BORDER_RADIUS = 25;
+export const IMAGE_SIZE = 155;
 
 interface ImagePickerProps {
     imageUrl: string;
@@ -79,7 +80,7 @@ export default RecipeImageUpload;
 const styles = StyleSheet.create({
     button: {
         aspectRatio: 1,
-        width: 150,
+        width: IMAGE_SIZE,
         borderRadius: BORDER_RADIUS,
     },
     buttonText: {

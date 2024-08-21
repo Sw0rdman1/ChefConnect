@@ -1,6 +1,11 @@
 import { useColors } from '@/hooks/useColors';
 import { Image } from 'expo-image';
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
+import { IMAGE_SIZE } from './RecipeImageUpload';
+
+const { width } = Dimensions.get("window");
+
+const INPUT_WIDTH = width - 20 - IMAGE_SIZE - 15;
 
 interface RecipeInfoInputsProps {
     values: {
@@ -77,7 +82,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         fontSize: 20,
         fontWeight: "bold",
-        maxWidth: 180
+        maxWidth: INPUT_WIDTH
     },
     bottomInputs: {
         flexDirection: "row",

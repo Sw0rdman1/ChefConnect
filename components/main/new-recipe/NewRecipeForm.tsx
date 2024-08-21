@@ -96,7 +96,7 @@ export default NewRecipeForm;
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingBottom: 10,
         gap: 25,
     },
