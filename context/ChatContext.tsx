@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useToast } from './ToastNotificationContext';
 import { useApp } from './AppContext';
 import { Message } from '@/models/Message';
+import { useAuth } from './AuthContext';
 
 interface ChatContextProps {
     chats: Chat[];
@@ -29,7 +30,7 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
     const [chats, setChats] = useState<Chat[]>([]);
     const [loading, setLoading] = useState(true);
     const { showToast } = useToast();
-    const { user } = useApp();
+    const { user } = useAuth();
 
     useEffect(() => {
         const fetchChats = async () => {

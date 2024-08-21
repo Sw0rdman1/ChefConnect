@@ -10,8 +10,11 @@ import { useEffect } from "react";
 
 const InboxScreen = () => {
   const { chats, loading, markChatAsRead, setLastMessage, addUnreadMessage } = useChats();
-
   const displayChats = chats.filter((chat) => chat.lastMessage);
+
+  console.log('chats', chats)
+  console.log('displayChats', displayChats);
+
 
   const hanleNewMessageInsert = (payload: any) => {
     const newMessage = getMessageFromRealtimeEvent(payload)

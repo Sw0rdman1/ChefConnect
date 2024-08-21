@@ -55,7 +55,6 @@ const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
 };
 
 const ProfileActions = () => {
-  const { user } = useAuth();
 
   return (
     <View style={styles.container}>

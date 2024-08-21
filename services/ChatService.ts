@@ -48,6 +48,9 @@ export const getChats = async (userID: string) => {
     throw error;
   }
 
+  console.log(chats);
+
+
 
   const chatFormatted = await Promise.all(
     snakeToCamel(chats).map(async (chat: any) => {
