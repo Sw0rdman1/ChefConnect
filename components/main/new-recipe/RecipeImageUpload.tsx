@@ -7,6 +7,9 @@ import { uploadImage } from '@/services/ImageService';
 import { Image } from 'expo-image';
 import { View } from '@/components/ui/Themed';
 
+const DEFAULT_RECIPE_IMAGE = require('../../../assets/images/main/gallery.png')
+const BORDER_RADIUS = 25;
+
 interface ImagePickerProps {
     imageUrl: string;
     setImageUrl: (url: string) => void;
@@ -16,7 +19,7 @@ interface ImagePickerProps {
 const RecipeImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, setImageUrl }) => {
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState<ImagePicker.ImagePickerAsset | null>(null);
-    const { tint, background } = useColors();
+    const { tint, background, backgroundDarker } = useColors();
     const { user } = useApp();
 
     const pickImage = async () => {
@@ -43,7 +46,9 @@ const RecipeImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, setImageUrl }
                 )
             }
             return (
-                <Image source={{ uri: DEFAULT_AVATAR }} style={styles.image} />
+                <View style={[styles.noPhotoContainer, { backgroundColor: backgroundDarker }]}>
+                    <Image source={DEFAULT_RECIPE_IMAGE} contentFit='contain' style={styles.noImage} />
+                </View>
             )
         }
 
@@ -74,37 +79,39 @@ export default RecipeImageUpload;
 const styles = StyleSheet.create({
     button: {
         aspectRatio: 1,
-        width: 200,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 100,
-        backgroundColor: 'rgba(153, 157, 160, 0.15)',
+        width: 150,
+        borderRadius: BORDER_RADIUS,
         marginBottom: 20,
     },
     buttonText: {
         fontSize: 22,
         fontWeight: '600',
     },
+    noImage: {
+        width: "70%",
+        height: "70%",
+        flex: 1,
+        borderRadius: BORDER_RADIUS,
+    },
     image: {
         width: "100%",
         height: "100%",
         flex: 1,
-        borderRadius: 100,
+        borderRadius: BORDER_RADIUS,
     },
     noPhotoContainer: {
+        borderRadius: BORDER_RADIUS,
         width: "100%",
         height: "100%",
-        backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 10,
-        flex: 1,
     },
     uploadingImage: {
         width: "100%",
         height: "100%",
         flex: 1,
-        borderRadius: 100,
+        borderRadius: BORDER_RADIUS,
         overflow: 'hidden',
     },
     spinner: {

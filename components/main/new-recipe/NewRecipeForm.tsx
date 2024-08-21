@@ -8,43 +8,37 @@ import { editProfileValidation } from "@/utils/validations";
 import Button from "@/components/ui/Button";
 import { router } from "expo-router";
 import RecipeImageUpload from "./RecipeImageUpload";
+import RecipeInfoInputs from "./RecipeInfoInputs";
 
-const noUserInitialValues = {
-    email: "",
-    bio: "",
-    displayName: "",
-    id: "",
-    profilePicture: "",
-    updated_at: new Date(),
+const initialValues = {
+    title: "",
+    description: "",
+    category: "",
+    ingredients: "",
+    steps: "",
+    bannerImage: "",
+    createdAt: new Date().toISOString(),
+    prepareTime: 0,
 };
 
 const NewRecipeForm = () => {
-    const { user, fetchUser } = useApp();
     const { showToast } = useToast();
-    const initialValues = user ? { ...user } : noUserInitialValues;
 
     const onSubmitHandler = async (values: typeof initialValues) => {
-        const { email, displayName, id, profilePicture, bio } = values;
+        const { } = values;
         try {
             const updates = {
-                id,
-                display_name: displayName,
-                profile_picture: profilePicture,
-                email,
-                bio,
-                updated_at: new Date(),
+
             };
 
             const { error } = await supabase
                 .from("users")
                 .update(updates)
-                .eq("id", id);
 
             if (error) {
                 console.log(error);
                 throw error;
             } else {
-                await fetchUser();
                 showToast({
                     text: "Profile updated successfully",
                     severity: "success",
@@ -76,10 +70,13 @@ const NewRecipeForm = () => {
                 errors,
             }) => (
                 <View style={styles.container}>
-                    <RecipeImageUpload
-                        imageUrl={values.profilePicture as string}
-                        setImageUrl={handleChange("profilePicture")}
-                    />
+                    <View style={styles.inputContainer}>
+                        <RecipeImageUpload
+                            imageUrl={values.bannerImage as string}
+                            setImageUrl={handleChange("profilePicture")}
+                        />
+                        <RecipeInfoInputs values={values} handleChange={handleChange} />
+                    </View>
                     <View style={styles.buttonContainer}>
                         <Button
                             disabled={Object.keys(errors).length > 0}
@@ -97,7 +94,15 @@ export default NewRecipeForm;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: "center",
+        width: "100%",
+        paddingHorizontal: 20,
+        paddingBottom: 10,
+        paddingTop: 30,
+        gap: 25,
+    },
+    inputContainer: {
+        width: "100%",
+        flexDirection: "row",
         paddingBottom: 10,
         paddingTop: 30,
         gap: 25,
