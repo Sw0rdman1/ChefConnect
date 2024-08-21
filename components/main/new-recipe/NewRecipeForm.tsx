@@ -9,6 +9,8 @@ import Button from "@/components/ui/Button";
 import { router } from "expo-router";
 import RecipeImageUpload from "./RecipeImageUpload";
 import RecipeInfoInputs from "./RecipeInfoInputs";
+import CategorySelect from "../home/CategorySelect";
+import NewRecipeCategorySelect from "./NewRecipeCategorySelect";
 
 const initialValues = {
     title: "",
@@ -78,6 +80,7 @@ const NewRecipeForm = () => {
                         />
                         <RecipeInfoInputs values={values} handleChange={handleChange} />
                     </View>
+                    <NewRecipeCategorySelect values={values} handleChange={handleChange} />
                     <View style={styles.buttonContainer}>
                         <Button
                             disabled={Object.keys(errors).length > 0}
