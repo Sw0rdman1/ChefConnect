@@ -8,7 +8,7 @@ import { Image } from 'expo-image';
 import { View } from '@/components/ui/Themed';
 
 const DEFAULT_RECIPE_IMAGE = require('../../../assets/images/main/gallery.png')
-const BORDER_RADIUS = 25;
+const BORDER_RADIUS = 15;
 export const IMAGE_SIZE = 155;
 
 interface ImagePickerProps {
