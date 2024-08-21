@@ -33,9 +33,7 @@ export function useCategories(selectedCategoryID: string) {
 }
 
 export function useSelectedCategory(selectedCategoryID: string) {
-  const [selectedCategory, setSelectedCategory] = useState<
-    Category | undefined
-  >();
+  const [selectedCategory, setSelectedCategory] = useState<Category | undefined>();
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
 

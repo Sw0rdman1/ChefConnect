@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     inputWithIcon: {
         fontSize: 16,
         fontWeight: "bold",
-        maxWidth: "80%",
+        width: "80%",
     },
     icon: {
         width: 20,

@@ -69,6 +69,10 @@ const NewRecipeCategorySelect: React.FC<NewRecipeCategorySelectProps> = ({ value
         }
     };
 
+    if (categories.length === 0 && !selectedCategory) {
+        return null;
+    }
+
     return (
         <View style={styles.container}>
             <SelectedCategory
@@ -98,13 +102,10 @@ export default NewRecipeCategorySelect;
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        justifyContent: "center",
-        height: 200,
     },
     list: {
         minWidth: "100%",
         paddingHorizontal: 15,
-        paddingTop: 10,
         gap: 15,
         paddingVertical: 10,
     },

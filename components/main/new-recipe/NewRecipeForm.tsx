@@ -80,12 +80,14 @@ const NewRecipeForm = () => {
                         />
                         <RecipeInfoInputs values={values} handleChange={handleChange} />
                     </View>
-                    <NewRecipeCategorySelect values={values} handleChange={handleChange} />
+                    {(values.category || (values.title && values.description && values.calories && values.prepareTime)) &&
+                        <NewRecipeCategorySelect values={values} handleChange={handleChange} />
+                    }
                     <View style={styles.buttonContainer}>
                         <Button
                             disabled={Object.keys(errors).length > 0}
                             onPress={handleSubmit}
-                            text={"Edit Profile"}
+                            text={"Create Recipe"}
                         />
                     </View>
                 </View>
@@ -98,10 +100,12 @@ export default NewRecipeForm;
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         width: "100%",
         paddingHorizontal: 10,
         paddingBottom: 10,
         gap: 25,
+        alignItems: "center",
     },
     inputContainer: {
         width: "100%",
@@ -116,5 +120,8 @@ const styles = StyleSheet.create({
         width: "60%",
         marginTop: 10,
         marginHorizontal: 20,
+        position: "absolute",
+        bottom: 30,
+
     },
 });
