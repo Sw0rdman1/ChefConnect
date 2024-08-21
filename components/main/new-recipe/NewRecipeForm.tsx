@@ -13,12 +13,13 @@ import RecipeInfoInputs from "./RecipeInfoInputs";
 const initialValues = {
     title: "",
     description: "",
+    calories: "",
+    prepareTime: "",
     category: "",
     ingredients: "",
     steps: "",
     bannerImage: "",
     createdAt: new Date().toISOString(),
-    prepareTime: 0,
 };
 
 const NewRecipeForm = () => {
@@ -97,15 +98,16 @@ const styles = StyleSheet.create({
         width: "100%",
         paddingHorizontal: 20,
         paddingBottom: 10,
-        paddingTop: 30,
         gap: 25,
     },
     inputContainer: {
         width: "100%",
         flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
         paddingBottom: 10,
         paddingTop: 30,
-        gap: 25,
+        gap: 15,
     },
     buttonContainer: {
         width: "60%",

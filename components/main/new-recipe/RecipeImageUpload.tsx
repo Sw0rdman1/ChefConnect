@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         width: 150,
         borderRadius: BORDER_RADIUS,
-        marginBottom: 20,
     },
     buttonText: {
         fontSize: 22,

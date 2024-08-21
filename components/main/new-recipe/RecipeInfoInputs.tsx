@@ -7,6 +7,7 @@ interface RecipeInfoInputsProps {
         title: string;
         description: string;
         calories: string;
+        prepareTime: string;
     };
     handleChange: any;
 }
@@ -21,6 +22,13 @@ const RecipeInfoInputs: React.FC<RecipeInfoInputsProps> = ({ values, handleChang
                 placeholder="Title"
                 onChangeText={handleChange("title")}
                 value={values.title}
+                placeholderTextColor={"gray"}
+            />
+            <TextInput
+                style={[styles.input, { backgroundColor: backgroundDarker, fontSize: 16, fontWeight: "500" }]}
+                placeholder="Description"
+                onChangeText={handleChange("description")}
+                value={values.description}
                 placeholderTextColor={"gray"}
             />
             <View style={styles.bottomInputs}>
@@ -39,14 +47,14 @@ const RecipeInfoInputs: React.FC<RecipeInfoInputsProps> = ({ values, handleChang
                 </View>
                 <View style={[styles.inputWithIconContainer, { backgroundColor: backgroundDarker }]}>
                     <Image
-                        source={require("../../../assets/images/main/fire.png")}
+                        source={require("../../../assets/images/main/clock.png")}
                         style={styles.icon}
                     />
                     <TextInput
                         style={styles.inputWithIcon}
                         placeholder="min"
-                        onChangeText={handleChange("calories")}
-                        value={values.calories}
+                        onChangeText={handleChange("prepareTime")}
+                        value={values.prepareTime}
                         placeholderTextColor={"gray"}
                     />
                 </View>
@@ -61,18 +69,19 @@ export default RecipeInfoInputs
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        marginVertical: 20,
+        marginVertical: 10,
         gap: 15,
     },
     input: {
         padding: 10,
         borderRadius: 10,
-        fontSize: 18,
-        fontWeight: "bold"
+        fontSize: 20,
+        fontWeight: "bold",
+        maxWidth: 180
     },
     bottomInputs: {
         flexDirection: "row",
-        gap: 15,
+        gap: 10,
     },
     inputWithIconContainer: {
         padding: 10,
@@ -83,8 +92,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     inputWithIcon: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: "bold",
+        maxWidth: "80%",
     },
     icon: {
         width: 20,
