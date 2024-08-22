@@ -33,7 +33,7 @@ const Category: React.FC<CategoryProps> = ({
         >
             <Image
                 source={getPublicURL("categories", `${category.id}.png`)}
-                style={{ width: 80, height: 80 }}
+                style={{ width: 50, height: 50 }}
             />
             <Text style={styles.categoryText}>{category.name}</Text>
         </TouchableOpacity>
@@ -102,12 +102,13 @@ export default NewRecipeCategorySelect;
 const styles = StyleSheet.create({
     container: {
         width: "100%",
+        flexDirection: "column",
     },
     list: {
         minWidth: "100%",
         paddingHorizontal: 15,
         gap: 15,
-        paddingVertical: 10,
+        paddingVertical: 5,
     },
     category: {
         padding: 10,
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     categoryText: {
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: "600",
     },
 });

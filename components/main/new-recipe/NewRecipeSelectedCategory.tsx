@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 18,
     fontWeight: "700",
+    height: 40,
   },
   selectedCategoryContainer: {
     paddingHorizontal: 5,
@@ -135,7 +136,6 @@ const styles = StyleSheet.create({
   },
   lastCategoryContainer: {
     paddingHorizontal: 5,
-    height: 40,
     gap: 25,
   },
   lastCategory: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   lastCategoryText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "700",
     marginLeft: 5,
   },

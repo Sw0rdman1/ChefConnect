@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { View } from "@/components/ui/Themed";
+import { ScrollView, View } from "@/components/ui/Themed";
 import { useApp } from "@/context/AppContext";
 import { useToast } from "@/context/ToastNotificationContext";
 import { supabase } from "@/config/supabase";
@@ -11,6 +11,7 @@ import RecipeImageUpload from "./RecipeImageUpload";
 import RecipeInfoInputs from "./RecipeInfoInputs";
 import CategorySelect from "../home/CategorySelect";
 import NewRecipeCategorySelect from "./NewRecipeCategorySelect";
+import SelectIngredients from "./SelectIngredients";
 
 const initialValues = {
     title: "",
@@ -18,7 +19,7 @@ const initialValues = {
     calories: "",
     prepareTime: "",
     category: "",
-    ingredients: "",
+    ingredients: [] as string[],
     steps: "",
     bannerImage: "",
     createdAt: new Date().toISOString(),
@@ -68,6 +69,7 @@ const NewRecipeForm = () => {
         >
             {({
                 handleChange,
+                setFieldValue,
                 handleSubmit,
                 values,
                 errors,
@@ -80,9 +82,8 @@ const NewRecipeForm = () => {
                         />
                         <RecipeInfoInputs values={values} handleChange={handleChange} />
                     </View>
-                    {(values.category || (values.title && values.description && values.calories && values.prepareTime)) &&
-                        <NewRecipeCategorySelect values={values} handleChange={handleChange} />
-                    }
+                    <NewRecipeCategorySelect values={values} handleChange={handleChange} />
+                    <SelectIngredients values={values} setFieldValue={setFieldValue} />
                     <View style={styles.buttonContainer}>
                         <Button
                             disabled={Object.keys(errors).length > 0}
@@ -122,6 +123,5 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         position: "absolute",
         bottom: 30,
-
     },
 });
