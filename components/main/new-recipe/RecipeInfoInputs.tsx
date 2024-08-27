@@ -74,7 +74,7 @@ export default RecipeInfoInputs
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        marginVertical: 10,
+        marginVertical: 5,
         gap: 15,
     },
     input: {

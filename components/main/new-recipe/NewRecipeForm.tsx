@@ -9,9 +9,9 @@ import Button from "@/components/ui/Button";
 import { router } from "expo-router";
 import RecipeImageUpload from "./RecipeImageUpload";
 import RecipeInfoInputs from "./RecipeInfoInputs";
-import CategorySelect from "../home/CategorySelect";
 import NewRecipeCategorySelect from "./NewRecipeCategorySelect";
 import SelectIngredients from "./SelectIngredients";
+import InstructionInput from "./InstructionInput";
 
 const initialValues = {
     title: "",
@@ -20,7 +20,7 @@ const initialValues = {
     prepareTime: "",
     category: "",
     ingredients: [] as string[],
-    steps: "",
+    steps: ["kurac"] as string[],
     bannerImage: "",
     createdAt: new Date().toISOString(),
 };
@@ -84,6 +84,7 @@ const NewRecipeForm = () => {
                     </View>
                     <NewRecipeCategorySelect values={values} handleChange={handleChange} />
                     <SelectIngredients values={values} setFieldValue={setFieldValue} />
+                    <InstructionInput values={values} handleChange={handleChange} />
                     <View style={styles.buttonContainer}>
                         <Button
                             disabled={Object.keys(errors).length > 0}
