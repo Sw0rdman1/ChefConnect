@@ -48,10 +48,6 @@ export const getChats = async (userID: string) => {
     throw error;
   }
 
-  console.log(chats);
-
-
-
   const chatFormatted = await Promise.all(
     snakeToCamel(chats).map(async (chat: any) => {
       const lastMessage = await getLastMessage(chat.id);
@@ -190,8 +186,6 @@ export const createChat = async (firstUserID: string, secondUserID: string) => {
     ])
     .select();
 
-
-  console.log(newChat);
 
   if (!newChat || error) {
     throw new Error("Failed to create chat");

@@ -28,7 +28,7 @@ const RecipeInfo: React.FC<RecipeInfoProps> = ({ recipe }) => {
                     />
                     <Text style={styles.labelText}>Calories:</Text>
                 </View>
-                <Text style={styles.info}>163 kcal</Text>
+                <Text style={styles.info}>{recipe.calories} kcal</Text>
             </View>
         </View>
     )

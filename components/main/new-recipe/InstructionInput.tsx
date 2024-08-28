@@ -73,7 +73,9 @@ const InstructionInput: React.FC<InstructionInputProps> = ({ values, handleChang
                                         setInstructions(newInstructions);
                                     }}
                                     onSubmitEditing={() => {
-                                        console.log("submitted");
+                                        if (index === instructions.length - 1) {
+                                            setInstructions([...instructions, ""]);
+                                        }
                                     }}
                                 />
                                 {index !== 0 &&

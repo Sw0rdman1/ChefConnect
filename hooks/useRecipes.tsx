@@ -50,6 +50,7 @@ export const useRecipe = (recipeID: string) => {
       try {
         setLoading(true);
         const recipe = await getRecipeByID(recipeID);
+
         const isSaved = await isRecipeSaved(recipeID, user?.id as string);
 
         if (!recipe) {
