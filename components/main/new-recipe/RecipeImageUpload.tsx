@@ -13,11 +13,11 @@ export const IMAGE_SIZE = 155;
 
 interface ImagePickerProps {
     imageUrl: string;
-    setImageUrl: (url: string) => void;
+    handleChange: any;
 }
 
 
-const RecipeImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, setImageUrl }) => {
+const RecipeImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, handleChange }) => {
     const [loading, setLoading] = useState(false);
     const [imagePreview, setImagePreview] = useState<ImagePicker.ImagePickerAsset | null>(null);
     const { tint, background, backgroundDarker } = useColors();
@@ -33,8 +33,8 @@ const RecipeImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, setImageUrl }
         if (!result.canceled) {
             setLoading(true);
             setImagePreview(result.assets[0]);
-            const imageUrl = await uploadImage(result.assets[0], user?.id ?? "", "avatars");
-            setImageUrl(imageUrl);
+            const imageUrl = await uploadImage(result.assets[0], user?.id ?? "", "recipes");
+            handleChange('bannerImage', imageUrl);
             setLoading(false);
         }
     };

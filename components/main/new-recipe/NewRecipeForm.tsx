@@ -4,7 +4,7 @@ import { useApp } from "@/context/AppContext";
 import { useToast } from "@/context/ToastNotificationContext";
 import { supabase } from "@/config/supabase";
 import { Formik } from "formik";
-import { editProfileValidation } from "@/utils/validations";
+import { editProfileValidation, newRecipeValidation } from "@/utils/validations";
 import Button from "@/components/ui/Button";
 import { router } from "expo-router";
 import RecipeImageUpload from "./RecipeImageUpload";
@@ -12,6 +12,7 @@ import RecipeInfoInputs from "./RecipeInfoInputs";
 import NewRecipeCategorySelect from "./NewRecipeCategorySelect";
 import SelectIngredients from "./SelectIngredients";
 import InstructionInput from "./InstructionInput";
+import { camelToSnake } from "@/utils/caseConverter";
 
 const initialValues = {
     title: "",
@@ -20,7 +21,7 @@ const initialValues = {
     prepareTime: "",
     category: "",
     ingredients: [] as string[],
-    steps: ["kurac"] as string[],
+    steps: [""] as string[],
     bannerImage: "",
     createdAt: new Date().toISOString(),
 };
@@ -29,15 +30,19 @@ const NewRecipeForm = () => {
     const { showToast } = useToast();
 
     const onSubmitHandler = async (values: typeof initialValues) => {
-        const { } = values;
         try {
-            const updates = {
+            const { ingredients, steps } = values;
 
-            };
+
+            const newRecipe = {
+                ...camelToSnake(values),
+                ingredients: ingredients.join(","),
+                steps: steps.join(","),
+            }
 
             const { error } = await supabase
                 .from("users")
-                .update(updates)
+                .update(values)
 
             if (error) {
                 console.log(error);
@@ -62,32 +67,25 @@ const NewRecipeForm = () => {
     return (
         <Formik
             initialValues={initialValues}
-            validationSchema={editProfileValidation}
             onSubmit={(values) => {
                 onSubmitHandler(values);
             }}
         >
-            {({
-                handleChange,
-                setFieldValue,
-                handleSubmit,
-                values,
-                errors,
-            }) => (
+            {({ handleChange, setFieldValue, handleSubmit, values, errors }) => (
                 <View style={styles.container}>
                     <View style={styles.inputContainer}>
                         <RecipeImageUpload
                             imageUrl={values.bannerImage as string}
-                            setImageUrl={handleChange("profilePicture")}
+                            handleChange={setFieldValue}
                         />
                         <RecipeInfoInputs values={values} handleChange={handleChange} />
                     </View>
                     <NewRecipeCategorySelect values={values} handleChange={handleChange} />
                     <SelectIngredients values={values} setFieldValue={setFieldValue} />
-                    <InstructionInput values={values} handleChange={handleChange} />
+                    <InstructionInput values={values} handleChange={setFieldValue} />
                     <View style={styles.buttonContainer}>
                         <Button
-                            disabled={Object.keys(errors).length > 0}
+                            // disabled={Object.keys(errors).length > 0}
                             onPress={handleSubmit}
                             text={"Create Recipe"}
                         />
