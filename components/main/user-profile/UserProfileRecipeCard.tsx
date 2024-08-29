@@ -48,7 +48,7 @@ const UserProfileRecipeCard: React.FC<UserProfileRecipeCardProps> = ({ recipe })
             <Image
                 contentFit="fill"
                 source={{
-                    uri: getPublicURL("recipes", `${recipe.bannerImage}`),
+                    uri: recipe.bannerImage,
                 }}
                 style={[styles.image, { width: 175 }]}
             />

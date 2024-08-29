@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 
 interface InstructionInputProps {
     values: {
-        steps: string[];
+        instructions: string[];
     };
     handleChange: any;
 }
@@ -16,7 +16,7 @@ interface InstructionInputProps {
 
 const InstructionInput: React.FC<InstructionInputProps> = ({ values, handleChange }) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [instructions, setInstructions] = useState(values.steps);
+    const [instructions, setInstructions] = useState(values.instructions);
     const { tint, backgroundDarker, text } = useColors();
 
     const handleClose = () => {
@@ -25,7 +25,7 @@ const InstructionInput: React.FC<InstructionInputProps> = ({ values, handleChang
 
     const handleSave = () => {
         const newInstructions = instructions.filter(instruction => instruction.trim() !== '');
-        handleChange("steps", newInstructions);
+        handleChange("instructions", newInstructions);
         setModalVisible(false);
     };
 

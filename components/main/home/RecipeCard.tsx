@@ -5,7 +5,6 @@ import { Image } from "expo-image";
 import { useColors } from "@/hooks/useColors";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-import { getPublicURL } from "@/utils/helpers";
 import { router } from "expo-router";
 import { handleSaveClick } from "@/services/SaveService";
 import { useApp } from "@/context/AppContext";
@@ -49,7 +48,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, horizontal }) => {
       <Image
         contentFit="fill"
         source={{
-          uri: getPublicURL("recipes", `${recipe.bannerImage}`),
+          uri: recipe.bannerImage
         }}
         style={[styles.image, { width: horizontal ? 100 : 150 }]}
       />

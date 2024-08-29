@@ -21,38 +21,37 @@ const initialValues = {
     prepareTime: "",
     category: "",
     ingredients: [] as string[],
-    steps: [""] as string[],
+    instructions: [""] as string[],
     bannerImage: "",
     createdAt: new Date().toISOString(),
 };
 
 const NewRecipeForm = () => {
     const { showToast } = useToast();
+    const { user } = useApp();
 
     const onSubmitHandler = async (values: typeof initialValues) => {
         try {
-            const { ingredients, steps } = values;
+            const { ingredients, ...restValues } = values;
 
 
             const newRecipe = {
-                ...camelToSnake(values),
-                ingredients: ingredients.join(","),
-                steps: steps.join(","),
+                ...camelToSnake(restValues),
+                instructions: values.instructions.filter((instruction) => instruction.trim() !== ""),
+                created_by: user?.id,
             }
 
-            const { error } = await supabase
-                .from("users")
-                .update(values)
+            const { data, error } = await supabase.from("recipes").insert([newRecipe]);
 
             if (error) {
                 console.log(error);
                 throw error;
             } else {
                 showToast({
-                    text: "Profile updated successfully",
+                    text: "Recipe created successfully",
                     severity: "success",
                 });
-                router.back();
+                router.push("/(main)");
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -67,6 +66,7 @@ const NewRecipeForm = () => {
     return (
         <Formik
             initialValues={initialValues}
+            validationSchema={newRecipeValidation}
             onSubmit={(values) => {
                 onSubmitHandler(values);
             }}
@@ -85,7 +85,7 @@ const NewRecipeForm = () => {
                     <InstructionInput values={values} handleChange={setFieldValue} />
                     <View style={styles.buttonContainer}>
                         <Button
-                            // disabled={Object.keys(errors).length > 0}
+                            disabled={Object.keys(errors).length > 0}
                             onPress={handleSubmit}
                             text={"Create Recipe"}
                         />

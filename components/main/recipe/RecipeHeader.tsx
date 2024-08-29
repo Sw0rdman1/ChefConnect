@@ -16,7 +16,7 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ recipe }) => {
             <View style={styles.opacity} />
             <BackButton />
             <Image
-                source={{ uri: getPublicURL("recipes", `${recipe.bannerImage}`) }}
+                source={{ uri: recipe.bannerImage }}
                 style={styles.image}
             />
             <View style={styles.borderRadius} />
