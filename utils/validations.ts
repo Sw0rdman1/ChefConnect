@@ -29,6 +29,6 @@ export const newRecipeValidation = Yup.object().shape({
     title: Yup.string().min(2, 'Title must be at least 2 characters').required('Title is required'),
     description: Yup.string().min(2, 'Description must be at least 2 characters').required('Description is required'),
     category: Yup.string().required('Category is required'),
-    steps: Yup.array().of(Yup.string().required('Instruction is required')).min(1, 'At least one instruction is required'),
+    instructions: Yup.array().of(Yup.string().required('Instruction is required')).min(1, 'At least one instruction is required'),
     bannerImage: Yup.string().required('Banner image is required'),
 });

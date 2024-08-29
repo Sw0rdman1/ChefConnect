@@ -6,7 +6,7 @@ export default interface Recipe {
   description: string;
   category: string;
   ingredients: string[];
-  steps: string[];
+  instructions: string[];
   bannerImage: string;
   prepareTime: number;
   calories: number;

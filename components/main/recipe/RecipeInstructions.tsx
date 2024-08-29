@@ -9,17 +9,10 @@ interface Props {
 const RecipeInstructions: React.FC<Props> = ({ instructions }) => {
   const { tint } = useColors();
 
-  instructions = [
-    "Preheat oven to 350°F, and grease a baking dish.",
-    "Mix all ingredients in a bowl, and stir until well combined.",
-    "Pour into a baking dish, and smooth the top, if needed.",
-    "Bake for 30 minutes.",
-  ];
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Instructions</Text>
-      {instructions.map((instruction, index) => (
+      {instructions.length > 0 && instructions.map((instruction, index) => (
         <View key={index} style={styles.instruction}>
           <Text
             style={[

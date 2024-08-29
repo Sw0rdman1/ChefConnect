@@ -40,7 +40,7 @@ const RecipeScreen = () => {
         <RecipeInfo recipe={recipe} />
         <SaveButton recipe={recipe} />
         <IngredientsList ingredients={ingredients} />
-        <RecipeInstructions instructions={recipe.steps} />
+        <RecipeInstructions instructions={recipe.instructions} />
         <View style={{ height: 50 }} />
       </View>
     </AnimatedHeader>
