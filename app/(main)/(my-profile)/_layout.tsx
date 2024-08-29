@@ -14,7 +14,8 @@ export default function MyProfileLayout() {
       <Stack.Screen name="(inbox)" options={{ headerShown: false }} />
       <Stack.Screen name="edit-profile" options={{ headerShown: false }} />
       <Stack.Screen name="new-recipe" options={{ headerShown: false }} />
-      <Stack.Screen name="settings" options={{ headerShown: false }} />
+      <Stack.Screen name="my-recipes" options={{ headerShown: false }} />
+      <Stack.Screen name="saved-recipes" options={{ headerShown: false }} />
     </Stack>
   );
 }

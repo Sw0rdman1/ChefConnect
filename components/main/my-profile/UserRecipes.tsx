@@ -46,7 +46,11 @@ const UserRecipes = () => {
         icon="add-circle-outline"
         pageToGo="new-recipe"
       />
-      <Action text="My recipes" icon="book-outline" pageToGo="my-recipes" />
+      <Action
+        text="My recipes"
+        icon="book-outline"
+        pageToGo="my-recipes"
+      />
       <Action
         text="Saved recipes"
         icon="bookmark-outline"
