@@ -29,7 +29,7 @@ const InboxHeader = () => {
         </TouchableOpacity>
         <Text style={styles.title}>Messages</Text>
       </View>
-      <View style={styles.right}>
+      <View>
         <TouchableOpacity onPress={openNewChatModal}>
           <Ionicons name="add-circle" size={32} color={tint} />
         </TouchableOpacity>
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  right: {},
   title: {
     fontSize: 32,
     fontWeight: "bold",
