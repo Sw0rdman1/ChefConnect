@@ -144,3 +144,44 @@ export const getRecipesByUserID = async (userID: string, currentUserID: string) 
     return [];
   }
 };
+
+
+export const getSavedRecipes = async (userID: string) => {
+  let { data: saves, error } = await supabase
+    .from("saves")
+    .select("recipe_id")
+    .eq("user_id", userID);
+
+  if (error) {
+    console.log(error);
+    throw error;
+  }
+
+  if (saves) {
+    const recipeIDs = saves.map((save) => save.recipe_id);
+
+    let { data: recipes, error } = await supabase
+      .from("recipes")
+      .select("*")
+      .in("id", recipeIDs);
+
+    if (error) {
+      console.log(error);
+      throw error;
+    }
+
+    if (recipes) {
+      recipes = recipes.map((recipe) => {
+        return {
+          ...recipe,
+          isSaved: true,
+        };
+      });
+      return snakeToCamel(recipes) as Recipe[];
+    } else {
+      return [];
+    }
+  } else {
+    return [];
+  }
+}

@@ -1,14 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet } from 'react-native'
+import { View } from '@/components/ui/Themed'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useColors } from '@/hooks/useColors'
+import Header from '@/components/main/my-profile/Header'
+import SavedRecipesList from '@/components/main/my-profile/SavedRecipeList'
+import MyRecipesList from '@/components/main/my-profile/MyRecipeList'
 
 const MyRecipesScreen = () => {
+    const { top } = useSafeAreaInsets()
+    const { backgroundDarker } = useColors()
+
     return (
-        <View>
-            <Text>MyRecipesScreen</Text>
+        <View style={[styles.container, { backgroundColor: backgroundDarker }]}>
+            <Header title="My Recipes" />
+            <MyRecipesList />
         </View>
     )
 }
 
 export default MyRecipesScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+})
