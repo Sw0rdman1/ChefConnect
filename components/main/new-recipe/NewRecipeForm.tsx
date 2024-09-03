@@ -41,7 +41,21 @@ const NewRecipeForm = () => {
                 created_by: user?.id,
             }
 
-            const { data, error } = await supabase.from("recipes").insert([newRecipe]);
+            const { data: recipe, error } = await supabase.from("recipes").insert([newRecipe]).select();
+
+            Promise.all(
+                ingredients.map(async (ingredient) => {
+                    const { data, error } = await supabase.from("recipe_ingredients").insert([
+                        {
+                            recipe_id: recipe?.[0].id,
+                            ingredient_id: ingredient,
+                        },
+                    ]);
+                    if (error) {
+                        throw error;
+                    }
+                })
+            );
 
             if (error) {
                 console.log(error);
