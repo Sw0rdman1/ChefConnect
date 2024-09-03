@@ -49,4 +49,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any inquiries or issues, please contact us at support@chefconnect.com.
+For any inquiries or issues, please contact us at vujasinovicb2019@gmail.com.
