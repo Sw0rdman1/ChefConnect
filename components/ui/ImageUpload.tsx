@@ -39,6 +39,10 @@ const ImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, setImageUrl }) => {
     };
 
     const renderImage = () => {
+        console.log(imagePreview);
+        console.log(loading);
+        console.log(imageUrl);
+
         if (!imagePreview) {
             if (imageUrl) {
                 return (
@@ -46,7 +50,7 @@ const ImageUpload: React.FC<ImagePickerProps> = ({ imageUrl, setImageUrl }) => {
                 )
             }
             return (
-                <Image source={{ uri: DEFAULT_AVATAR }} style={styles.image} />
+                <Image source={DEFAULT_AVATAR} style={styles.image} />
             )
         }
 
