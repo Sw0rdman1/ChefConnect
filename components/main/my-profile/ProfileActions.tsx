@@ -23,6 +23,7 @@ const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
   const handlePress = async () => {
     if (logOut) {
       await supabase.auth.signOut();
+      router.push("/(auth)");
     } else if (pageToGo) {
       goToPageHandler(pageToGo);
     }

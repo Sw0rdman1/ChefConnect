@@ -7,6 +7,7 @@ export default function AuthLayout() {
     const { isLoading, session } = useAuth();
 
     console.log('isLoading', isLoading);
+    console.log('session', session);
 
     if (isLoading) {
         return <LoadingScreen />;
