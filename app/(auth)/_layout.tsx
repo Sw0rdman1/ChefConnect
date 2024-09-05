@@ -6,6 +6,8 @@ import { Redirect, Stack } from 'expo-router';
 export default function AuthLayout() {
     const { isLoading, session } = useAuth();
 
+    console.log('isLoading', isLoading);
+
     if (isLoading) {
         return <LoadingScreen />;
     }

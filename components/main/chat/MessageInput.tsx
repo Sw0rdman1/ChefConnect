@@ -14,7 +14,7 @@ interface MessageInputProps {
 
 const MessageInput: React.FC<MessageInputProps> = ({ chatID }) => {
     const [text, setText] = useState('')
-    const { setLastMessage } = useChats()
+    const { setLastMessage, refreshChats } = useChats()
     const [isTyping, setIsTyping] = useState(false)
     const { tint, backgroundDarker } = useColors()
     const { bottom } = useSafeAreaInsets()
@@ -24,6 +24,7 @@ const MessageInput: React.FC<MessageInputProps> = ({ chatID }) => {
         try {
             const message = await sendMessage(chatID, text)
             setLastMessage(message)
+            refreshChats()
         } catch (error) {
             console.log(error);
         } finally {

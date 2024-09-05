@@ -13,13 +13,6 @@ export default function MainScreenLayout() {
     return <LoadingScreen />;
   }
 
-  if (!session || !session.user) {
-    return <Redirect href="/(auth)" />;
-  }
-
-  if (session.user && session.user.email_confirmed_at === null) {
-    return <Redirect href="/(auth)/confirm-email" />;
-  }
 
   return (
     <AppProvider>

@@ -1,4 +1,5 @@
 import { Text, View } from "@/components/ui/Themed";
+import { supabase } from "@/config/supabase";
 import { useAuth } from "@/context/AuthContext";
 import { useColors } from "@/hooks/useColors";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,15 +15,14 @@ interface ActionProps {
 
 const Action: React.FC<ActionProps> = ({ icon, text, pageToGo, logOut }) => {
   const { text: textColor, tint } = useColors();
-  const { signOut } = useAuth();
 
   const goToPageHandler = (page: string) => {
     router.push(`/${page}`);
   };
 
-  const handlePress = () => {
+  const handlePress = async () => {
     if (logOut) {
-      signOut();
+      await supabase.auth.signOut();
     } else if (pageToGo) {
       goToPageHandler(pageToGo);
     }

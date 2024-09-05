@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { AuthError, Session, User } from "@supabase/supabase-js";
 import * as AppleAuthentication from "expo-apple-authentication";
 import { supabase } from "@/config/supabase";
+import { router } from "expo-router";
 
 interface AuthContextType {
   user: User | null;
@@ -135,6 +136,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session);
+      console.log("session2", session);
+
 
       if (session?.user) {
         setUser(session.user);
