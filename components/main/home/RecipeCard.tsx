@@ -117,12 +117,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   description: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "600",
     color: "gray",
   },
   prepareTimeContainer: {
-    marginTop: 5,
     flexDirection: "row",
     gap: 5,
     alignItems: "center",
@@ -133,8 +132,9 @@ const styles = StyleSheet.create({
     color: "gray",
   },
   saveButton: {
-    marginTop: 15,
-    marginRight: 10,
+    position: "absolute",
+    bottom: 10,
+    width: "100%",
     height: 30,
     borderRadius: 5,
     flexDirection: "row",
