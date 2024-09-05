@@ -13,6 +13,7 @@ import NewRecipeCategorySelect from "./NewRecipeCategorySelect";
 import SelectIngredients from "./SelectIngredients";
 import InstructionInput from "./InstructionInput";
 import { camelToSnake } from "@/utils/caseConverter";
+import { useRecipesContext } from "@/context/RecipesContext";
 
 const initialValues = {
     title: "",
@@ -29,6 +30,7 @@ const initialValues = {
 const NewRecipeForm = () => {
     const { showToast } = useToast();
     const { user } = useApp();
+    const { refreshRecipes } = useRecipesContext();
 
     const onSubmitHandler = async (values: typeof initialValues) => {
         try {
@@ -56,6 +58,8 @@ const NewRecipeForm = () => {
                     }
                 })
             );
+
+            refreshRecipes();
 
             if (error) {
                 console.log(error);
