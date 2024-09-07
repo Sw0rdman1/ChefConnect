@@ -7,10 +7,15 @@ import { ChatProvider } from "@/context/ChatContext";
 import { MessageProvider } from "@/context/MessagesContext";
 
 export default function MainScreenLayout() {
-  const { isLoading, session } = useAuth();
+  const { isLoading, user } = useAuth();
 
   if (isLoading) {
     return <LoadingScreen />;
+  }
+
+  if (!user) {
+    console.log("Redirecting to log-in");
+    return <Redirect href="/(auth)/log-in" />;
   }
 
 

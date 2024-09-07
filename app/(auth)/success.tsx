@@ -26,7 +26,7 @@ const SuccessScreen = () => {
                         Please check your inbox and complete your registration, so you can start sharing your favorite recipes with the world!
                     </Text>
 
-                    <Link href={"log-in"} asChild>
+                    <Link href={"/log-in"} asChild>
                         <Button text="Go to Log In" />
                     </Link>
 

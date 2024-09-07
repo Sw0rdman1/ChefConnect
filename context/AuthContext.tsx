@@ -139,6 +139,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (session?.user) {
         setUser(session.user);
+        router.replace("/(main)");
       } else {
         setUser(null);
       }

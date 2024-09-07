@@ -1,22 +1,7 @@
-import LoadingScreen from '@/components/ui/LoadingScreen';
-import { useAuth } from '@/context/AuthContext';
-import { Redirect, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 
 
 export default function AuthLayout() {
-    const { isLoading, session } = useAuth();
-
-    console.log('isLoading', isLoading);
-    console.log('session', session);
-
-    if (isLoading) {
-        return <LoadingScreen />;
-    }
-
-    if (session && session.user) {
-        return <Redirect href="/(main)" />;
-    }
-
 
     return (
         <Stack>
