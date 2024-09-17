@@ -13,8 +13,7 @@ export default function MainScreenLayout() {
     return <LoadingScreen />;
   }
 
-  if (!user) {
-    console.log("Redirecting to log-in");
+  if (!isLoading && !user) {
     return <Redirect href="/(auth)/log-in" />;
   }
 
