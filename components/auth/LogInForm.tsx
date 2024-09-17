@@ -42,14 +42,7 @@ const LogInForm = () => {
         onSubmitHandler(values);
       }}
     >
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        errors,
-        touched,
-      }) => (
+      {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
         <View style={styles.container}>
           <Text style={styles.title}>Welcome Back!</Text>
           <EmailInput
@@ -64,11 +57,7 @@ const LogInForm = () => {
             onBlur={handleBlur("password")}
             value={values.password}
             error={errors.password}
-            status={calculateStatus(
-              errors.password,
-              touched.password,
-              values.password
-            )}
+            status={calculateStatus(errors.password, touched.password, values.password)}
           />
 
           <View style={styles.buttonContainer}>

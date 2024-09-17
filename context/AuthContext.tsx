@@ -4,6 +4,32 @@ import * as AppleAuthentication from "expo-apple-authentication";
 import { supabase } from "@/config/supabase";
 import { router } from "expo-router";
 
+const updateUserDisplayName = async (user: User, credential: AppleAuthentication.AppleAuthenticationCredential) => {
+  if (
+    credential.fullName?.givenName &&
+    credential.fullName?.familyName
+  ) {
+    const display_name =
+      credential.fullName?.givenName +
+      " " +
+      credential.fullName?.familyName;
+
+    await supabase.auth.updateUser({
+      data: {
+        display_name,
+      },
+    });
+
+    await supabase
+      .from("users")
+      .update({
+        display_name,
+      })
+      .eq("id", user?.id);
+
+  }
+}
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
@@ -54,41 +80,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           token: credential.identityToken,
         });
 
-        if (!error) {
-          if (
-            credential.fullName?.givenName &&
-            credential.fullName?.familyName
-          ) {
-            const display_name =
-              credential.fullName?.givenName +
-              " " +
-              credential.fullName?.familyName;
-
-            await supabase.auth.updateUser({
-              data: {
-                display_name,
-              },
-            });
-
-            await supabase
-              .from("users")
-              .update({
-                display_name,
-              })
-              .eq("id", user?.id);
-
-            setUser(user);
-          }
+        if (!error && user) {
+          await updateUserDisplayName(user, credential);
+          setUser(user);
         }
       } else {
         throw new Error("No identityToken.");
       }
     } catch (e) {
-      if ((e as any).code === "ERR_REQUEST_CANCELED") {
-        // handle that the user canceled the sign-in flow
-      } else {
-        // handle other errors
-      }
+      console.log(e);
     }
   };
 
@@ -124,13 +124,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
 
   const AuthContextValue: AuthContextType = {
-    user,
-    session,
-    isLoading,
-    signInWithEmail,
-    signUpWithEmail,
-    signInWithApple,
-    signOut,
+    user, session, isLoading, signInWithEmail, signUpWithEmail, signInWithApple, signOut
   };
 
   useEffect(() => {
