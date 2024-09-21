@@ -17,7 +17,7 @@ export const useRecipes = (searchTerm: string, category: string) => {
   const { user } = useApp();
 
   useEffect(() => {
-    async function fetchSelectedCategory() {
+    async function fetchRecipes() {
       setLoading(true);
       if (!user) return;
       try {
@@ -32,10 +32,26 @@ export const useRecipes = (searchTerm: string, category: string) => {
         setLoading(false);
       }
     }
-    fetchSelectedCategory();
+    fetchRecipes();
   }, [searchTerm, category, user?.id]);
 
-  return { loading, recipes };
+
+  const refreshRecipes = async () => {
+    setLoading(true);
+    try {
+      const recipes = await getRecipes(category, searchTerm, user?.id || "");
+      setRecipes(recipes);
+    } catch (error) {
+      showToast({
+        severity: "error",
+        text: "Failed to fetch recipes",
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { refreshRecipes, loading, recipes };
 };
 
 export const useRecipe = (recipeID: string) => {

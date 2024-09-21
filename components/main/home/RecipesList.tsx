@@ -13,8 +13,7 @@ interface RecipesListProps {
 }
 
 const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
-  const { recipes, loading, setSearchTerm, setSelectedCategoryID } =
-    useRecipesContext();
+  const { recipes, loading, setSearchTerm, setSelectedCategoryID } = useRecipesContext();
   const { tint } = useColors();
 
   const removeFiltersHandler = () => {
@@ -54,8 +53,7 @@ const RecipesList: React.FC<RecipesListProps> = ({ openFiltersHandler }) => {
       renderItem={({ item: recipe }) => <RecipeCard recipe={recipe} />}
       keyExtractor={(recipe) => recipe.id}
       ListHeaderComponent={
-        <View>
-          <TrendingRecipeList />
+        <View style={{ paddingTop: 150 }}>
           <RecipeListHeader openFiltersHandler={openFiltersHandler} />
         </View>
       }

@@ -32,7 +32,7 @@ const WelcomeScreen = () => {
                 <Text style={styles.slogan}>
                     The social network for passionate cooks and food enthusiasts.
                 </Text>
-                <Link href={"log-in"} asChild>
+                <Link href={"/log-in"} asChild>
                     <Button text="Get Started" />
                 </Link>
             </View>

@@ -7,19 +7,16 @@ import { ChatProvider } from "@/context/ChatContext";
 import { MessageProvider } from "@/context/MessagesContext";
 
 export default function MainScreenLayout() {
-  const { isLoading, session } = useAuth();
+  const { isLoading, user } = useAuth();
 
   if (isLoading) {
     return <LoadingScreen />;
   }
 
-  if (!session || !session.user) {
-    return <Redirect href="/(auth)" />;
+  if (!isLoading && !user) {
+    return <Redirect href="/(auth)/log-in" />;
   }
 
-  if (session.user && session.user.email_confirmed_at === null) {
-    return <Redirect href="/(auth)/confirm-email" />;
-  }
 
   return (
     <AppProvider>

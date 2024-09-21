@@ -10,6 +10,7 @@ interface ChatContextProps {
     chats: Chat[];
     loading: boolean;
     markChatAsRead: (chatID: string) => Promise<void>;
+    refreshChats: () => Promise<void>;
     setLastMessage: (message: Message) => void;
     addUnreadMessage: (chatID: string) => void;
 }
@@ -18,6 +19,7 @@ export const ChatContext = createContext<ChatContextProps>({
     chats: [],
     loading: true,
     markChatAsRead: async () => { },
+    refreshChats: async () => { },
     setLastMessage: () => { },
     addUnreadMessage: () => { },
 });
@@ -94,9 +96,25 @@ export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
         });
     }
 
+    const refreshChats = async () => {
+        setLoading(true);
+        try {
+            if (!user) return;
+            const chats = await getChats(user?.id);
+            setChats(chats);
+        } catch (error) {
+            showToast({
+                severity: "error",
+                text: "Failed to fetch chats",
+            });
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
     return (
-        <ChatContext.Provider value={{ chats, loading, markChatAsRead, setLastMessage, addUnreadMessage }}>
+        <ChatContext.Provider value={{ chats, loading, refreshChats, markChatAsRead, setLastMessage, addUnreadMessage }}>
             {children}
         </ChatContext.Provider>
     );

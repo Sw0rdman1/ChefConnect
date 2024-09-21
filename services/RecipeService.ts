@@ -7,7 +7,7 @@ export const getRecipes = async (
   searchTerm: string,
   userID: string
 ) => {
-  let query = supabase.from("recipes").select("*");
+  let query = supabase.from("recipes").select("*").order("created_at", { ascending: false });
 
   if (selectedCategoryID) {
     query = query.ilike("category", selectedCategoryID + "%");

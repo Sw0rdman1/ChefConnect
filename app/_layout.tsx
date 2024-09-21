@@ -2,45 +2,56 @@ import 'react-native-reanimated';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastNotificationContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { cacheImages } from '@/utils/helpers';
 
 export {
-  // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from 'expo-router';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: '(main)',
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+  const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        const imageAssets = cacheImages([
+          require('../assets/images/auth/success-banner.jpg'),
+          require('../assets/images/auth/banner.jpg'),
+          require('../assets/images/auth/verify-banner.jpg'),
+          require('../assets/images/auth/login-banner.jpg'),
+        ]);
+
+        console.log('Loading image assets');
+
+        await Promise.all([...imageAssets]);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+        SplashScreen.hideAsync();
+      }
     }
-  }, [loaded]);
 
-  if (!loaded) {
+    loadResourcesAndDataAsync();
+  }, []);
+
+
+
+  if (!appIsReady) {
     return null;
   }
 
@@ -55,10 +66,7 @@ function RootLayoutNav() {
       <ToastProvider>
         <AuthProvider>
           <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Stack>
-              <Stack.Screen name="(main)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
-              <Stack.Screen name="(auth)" options={{ headerShown: false, animation: "fade_from_bottom" }} />
-            </Stack>
+            <Slot />
           </ThemeProvider>
         </AuthProvider>
       </ToastProvider>
